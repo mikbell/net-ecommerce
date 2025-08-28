@@ -1,119 +1,80 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using API.Errors;
+using AutoMapper;
 using Core.Entities;
-using Infrastructure.Data;
+using Core.Interfaces;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
-namespace API.Controllers
+[ApiController]
+[Route("api/[controller]")]
+public class ProductsController(IProductRepository repo, IMapper mapper) : ControllerBase
 {
-    [ApiController]
-    [Route("api/[controller]")]
-    public class ProductsController : ControllerBase
+    [HttpGet]
+    public async Task<ActionResult<IReadOnlyList<ProductDto>>> GetProducts(string? brand, string? type, string? sort)
     {
-        private readonly StoreContext _context;
+        var products = await repo.GetProductsAsync(brand, type, sort);
+        var productsDto = mapper.Map<IReadOnlyList<ProductDto>>(products);
+        return Ok(productsDto);
+    }
 
-        public ProductsController(StoreContext context)
-        {
-            _context = context ?? throw new ArgumentNullException(nameof(context));
-        }
+    [HttpGet("{id:int}")]
+    public async Task<ActionResult<ProductDto>> GetProduct(int id)
+    {
+        var product = await repo.GetProductByIdAsync(id);
+        if (product == null) return NotFound(new ApiResponse(404, $"Product with ID {id} not found."));
 
-        private async Task<bool> ProductExistsAsync(int id)
-        {
-            return await _context.Products.AnyAsync(x => x.Id == id);
-        }
+        return Ok(mapper.Map<ProductDto>(product));
+    }
 
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<Product>>> GetProducts()
-        {
-            var products = await _context.Products
-                .AsNoTracking()
-                .ToListAsync();
+    [HttpPost]
+    public async Task<ActionResult<ProductDto>> CreateProduct([FromBody] CreateProductDto createDto)
+    {
+        if (!ModelState.IsValid) return BadRequest(new ApiValidationErrorResponse(ModelState));
 
-            return Ok(products);
-        }
+        var product = mapper.Map<Product>(createDto);
+        await repo.AddProductAsync(product);
+        await repo.SaveChangesAsync();
 
-        [HttpGet("{id:int}")]
-        public async Task<ActionResult<Product>> GetProduct(int id)
-        {
-            var product = await _context.Products
-                .AsNoTracking()
-                .FirstOrDefaultAsync(x => x.Id == id);
+        var productDto = mapper.Map<ProductDto>(product);
+        return CreatedAtAction(nameof(GetProduct), new { id = product.Id }, productDto);
+    }
 
-            if (product == null)
-                return NotFound(new { Message = $"Product with ID {id} not found." });
+    [HttpPut("{id:int}")]
+    public async Task<IActionResult> UpdateProduct(int id, [FromBody] UpdateProductDto updateDto)
+    {
+        if (!ModelState.IsValid) return BadRequest(new ApiValidationErrorResponse(ModelState));
+        if (id != updateDto.Id) return BadRequest(new ApiResponse(400, "ID mismatch."));
 
-            return Ok(product);
-        }
+        if (!await repo.ProductExistsAsync(id)) return NotFound(new ApiResponse(404, $"Product with ID {id} not found."));
 
-        [HttpPost]
-        public async Task<ActionResult<Product>> CreateProduct([FromBody] Product product)
-        {
-            if (!ModelState.IsValid)
-                return BadRequest(ModelState);
+        var product = mapper.Map<Product>(updateDto);
+        repo.UpdateProduct(product);
+        await repo.SaveChangesAsync();
 
-            try
-            {
-                _context.Products.Add(product);
-                await _context.SaveChangesAsync();
+        return NoContent();
+    }
 
-                return CreatedAtAction(nameof(GetProduct), new { id = product.Id }, product);
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(500, new { Message = "An error occurred while creating the product.", Details = ex.Message });
-            }
-        }
+    [HttpDelete("{id:int}")]
+    public async Task<IActionResult> DeleteProduct(int id)
+    {
+        var product = await repo.GetProductByIdAsync(id);
+        if (product == null) return NotFound(new ApiResponse(404, $"Product with ID {id} not found."));
 
-        [HttpPut("{id:int}")]
-        public async Task<IActionResult> UpdateProduct(int id, [FromBody] Product product)
-        {
-            if (!ModelState.IsValid)
-                return BadRequest(ModelState);
+        repo.DeleteProduct(product);
+        await repo.SaveChangesAsync();
+        return NoContent();
+    }
 
-            if (id != product.Id)
-                return BadRequest(new { Message = "ID in URL and body do not match." });
+    [HttpGet("brands")]
+    public async Task<ActionResult<IReadOnlyList<string>>> GetBrands()
+    {
+        var brands = await repo.GetBrandsAsync();
+        return Ok(brands);
+    }
 
-            if (!await ProductExistsAsync(id))
-                return NotFound(new { Message = $"Product with ID {id} not found." });
-
-            try
-            {
-                _context.Entry(product).State = EntityState.Modified;
-                await _context.SaveChangesAsync();
-
-                return NoContent();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                return StatusCode(409, new { Message = "Concurrency conflict occurred while updating the product." });
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(500, new { Message = "An error occurred while updating the product.", Details = ex.Message });
-            }
-        }
-
-        [HttpDelete("{id:int}")]
-        public async Task<IActionResult> DeleteProduct(int id)
-        {
-            var product = await _context.Products.FindAsync(id);
-
-            if (product == null)
-                return NotFound(new { Message = $"Product with ID {id} not found." });
-
-            try
-            {
-                _context.Products.Remove(product);
-                await _context.SaveChangesAsync();
-                return NoContent();
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(500, new { Message = "An error occurred while deleting the product.", Details = ex.Message });
-            }
-        }
+    [HttpGet("types")]
+    public async Task<ActionResult<IReadOnlyList<string>>> GetTypes()
+    {
+        var types = await repo.GetTypesAsync();
+        return Ok(types);
     }
 }

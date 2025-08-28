@@ -1,0 +1,26 @@
+[
+  {
+    "ShortName": "UPS1",
+    "Description": "Consegna più rapida",
+    "DeliveryTime": "1-2 Giorni",
+    "Price": 10
+  },
+  {
+    "ShortName": "UPS2",
+    "Description": "Ricevilo entro 5 giorni",
+    "DeliveryTime": "2-5 Giorni",
+    "Price": 5
+  },
+  {
+    "ShortName": "UPS3",
+    "Description": "Più lento ma economico",
+    "DeliveryTime": "5-10 Giorni",
+    "Price": 2
+  },
+  {
+    "ShortName": "GRATUITA",
+    "Description": "Gratuita! Ottieni ciò per cui paghi",
+    "DeliveryTime": "1-2 Settimane",
+    "Price": 0
+  }
+]
