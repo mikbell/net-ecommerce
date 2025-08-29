@@ -1,4 +1,4 @@
 export const environment = {
   production: false,
-  apiUrl: '/api'  // Usa proxy per development
+  apiUrl: 'https://localhost:5001/api'  // Punta direttamente all'API
 };

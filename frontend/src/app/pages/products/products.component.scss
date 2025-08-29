@@ -1,0 +1,16 @@
+// Stili specifici per la pagina prodotti
+.filters-card {
+  transition: box-shadow 0.3s ease;
+}
+
+.filters-card:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.pagination-button {
+  transition: all 0.3s ease;
+}
+
+.pagination-button:hover {
+  transform: translateY(-1px);
+}

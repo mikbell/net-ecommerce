@@ -1,5 +1,10 @@
 <app-header></app-header>
-<main>
-  <router-outlet></router-outlet>
+<main class="container mx-auto px-4 py-6">
+  <h1 class="text-3xl font-bold text-gray-800 mb-8">Benvenuto su {{ title }}!</h1>
+
+  <ul>
+    @for (product of products; track product.id) {
+      <li>{{ product.name }}</li>
+    }
+  </ul>
 </main>
-<app-footer></app-footer>

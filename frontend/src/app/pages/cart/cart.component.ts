@@ -1,37 +1,42 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
+import { RouterLink } from '@angular/router';
+import { Subscription } from 'rxjs';
 import { CartService } from '../../services/cart.service';
 import { CartItem } from '../../models/product.model';
-import { Observable } from 'rxjs';
 
 @Component({
-    selector: 'app-cart',
-    imports: [CommonModule, RouterModule],
-    templateUrl: './cart.component.html',
-    styleUrl: './cart.component.scss'
+  selector: 'app-cart',
+  standalone: true,
+  imports: [CommonModule, RouterLink],
+  templateUrl: './cart.component.html',
+  styleUrl: './cart.component.scss'
 })
-export class CartComponent implements OnInit {
-  cartItems$!: Observable<CartItem[]>;
-  totalPrice: number = 0;
-  totalItems: number = 0;
+export class CartComponent implements OnInit, OnDestroy {
+  cartItems: CartItem[] = [];
+  private cartSubscription?: Subscription;
 
   constructor(private cartService: CartService) {}
 
   ngOnInit(): void {
-    this.cartItems$ = this.cartService.getCartItems();
-    
-    this.cartItems$.subscribe(items => {
-      this.totalPrice = this.cartService.getTotalPrice();
-      this.totalItems = this.cartService.getTotalItems();
-    });
+    this.cartSubscription = this.cartService.getCartItems().subscribe(
+      items => this.cartItems = items
+    );
+  }
+
+  ngOnDestroy(): void {
+    this.cartSubscription?.unsubscribe();
   }
 
   updateQuantity(productId: number, quantity: number): void {
-    this.cartService.updateQuantity(productId, quantity);
+    if (quantity < 1) {
+      this.removeItem(productId);
+    } else {
+      this.cartService.updateQuantity(productId, quantity);
+    }
   }
 
-  removeFromCart(productId: number): void {
+  removeItem(productId: number): void {
     this.cartService.removeFromCart(productId);
   }
 
@@ -39,11 +44,23 @@ export class CartComponent implements OnInit {
     this.cartService.clearCart();
   }
 
-  onQuantityChange(event: Event, productId: number): void {
-    const target = event.target as HTMLInputElement;
-    const quantity = parseInt(target.value, 10);
-    if (quantity > 0) {
-      this.updateQuantity(productId, quantity);
-    }
+  getTotalItems(): number {
+    return this.cartService.getTotalItems();
+  }
+
+  getTotalPrice(): number {
+    return this.cartService.getTotalPrice();
+  }
+
+  formatPrice(price: number): string {
+    return new Intl.NumberFormat('it-IT', {
+      style: 'currency',
+      currency: 'EUR'
+    }).format(price);
+  }
+
+  checkout(): void {
+    // Qui implementeresti la logica di checkout
+    alert('Funzionalità checkout non ancora implementata');
   }
 }

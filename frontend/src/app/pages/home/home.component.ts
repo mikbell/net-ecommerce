@@ -1,34 +1,38 @@
 import { Component, OnInit } from '@angular/core';
-
-import { RouterModule } from '@angular/router';
-import { ProductCardComponent } from '../../components/product-card/product-card.component';
+import { CommonModule } from '@angular/common';
 import { ProductService } from '../../services/product.service';
-import { CartService } from '../../services/cart.service';
 import { Product } from '../../models/product.model';
 
 @Component({
-    selector: 'app-home',
-    imports: [RouterModule, ProductCardComponent],
-    templateUrl: './home.component.html',
-    styleUrl: './home.component.scss'
+  selector: 'app-home',
+  standalone: true,
+  imports: [CommonModule],
+  templateUrl: './home.component.html',
+  styleUrl: './home.component.scss'
 })
 export class HomeComponent implements OnInit {
   featuredProducts: Product[] = [];
+  loading = true;
+  error: string | null = null;
 
-  constructor(
-    private productService: ProductService,
-    private cartService: CartService
-  ) {}
+  constructor(private productService: ProductService) {}
 
   ngOnInit(): void {
-    this.productService.getAllProducts().subscribe(products => {
-      // Mostra solo i primi 4 prodotti come featured
-      this.featuredProducts = products.slice(0, 4);
-    });
+    this.loadFeaturedProducts();
   }
 
-  onAddToCart(product: Product): void {
-    this.cartService.addToCart(product);
-    // Qui potresti aggiungere un toast notification
+  private loadFeaturedProducts(): void {
+    this.loading = true;
+    this.productService.getProducts({ pageSize: 6 }).subscribe({
+      next: (result) => {
+        this.featuredProducts = result.data;
+        this.loading = false;
+      },
+      error: (error) => {
+        this.error = 'Errore nel caricamento dei prodotti in evidenza';
+        this.loading = false;
+        console.error('Error loading featured products:', error);
+      }
+    });
   }
 }
