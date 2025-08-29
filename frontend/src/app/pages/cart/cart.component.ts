@@ -6,11 +6,10 @@ import { CartItem } from '../../models/product.model';
 import { Observable } from 'rxjs';
 
 @Component({
-  selector: 'app-cart',
-  standalone: true,
-  imports: [CommonModule, RouterModule],
-  templateUrl: './cart.component.html',
-  styleUrl: './cart.component.scss'
+    selector: 'app-cart',
+    imports: [CommonModule, RouterModule],
+    templateUrl: './cart.component.html',
+    styleUrl: './cart.component.scss'
 })
 export class CartComponent implements OnInit {
   cartItems$!: Observable<CartItem[]>;

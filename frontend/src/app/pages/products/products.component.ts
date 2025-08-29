@@ -7,11 +7,10 @@ import { CartService } from '../../services/cart.service';
 import { Product, ProductParams, PagedResult, ProductFilters } from '../../models/product.model';
 
 @Component({
-  selector: 'app-products',
-  standalone: true,
-  imports: [CommonModule, FormsModule, ProductCardComponent],
-  templateUrl: './products.component.html',
-  styleUrl: './products.component.scss'
+    selector: 'app-products',
+    imports: [CommonModule, FormsModule, ProductCardComponent],
+    templateUrl: './products.component.html',
+    styleUrl: './products.component.scss'
 })
 export class ProductsComponent implements OnInit {
   products: Product[] = [];

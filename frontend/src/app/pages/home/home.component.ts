@@ -7,11 +7,10 @@ import { CartService } from '../../services/cart.service';
 import { Product } from '../../models/product.model';
 
 @Component({
-  selector: 'app-home',
-  standalone: true,
-  imports: [CommonModule, RouterModule, ProductCardComponent],
-  templateUrl: './home.component.html',
-  styleUrl: './home.component.scss'
+    selector: 'app-home',
+    imports: [CommonModule, RouterModule, ProductCardComponent],
+    templateUrl: './home.component.html',
+    styleUrl: './home.component.scss'
 })
 export class HomeComponent implements OnInit {
   featuredProducts: Product[] = [];
