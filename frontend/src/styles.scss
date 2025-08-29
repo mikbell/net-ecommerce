@@ -1,5 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
 
+@use 'sass:color';
 @import 'bootstrap/dist/css/bootstrap.min.css';
 @import '@fortawesome/fontawesome-free/css/all.min.css';
 
@@ -38,8 +39,8 @@ body {
   border-color: $primary-color;
   
   &:hover {
-    background-color: darken($primary-color, 10%);
-    border-color: darken($primary-color, 10%);
+    background-color: color.adjust($primary-color, $lightness: -10%);
+    border-color: color.adjust($primary-color, $lightness: -10%);
   }
 }
 
