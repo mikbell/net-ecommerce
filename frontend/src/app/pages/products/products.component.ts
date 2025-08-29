@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { FormsModule } from '@angular/forms';
 import { ProductCardComponent } from '../../components/product-card/product-card.component';
 import { ProductService } from '../../services/product.service';
@@ -8,7 +8,7 @@ import { Product, ProductParams, PagedResult, ProductFilters } from '../../model
 
 @Component({
     selector: 'app-products',
-    imports: [CommonModule, FormsModule, ProductCardComponent],
+    imports: [FormsModule, ProductCardComponent],
     templateUrl: './products.component.html',
     styleUrl: './products.component.scss'
 })

@@ -4,11 +4,11 @@
       <i class="fas fa-shopping-bag me-2"></i>
       E-Commerce
     </a>
-    
+
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
       <span class="navbar-toggler-icon"></span>
     </button>
-    
+
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav me-auto">
         <li class="nav-item">
@@ -18,15 +18,17 @@
           <a class="nav-link" routerLink="/products" routerLinkActive="active">Prodotti</a>
         </li>
       </ul>
-      
+
       <div class="d-flex">
         <a class="btn btn-outline-light position-relative" routerLink="/cart">
           <i class="fas fa-shopping-cart"></i>
           <span class="ms-1">Carrello</span>
-          <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" 
-                *ngIf="(cartItemCount$ | async) as count">
-            {{ count }}
-          </span>
+          @if ((cartItemCount$ | async); as count) {
+            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"
+              >
+              {{ count }}
+            </span>
+          }
         </a>
       </div>
     </div>

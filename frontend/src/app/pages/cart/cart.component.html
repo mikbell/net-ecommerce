@@ -6,119 +6,123 @@
     </div>
   </div>
 
-  <div *ngIf="(cartItems$ | async) as cartItems">
-    <!-- Carrello vuoto -->
-    <div *ngIf="cartItems.length === 0" class="row">
-      <div class="col-12 text-center py-5">
-        <i class="fas fa-shopping-cart fa-3x text-muted mb-3"></i>
-        <h3 class="text-muted">Il tuo carrello è vuoto</h3>
-        <p class="text-muted">Aggiungi alcuni prodotti per iniziare lo shopping!</p>
-        <a routerLink="/products" class="btn btn-primary btn-lg">
-          <i class="fas fa-shopping-bag me-2"></i>
-          Inizia lo Shopping
-        </a>
-      </div>
-    </div>
-
-    <!-- Carrello con items -->
-    <div *ngIf="cartItems.length > 0">
-      <div class="row">
-        <div class="col-lg-8">
-          <!-- Items del carrello -->
-          <div class="card mb-4">
-            <div class="card-header">
-              <h5 class="mb-0">Articoli nel Carrello ({{ totalItems }})</h5>
-            </div>
-            <div class="card-body p-0">
-              <div class="border-bottom p-3" *ngFor="let item of cartItems; last as isLast" [class.border-bottom-0]="isLast">
-                <div class="row align-items-center">
-                  <div class="col-2">
-                    <img [src]="item.product.pictureUrl" [alt]="item.product.name" 
-                         class="img-fluid rounded" style="max-height: 80px;">
-                  </div>
-                  <div class="col-4">
-                    <h6 class="mb-1">{{ item.product.name }}</h6>
-                    <small class="text-muted">{{ item.product.brand }} - {{ item.product.type }}</small>
-                  </div>
-                  <div class="col-2">
-                    <h6 class="text-primary mb-0">€{{ item.product.price | number:'1.2-2' }}</h6>
-                  </div>
-                  <div class="col-2">
-                    <div class="input-group input-group-sm">
-                      <button class="btn btn-outline-secondary" 
-                              (click)="updateQuantity(item.product.id, item.quantity - 1)">
-                        <i class="fas fa-minus"></i>
-                      </button>
-                      <input type="number" class="form-control text-center" 
-                             [value]="item.quantity" 
-                             (change)="onQuantityChange($event, item.product.id)"
-                             min="1" [max]="item.product.quantityInStock">
-                      <button class="btn btn-outline-secondary" 
-                              (click)="updateQuantity(item.product.id, item.quantity + 1)"
-                              [disabled]="item.quantity >= item.product.quantityInStock">
-                        <i class="fas fa-plus"></i>
-                      </button>
+  @if ((cartItems$ | async); as cartItems) {
+    <div>
+      <!-- Carrello vuoto -->
+      @if (cartItems.length === 0) {
+        <div class="row">
+          <div class="col-12 text-center py-5">
+            <i class="fas fa-shopping-cart fa-3x text-muted mb-3"></i>
+            <h3 class="text-muted">Il tuo carrello è vuoto</h3>
+            <p class="text-muted">Aggiungi alcuni prodotti per iniziare lo shopping!</p>
+            <a routerLink="/products" class="btn btn-primary btn-lg">
+              <i class="fas fa-shopping-bag me-2"></i>
+              Inizia lo Shopping
+            </a>
+          </div>
+        </div>
+      }
+      <!-- Carrello con items -->
+      @if (cartItems.length > 0) {
+        <div>
+          <div class="row">
+            <div class="col-lg-8">
+              <!-- Items del carrello -->
+              <div class="card mb-4">
+                <div class="card-header">
+                  <h5 class="mb-0">Articoli nel Carrello ({{ totalItems }})</h5>
+                </div>
+                <div class="card-body p-0">
+                  @for (item of cartItems; track item; let isLast = $last) {
+                    <div class="border-bottom p-3" [class.border-bottom-0]="isLast">
+                      <div class="row align-items-center">
+                        <div class="col-2">
+                          <img [src]="item.product.pictureUrl" [alt]="item.product.name"
+                            class="img-fluid rounded" style="max-height: 80px;">
+                          </div>
+                          <div class="col-4">
+                            <h6 class="mb-1">{{ item.product.name }}</h6>
+                            <small class="text-muted">{{ item.product.brand }} - {{ item.product.type }}</small>
+                          </div>
+                          <div class="col-2">
+                            <h6 class="text-primary mb-0">€{{ item.product.price | number:'1.2-2' }}</h6>
+                          </div>
+                          <div class="col-2">
+                            <div class="input-group input-group-sm">
+                              <button class="btn btn-outline-secondary"
+                                (click)="updateQuantity(item.product.id, item.quantity - 1)">
+                                <i class="fas fa-minus"></i>
+                              </button>
+                              <input type="number" class="form-control text-center"
+                                [value]="item.quantity"
+                                (change)="onQuantityChange($event, item.product.id)"
+                                min="1" [max]="item.product.quantityInStock">
+                                <button class="btn btn-outline-secondary"
+                                  (click)="updateQuantity(item.product.id, item.quantity + 1)"
+                                  [disabled]="item.quantity >= item.product.quantityInStock">
+                                  <i class="fas fa-plus"></i>
+                                </button>
+                              </div>
+                            </div>
+                            <div class="col-1">
+                              <h6 class="text-end mb-0">€{{ (item.product.price * item.quantity) | number:'1.2-2' }}</h6>
+                            </div>
+                            <div class="col-1">
+                              <button class="btn btn-outline-danger btn-sm"
+                                (click)="removeFromCart(item.product.id)">
+                                <i class="fas fa-trash"></i>
+                              </button>
+                            </div>
+                          </div>
+                        </div>
+                      }
                     </div>
                   </div>
-                  <div class="col-1">
-                    <h6 class="text-end mb-0">€{{ (item.product.price * item.quantity) | number:'1.2-2' }}</h6>
-                  </div>
-                  <div class="col-1">
-                    <button class="btn btn-outline-danger btn-sm" 
-                            (click)="removeFromCart(item.product.id)">
-                      <i class="fas fa-trash"></i>
-                    </button>
+                </div>
+                <!-- Riepilogo ordine -->
+                <div class="col-lg-4">
+                  <div class="card">
+                    <div class="card-header">
+                      <h5 class="mb-0">Riepilogo Ordine</h5>
+                    </div>
+                    <div class="card-body">
+                      <div class="d-flex justify-content-between mb-2">
+                        <span>Subtotale ({{ totalItems }} articoli):</span>
+                        <span>€{{ totalPrice | number:'1.2-2' }}</span>
+                      </div>
+                      <div class="d-flex justify-content-between mb-2">
+                        <span>Spedizione:</span>
+                        <span class="text-success">{{ totalPrice >= 50 ? 'Gratuita' : '€4.99' }}</span>
+                      </div>
+                      <hr>
+                        <div class="d-flex justify-content-between mb-3">
+                          <strong>Totale:</strong>
+                          <strong class="text-primary">
+                            €{{ (totalPrice >= 50 ? totalPrice : totalPrice + 4.99) | number:'1.2-2' }}
+                          </strong>
+                        </div>
+                        <div class="d-grid gap-2">
+                          <button class="btn btn-primary btn-lg">
+                            <i class="fas fa-credit-card me-2"></i>
+                            Procedi al Checkout
+                          </button>
+                          <button class="btn btn-outline-secondary" (click)="clearCart()">
+                            <i class="fas fa-trash me-2"></i>
+                            Svuota Carrello
+                          </button>
+                        </div>
+                        <div class="mt-3 text-center">
+                          <small class="text-muted">
+                            <i class="fas fa-shield-alt me-1"></i>
+                            Pagamenti sicuri con SSL
+                          </small>
+                        </div>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
+            }
           </div>
-        </div>
-
-        <!-- Riepilogo ordine -->
-        <div class="col-lg-4">
-          <div class="card">
-            <div class="card-header">
-              <h5 class="mb-0">Riepilogo Ordine</h5>
-            </div>
-            <div class="card-body">
-              <div class="d-flex justify-content-between mb-2">
-                <span>Subtotale ({{ totalItems }} articoli):</span>
-                <span>€{{ totalPrice | number:'1.2-2' }}</span>
-              </div>
-              <div class="d-flex justify-content-between mb-2">
-                <span>Spedizione:</span>
-                <span class="text-success">{{ totalPrice >= 50 ? 'Gratuita' : '€4.99' }}</span>
-              </div>
-              <hr>
-              <div class="d-flex justify-content-between mb-3">
-                <strong>Totale:</strong>
-                <strong class="text-primary">
-                  €{{ (totalPrice >= 50 ? totalPrice : totalPrice + 4.99) | number:'1.2-2' }}
-                </strong>
-              </div>
-              
-              <div class="d-grid gap-2">
-                <button class="btn btn-primary btn-lg">
-                  <i class="fas fa-credit-card me-2"></i>
-                  Procedi al Checkout
-                </button>
-                <button class="btn btn-outline-secondary" (click)="clearCart()">
-                  <i class="fas fa-trash me-2"></i>
-                  Svuota Carrello
-                </button>
-              </div>
-              
-              <div class="mt-3 text-center">
-                <small class="text-muted">
-                  <i class="fas fa-shield-alt me-1"></i>
-                  Pagamenti sicuri con SSL
-                </small>
-              </div>
-            </div>
-          </div>
-        </div>
+        }
       </div>
-    </div>
-  </div>
-</div>

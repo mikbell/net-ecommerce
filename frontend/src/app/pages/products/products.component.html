@@ -11,130 +11,149 @@
     <div class="col-md-3">
       <div class="input-group">
         <span class="input-group-text"><i class="fas fa-search"></i></span>
-        <input 
-          type="text" 
-          class="form-control" 
+        <input
+          type="text"
+          class="form-control"
           placeholder="Cerca prodotti..."
           [(ngModel)]="searchTerm"
           (input)="onSearchChange()">
+        </div>
       </div>
-    </div>
-    <div class="col-md-2">
-      <select 
-        class="form-select" 
-        [(ngModel)]="selectedBrand"
-        (change)="onBrandChange()">
-        <option value="">Tutti i brand</option>
-        <option *ngFor="let brand of filters?.brands" [value]="brand">
-          {{ brand }}
-        </option>
-      </select>
-    </div>
-    <div class="col-md-2">
-      <select 
-        class="form-select" 
-        [(ngModel)]="selectedType"
-        (change)="onTypeChange()">
-        <option value="">Tutti i tipi</option>
-        <option *ngFor="let type of filters?.types" [value]="type">
-          {{ type }}
-        </option>
-      </select>
-    </div>
-    <div class="col-md-2">
-      <select 
-        class="form-select" 
-        [(ngModel)]="selectedSort"
-        (change)="onSortChange()">
-        <option value="">Ordina per</option>
-        <option *ngFor="let option of filters?.sortOptions" [value]="option.value">
-          {{ option.label }}
-        </option>
-      </select>
-    </div>
-    <div class="col-md-1">
-      <button class="btn btn-outline-secondary" (click)="clearFilters()" title="Pulisci filtri">
-        <i class="fas fa-times"></i>
-      </button>
-    </div>
-    <div class="col-md-2 text-end">
-      <span class="text-muted" *ngIf="pagedResult">
-        {{ pagedResult.count }} prodotti trovati
-      </span>
-    </div>
-  </div>
-
-  <!-- Loading -->
-  <div class="row" *ngIf="loading">
-    <div class="col-12 text-center py-5">
-      <i class="fas fa-spinner fa-spin fa-3x text-primary mb-3"></i>
-      <p>Caricamento prodotti...</p>
-    </div>
-  </div>
-
-  <!-- Errore -->
-  <div class="row" *ngIf="error">
-    <div class="col-12">
-      <div class="alert alert-danger" role="alert">
-        <i class="fas fa-exclamation-triangle me-2"></i>
-        {{ error }}
-        <button class="btn btn-outline-danger btn-sm ms-2" (click)="loadProducts()">
-          Riprova
+      <div class="col-md-2">
+        <select
+          class="form-select"
+          [(ngModel)]="selectedBrand"
+          (change)="onBrandChange()">
+          <option value="">Tutti i brand</option>
+          @for (brand of filters?.brands; track brand) {
+            <option [value]="brand">
+              {{ brand }}
+            </option>
+          }
+        </select>
+      </div>
+      <div class="col-md-2">
+        <select
+          class="form-select"
+          [(ngModel)]="selectedType"
+          (change)="onTypeChange()">
+          <option value="">Tutti i tipi</option>
+          @for (type of filters?.types; track type) {
+            <option [value]="type">
+              {{ type }}
+            </option>
+          }
+        </select>
+      </div>
+      <div class="col-md-2">
+        <select
+          class="form-select"
+          [(ngModel)]="selectedSort"
+          (change)="onSortChange()">
+          <option value="">Ordina per</option>
+          @for (option of filters?.sortOptions; track option) {
+            <option [value]="option.value">
+              {{ option.label }}
+            </option>
+          }
+        </select>
+      </div>
+      <div class="col-md-1">
+        <button class="btn btn-outline-secondary" (click)="clearFilters()" title="Pulisci filtri">
+          <i class="fas fa-times"></i>
         </button>
       </div>
+      <div class="col-md-2 text-end">
+        @if (pagedResult) {
+          <span class="text-muted">
+            {{ pagedResult.count }} prodotti trovati
+          </span>
+        }
+      </div>
     </div>
-  </div>
 
-  <!-- Grid prodotti -->
-  <div class="row" *ngIf="!loading && !error && products.length > 0">
-    <div class="col-md-6 col-lg-4 col-xl-3 mb-4" *ngFor="let product of products">
-      <app-product-card 
-        [product]="product" 
-        (addToCart)="onAddToCart($event)">
-      </app-product-card>
-    </div>
-  </div>
+    <!-- Loading -->
+    @if (loading) {
+      <div class="row">
+        <div class="col-12 text-center py-5">
+          <i class="fas fa-spinner fa-spin fa-3x text-primary mb-3"></i>
+          <p>Caricamento prodotti...</p>
+        </div>
+      </div>
+    }
 
-  <!-- Paginazione -->
-  <div class="row" *ngIf="pagedResult && pagedResult.totalPages > 1">
-    <div class="col-12">
-      <nav aria-label="Navigazione prodotti">
-        <ul class="pagination justify-content-center">
-          <li class="page-item" [class.disabled]="!pagedResult.hasPrevious">
-            <button class="page-link" (click)="onPageChange(pagedResult.pageIndex - 1)" 
-                    [disabled]="!pagedResult.hasPrevious">
-              <i class="fas fa-chevron-left"></i>
+    <!-- Errore -->
+    @if (error) {
+      <div class="row">
+        <div class="col-12">
+          <div class="alert alert-danger" role="alert">
+            <i class="fas fa-exclamation-triangle me-2"></i>
+            {{ error }}
+            <button class="btn btn-outline-danger btn-sm ms-2" (click)="loadProducts()">
+              Riprova
             </button>
-          </li>
-          
-          <li class="page-item" 
-              *ngFor="let page of [].constructor(pagedResult.totalPages); let i = index"
-              [class.active]="i + 1 === pagedResult.pageIndex">
-            <button class="page-link" (click)="onPageChange(i + 1)">
-              {{ i + 1 }}
-            </button>
-          </li>
-          
-          <li class="page-item" [class.disabled]="!pagedResult.hasNext">
-            <button class="page-link" (click)="onPageChange(pagedResult.pageIndex + 1)" 
-                    [disabled]="!pagedResult.hasNext">
-              <i class="fas fa-chevron-right"></i>
-            </button>
-          </li>
-        </ul>
-      </nav>
-    </div>
-  </div>
+          </div>
+        </div>
+      </div>
+    }
 
-  <!-- Messaggio nessun prodotto -->
-  <div class="row" *ngIf="!loading && !error && products.length === 0">
-    <div class="col-12 text-center py-5">
-      <i class="fas fa-box-open fa-3x text-muted mb-3"></i>
-      <h3 class="text-muted">Nessun prodotto trovato</h3>
-      <p class="text-muted">Prova a modificare i filtri di ricerca</p>
-      <button class="btn btn-primary" (click)="clearFilters()">
-        Mostra tutti i prodotti
-      </button>
-    </div>
+    <!-- Grid prodotti -->
+    @if (!loading && !error && products.length > 0) {
+      <div class="row">
+        @for (product of products; track product) {
+          <div class="col-md-6 col-lg-4 col-xl-3 mb-4">
+            <app-product-card
+              [product]="product"
+              (addToCart)="onAddToCart($event)">
+            </app-product-card>
+          </div>
+        }
+      </div>
+    }
+
+    <!-- Paginazione -->
+    @if (pagedResult && pagedResult.totalPages > 1) {
+      <div class="row">
+        <div class="col-12">
+          <nav aria-label="Navigazione prodotti">
+            <ul class="pagination justify-content-center">
+              <li class="page-item" [class.disabled]="!pagedResult.hasPrevious">
+                <button class="page-link" (click)="onPageChange(pagedResult.pageIndex - 1)"
+                  [disabled]="!pagedResult.hasPrevious">
+                  <i class="fas fa-chevron-left"></i>
+                </button>
+              </li>
+              @for (page of [].constructor(pagedResult.totalPages); track page; let i = $index) {
+                <li class="page-item"
+                  [class.active]="i + 1 === pagedResult.pageIndex">
+                  <button class="page-link" (click)="onPageChange(i + 1)">
+                    {{ i + 1 }}
+                  </button>
+                </li>
+              }
+              <li class="page-item" [class.disabled]="!pagedResult.hasNext">
+                <button class="page-link" (click)="onPageChange(pagedResult.pageIndex + 1)"
+                  [disabled]="!pagedResult.hasNext">
+                  <i class="fas fa-chevron-right"></i>
+                </button>
+              </li>
+            </ul>
+          </nav>
+        </div>
+      </div>
+    }
+
+    <!-- Messaggio nessun prodotto -->
+    @if (!loading && !error && products.length === 0) {
+      <div class="row">
+        <div class="col-12 text-center py-5">
+          <i class="fas fa-box-open fa-3x text-muted mb-3"></i>
+          <h3 class="text-muted">Nessun prodotto trovato</h3>
+          <p class="text-muted">Prova a modificare i filtri di ricerca</p>
+          <button class="btn btn-primary" (click)="clearFilters()">
+            Mostra tutti i prodotti
+          </button>
+        </div>
+      </div>
+    }
   </div>
-</div>

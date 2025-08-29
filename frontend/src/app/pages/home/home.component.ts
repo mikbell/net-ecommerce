@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { RouterModule } from '@angular/router';
 import { ProductCardComponent } from '../../components/product-card/product-card.component';
 import { ProductService } from '../../services/product.service';
@@ -8,7 +8,7 @@ import { Product } from '../../models/product.model';
 
 @Component({
     selector: 'app-home',
-    imports: [CommonModule, RouterModule, ProductCardComponent],
+    imports: [RouterModule, ProductCardComponent],
     templateUrl: './home.component.html',
     styleUrl: './home.component.scss'
 })

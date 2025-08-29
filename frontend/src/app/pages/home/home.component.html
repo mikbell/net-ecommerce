@@ -44,20 +44,24 @@
       <h2 class="text-center mb-4">Prodotti in Evidenza</h2>
     </div>
   </div>
-  
+
   <div class="row">
-    <div class="col-md-6 col-lg-3 mb-4" *ngFor="let product of featuredProducts">
-      <app-product-card 
-        [product]="product" 
-        (addToCart)="onAddToCart($event)">
-      </app-product-card>
+    @for (product of featuredProducts; track product) {
+      <div class="col-md-6 col-lg-3 mb-4">
+        <app-product-card
+          [product]="product"
+          (addToCart)="onAddToCart($event)">
+        </app-product-card>
+      </div>
+    }
+  </div>
+
+  @if (featuredProducts.length > 0) {
+    <div class="text-center mt-4">
+      <a routerLink="/products" class="btn btn-primary btn-lg">
+        Vedi Tutti i Prodotti
+        <i class="fas fa-arrow-right ms-2"></i>
+      </a>
     </div>
-  </div>
-  
-  <div class="text-center mt-4" *ngIf="featuredProducts.length > 0">
-    <a routerLink="/products" class="btn btn-primary btn-lg">
-      Vedi Tutti i Prodotti
-      <i class="fas fa-arrow-right ms-2"></i>
-    </a>
-  </div>
+  }
 </div>
