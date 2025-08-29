@@ -10,7 +10,7 @@
   },
   {
     "Name": "Monopattino Elettrico Green 3000",
-    "Description": "Monopattino pieghevole compatto, ideale per il trasporto e il pendolarismo quotidiano. Batteria a lunga durata e luci di sicurezza integrate.",
+    "Description": "Monopattino piegole compatto, ideale per il trasporto e il pendolarismo quotidiano. Batteria a lunga durata e luci di sicurezza integrate.",
     "Price": 320,
     "PictureUrl": "/images/products/sb-ang2.png",
     "Type": "Monopattini",
@@ -457,5 +457,86 @@
     "Type": "Fitness",
     "Brand": "FlexiGym",
     "QuantityInStock": 180
+  },
+  {
+    "Name": "Giacca da Neve Summit",
+    "Description": "Giacca tecnica da neve con imbottitura termica e membrana impermeabile. Cappuccio compatibile con casco e gonnella antineve per la massima protezione.",
+    "Price": 280,
+    "PictureUrl": "/images/products/jacket-snow1.png",
+    "Type": "Abbigliamento",
+    "Brand": "MountainPeak",
+    "QuantityInStock": 55
+  },
+  {
+    "Name": "Casco da Città con Visiera",
+    "Description": "Casco moderno per l'uso urbano, ideale per monopattini e bici. Leggero, con visiera protettiva rimovibile e sistema di regolazione micrometrica.",
+    "Price": 75,
+    "PictureUrl": "/images/products/helmet-urban1.png",
+    "Type": "Accessori Sportivi",
+    "Brand": "UrbanGlide",
+    "QuantityInStock": 90
+  },
+  {
+    "Name": "Muta Estiva WaveFlex",
+    "Description": "Muta da surf a maniche corte (shorty) da 2mm in neoprene ultra-flessibile. Protezione solare UPF 50+ e cerniera posteriore per una facile vestizione.",
+    "Price": 110,
+    "PictureUrl": "/images/products/wetsuit-summer1.png",
+    "Type": "Sport Acquatici",
+    "Brand": "OceanFlow",
+    "QuantityInStock": 68
+  },
+  {
+    "Name": "Bastoncini da Trekking in Carbonio",
+    "Description": "Coppia di bastoncini da trekking telescopici in fibra di carbonio. Leggerissimi, con impugnatura ergonomica in sughero e punte intercambiabili.",
+    "Price": 85,
+    "PictureUrl": "/images/products/trekking-poles1.png",
+    "Type": "Attrezzatura",
+    "Brand": "TrailBlazer",
+    "QuantityInStock": 40
+  },
+  {
+    "Name": "Sacco a Pelo Comfort 10",
+    "Description": "Sacco a pelo a mummia per temperature miti (comfort 10°C). Imbottitura sintetica, leggero e compatto, con sacca di compressione inclusa.",
+    "Price": 65,
+    "PictureUrl": "/images/products/sleeping-bag1.png",
+    "Type": "Campeggio",
+    "Brand": "NatureHike",
+    "QuantityInStock": 50
+  },
+  {
+    "Name": "Striscia LED Smart RGB",
+    "Description": "Striscia LED adesiva da 5 metri, controllabile tramite app e assistenti vocali. Milioni di colori per creare l'atmosfera perfetta in ogni stanza.",
+    "Price": 40,
+    "PictureUrl": "/images/products/led-strip1.png",
+    "Type": "Illuminazione",
+    "Brand": "Lumina",
+    "QuantityInStock": 115
+  },
+  {
+    "Name": "Cornice per Foto in Legno Naturale",
+    "Description": "Set di 3 cornici per foto in legno di faggio. Design minimalista, adatte a foto 10x15 cm. Possono essere appese o appoggiate.",
+    "Price": 22,
+    "PictureUrl": "/images/products/photo-frame-set1.png",
+    "Type": "Decorazioni",
+    "Brand": "ArtHome",
+    "QuantityInStock": 130
+  },
+  {
+    "Name": "Macinacaffè Elettrico",
+    "Description": "Macinacaffè con lame in acciaio inox e diversi gradi di macinatura, dal caffè filtro all'espresso. Compatto e facile da pulire.",
+    "Price": 55,
+    "PictureUrl": "/images/products/coffee-grinder1.png",
+    "Type": "Elettrodomestici",
+    "Brand": "CaffèVivo",
+    "QuantityInStock": 75
+  },
+  {
+    "Name": "Pantaloncini da Corsa 2-in-1",
+    "Description": "Pantaloncini leggeri con tight interno a compressione per un supporto ottimale. Tasca posteriore con zip per chiavi o gel energetici.",
+    "Price": 45,
+    "PictureUrl": "/images/products/running-shorts1.png",
+    "Type": "Abbigliamento",
+    "Brand": "RunFit",
+    "QuantityInStock": 95
   }
 ]

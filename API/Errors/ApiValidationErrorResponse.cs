@@ -4,14 +4,21 @@ namespace API.Errors
 {
     public class ApiValidationErrorResponse : ApiResponse
     {
-        public IEnumerable<string> Errors { get; set; }
+        public IDictionary<string, string[]>? Errors { get; set; }
 
         public ApiValidationErrorResponse(ModelStateDictionary modelState)
             : base(400)
         {
-            Errors = [.. modelState.Values
-                .SelectMany(x => x.Errors)
-                .Select(x => x.ErrorMessage)];
+            Errors = modelState
+                .Where(e => e.Value?.Errors.Count > 0)
+                .ToDictionary(
+                    kvp => kvp.Key,
+                    kvp => kvp.Value!.Errors.Select(e => e.ErrorMessage).ToArray()
+                );
+        }
+
+        public ApiValidationErrorResponse() : base(400, "Validation failed")
+        {
         }
     }
 }
