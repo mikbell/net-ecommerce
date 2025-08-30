@@ -36,24 +36,55 @@ public class ProductsController(IGenericRepository<Product> repo, IMapper mapper
 
         try
         {
-            // Converte ProductParams in ProductsSpecParams
-            var specParams = new ProductsSpecParams
-            {
-                PageIndex = productParams.PageIndex,
-                PageSize = productParams.PageSize,
-                Brand = productParams.Brand,
-                Type = productParams.Type,
-                Sort = productParams.Sort,
-                Search = productParams.Search,
-                MinPrice = productParams.MinPrice,
-                MaxPrice = productParams.MaxPrice
-            };
-
-            var spec = new ProductsWithFiltersSpecification(specParams);
-            var countSpec = new ProductsWithFiltersForCountSpecification(specParams);
+            // Logging per debugging
+            logger.LogInformation("Received parameters: Brands={@Brands}, Types={@Types}, Brand={Brand}, Type={Type}", 
+                productParams.Brands, productParams.Types, productParams.Brand, productParams.Type);
             
-            var totalItems = await repo.CountAsync(countSpec);
-            var products = await repo.ListAsync(spec);
+            int totalItems;
+            IReadOnlyList<Product> products;
+            
+            // Se sono presenti array di brand/types, usa AdvancedProductSearchSpecification
+            if ((productParams.Brands?.Length > 0) || (productParams.Types?.Length > 0))
+            {
+                var advancedParams = new AdvancedSearchParams
+                {
+                    PageIndex = productParams.PageIndex,
+                    PageSize = productParams.PageSize,
+                    Brands = productParams.Brands,
+                    Types = productParams.Types,
+                    Sort = productParams.Sort,
+                    Search = productParams.Search,
+                    MinPrice = productParams.MinPrice,
+                    MaxPrice = productParams.MaxPrice
+                };
+                
+                var advancedSpec = new AdvancedProductSearchSpecification(advancedParams);
+                var advancedCountSpec = new AdvancedProductSearchForCountSpecification(advancedParams);
+                
+                totalItems = await repo.CountAsync(advancedCountSpec);
+                products = await repo.ListAsync(advancedSpec);
+            }
+            else
+            {
+                // Converte ProductParams in ProductsSpecParams per filtri singoli
+                var specParams = new ProductsSpecParams
+                {
+                    PageIndex = productParams.PageIndex,
+                    PageSize = productParams.PageSize,
+                    Brand = productParams.Brand,
+                    Type = productParams.Type,
+                    Sort = productParams.Sort,
+                    Search = productParams.Search,
+                    MinPrice = productParams.MinPrice,
+                    MaxPrice = productParams.MaxPrice
+                };
+
+                var spec = new ProductsWithFiltersSpecification(specParams);
+                var countSpec = new ProductsWithFiltersForCountSpecification(specParams);
+                
+                totalItems = await repo.CountAsync(countSpec);
+                products = await repo.ListAsync(spec);
+            }
             
             var data = mapper.Map<IReadOnlyList<ProductDto>>(products);
             

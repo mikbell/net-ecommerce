@@ -1,0 +1,171 @@
+<div class="shop-container">
+  <!-- Page Header -->
+  <div class="page-header">
+    <h1 class="title">I nostri prodotti</h1>
+    <p class="subtitle">Scopri la nostra selezione curata di prodotti di qualità</p>
+  </div>
+
+  <!-- Search and Filters Section -->
+  <div class="search-filters-section">
+    <div class="search-container">
+      <form
+        #searchForm="ngForm"
+        (ngSubmit)="onSearchChange()"
+        class="search-form"
+      >
+        <div class="search-input-wrapper">
+          <mat-icon class="search-icon">search</mat-icon>
+          <input
+            type="search"
+            class="search-input"
+            placeholder="Cerca prodotti, marchi, categorie..."
+            name="search"
+            [(ngModel)]="shopParams.search"
+            (input)="onSearchChange()"
+          />
+          @if(shopParams.search) {
+          <button
+            type="button"
+            class="clear-search-btn"
+            (click)="clearSearch()"
+            aria-label="Cancella ricerca"
+          >
+            <mat-icon>close</mat-icon>
+          </button>
+          }
+        </div>
+      </form>
+    </div>
+
+    <!-- Filter and Sort Controls -->
+    <div class="controls-container">
+      <div class="filter-sort-wrapper">
+        <button 
+          class="control-btn filter-btn"
+          (click)="openFiltersDialog()"
+          [class.active]="hasActiveFilters"
+        >
+          <mat-icon>tune</mat-icon>
+          <span>Filtri</span>
+          @if(activeFiltersCount > 0) {
+          <span class="filter-count">{{ activeFiltersCount }}</span>
+          }
+        </button>
+
+        <button 
+          class="control-btn sort-btn"
+          [matMenuTriggerFor]="sortMenu"
+        >
+          <mat-icon>sort</mat-icon>
+          <span>Ordina</span>
+          <mat-icon class="dropdown-icon">keyboard_arrow_down</mat-icon>
+        </button>
+      </div>
+      
+      <!-- Results Info -->
+      @if(products) {
+      <div class="results-info">
+        <span class="results-text">
+          {{ products.count }} {{ products.count === 1 ? 'prodotto' : 'prodotti' }}
+          @if(shopParams.search) {
+          per "{{ shopParams.search }}"
+          }
+        </span>
+      </div>
+      }
+    </div>
+  </div>
+
+  <!-- Active Filters Display -->
+  @if(hasActiveFilters) {
+  <div class="active-filters">
+    <div class="filter-chips">
+      <span class="filter-label">Filtri attivi:</span>
+      <!-- Add filter chips here based on your filter logic -->
+      <button class="clear-all-filters" (click)="clearAllFilters()">
+        <mat-icon>clear_all</mat-icon>
+        <span>Cancella tutti</span>
+      </button>
+    </div>
+  </div>
+  }
+
+  <!-- Products Grid -->
+  <div class="products-section">
+    @if(isLoading) {
+    <!-- Loading State -->
+    <div class="loading-grid">
+      @for(i of [1,2,3,4,5,6,7,8]; track $index) {
+      <div class="product-skeleton">
+        <div class="image-skeleton"></div>
+        <div class="content-skeleton">
+          <div class="title-skeleton"></div>
+          <div class="price-skeleton"></div>
+          <div class="button-skeleton"></div>
+        </div>
+      </div>
+      }
+    </div>
+    } @else if(products && products.data && products.data.length > 0) {
+    <!-- Products Grid -->
+    <div class="products-grid animate-fade-in">
+      @for(product of products.data; track product.id) {
+      <app-product-item [product]="product" class="animate-slide-up"></app-product-item>
+      }
+    </div>
+    } @else {
+    <!-- Empty State -->
+    <div class="empty-state">
+      <div class="empty-icon">
+        <mat-icon>search_off</mat-icon>
+      </div>
+      <h3 class="empty-title">Nessun prodotto trovato</h3>
+      <p class="empty-description">
+        @if(shopParams.search) {
+        Non abbiamo trovato prodotti per "{{ shopParams.search }}". Prova a modificare i termini di ricerca.
+        } @else {
+        Non ci sono prodotti disponibili al momento.
+        }
+      </p>
+      @if(shopParams.search) {
+      <button class="btn-primary" (click)="clearSearch()">
+        <mat-icon>refresh</mat-icon>
+        <span>Cancella ricerca</span>
+      </button>
+      }
+    </div>
+    }
+  </div>
+
+  <!-- Pagination -->
+  @if (products && products.data && products.data.length > 0) {
+  <div class="pagination-container">
+    <mat-paginator
+      (page)="handlePageEvent($event)"
+      [length]="products.count"
+      [pageSize]="products.pageSize"
+      [showFirstLastButtons]="true"
+      [pageSizeOptions]="pageSizeOptions"
+      [pageIndex]="shopParams.pageIndex - 1"
+      aria-label="Seleziona pagina"
+      class="modern-paginator"
+    >
+    </mat-paginator>
+  </div>
+  }
+</div>
+
+<mat-menu #sortMenu="matMenu">
+  <mat-selection-list
+    [multiple]="false"
+    (selectionChange)="onSortChange($event)"
+  >
+    @for(sort of sortOptions; track $index) {
+    <mat-list-option
+      [value]="sort.value"
+      [selected]="shopParams.sort === sort.value"
+      >{{ sort.name }}</mat-list-option
+    >
+    }
+  </mat-selection-list>
+</mat-menu>

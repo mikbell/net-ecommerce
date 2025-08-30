@@ -3,7 +3,7 @@
     "Name": "Monopattino Elettrico Pro 2000",
     "Description": "Monopattino ad alta potenza con telaio in lega leggera, perfetto per la città e le lunghe distanze. Dotato di ammortizzatori per una guida confortevole.",
     "Price": 450,
-    "PictureUrl": "/images/products/sb-ang1.png",
+    "PictureUrl": "/assets/images/products/monopattino-elettrico-pro-2000.jpg",
     "Type": "Monopattini",
     "Brand": "UrbanGlide",
     "QuantityInStock": 82
@@ -12,7 +12,7 @@
     "Name": "Monopattino Elettrico Green 3000",
     "Description": "Monopattino piegole compatto, ideale per il trasporto e il pendolarismo quotidiano. Batteria a lunga durata e luci di sicurezza integrate.",
     "Price": 320,
-    "PictureUrl": "/images/products/sb-ang2.png",
+    "PictureUrl": "/assets/images/products/monopattino-elettrico-green-3000.jpg",
     "Type": "Monopattini",
     "Brand": "EcoRide",
     "QuantityInStock": 75
@@ -21,7 +21,7 @@
     "Name": "Skateboard Speed Rush 3",
     "Description": "Skateboard professionale con ruote ad alta scorrevolezza e cuscinetti ABEC-7. Design resistente e leggero, perfetto per trick e manovre.",
     "Price": 120,
-    "PictureUrl": "/images/products/sb-core1.png",
+    "PictureUrl": "/assets/images/products/skateboard-speed-rush-3.jpg",
     "Type": "Skateboard",
     "Brand": "CoreWheels",
     "QuantityInStock": 3
@@ -30,7 +30,7 @@
     "Name": "Skateboard Super Board",
     "Description": "Tavola da skateboard in acero canadese a 7 strati. Offre un'ottima flessibilità e resistenza, ideale per ogni tipo di rider.",
     "Price": 95,
-    "PictureUrl": "/images/products/sb-core2.png",
+    "PictureUrl": "/assets/images/products/skateboard-super-board.jpg",
     "Type": "Skateboard",
     "Brand": "StreetSport",
     "QuantityInStock": 52
@@ -39,7 +39,7 @@
     "Name": "Snowboard Freeride Pro",
     "Description": "Snowboard versatile e reattivo, progettato per affrontare ogni tipo di terreno. Ottimo galleggiamento in neve fresca e stabilità ad alta velocità.",
     "Price": 350,
-    "PictureUrl": "/images/products/sb-react1.png",
+    "PictureUrl": "/assets/images/products/snowboard-freeride-pro.jpg",
     "Type": "Snowboard",
     "Brand": "MountainPeak",
     "QuantityInStock": 97
@@ -48,16 +48,16 @@
     "Name": "Tavola da Surf Shortboard",
     "Description": "Shortboard performante, ideale per surfisti di livello intermedio e avanzato. Shape agile e rocker pronunciato per manovre veloci sulle onde.",
     "Price": 420,
-    "PictureUrl": "/images/products/sb-ts1.png",
+    "PictureUrl": "/assets/images/products/tavola-da-surf-shortboard.jpg",
     "Type": "Tavole da Surf",
     "Brand": "OceanFlow",
     "QuantityInStock": 37
   },
   {
-    "Name": "Berretto da Sci in Lana Blu",
+    "Name": "Berretto da Sci in Lana",
     "Description": "Berretto caldo e confortevole, perfetto per le giornate fredde in montagna o in città. Realizzato in lana di alta qualità, con design classico a coste.",
     "Price": 25,
-    "PictureUrl": "/images/products/hat-core1.png",
+    "PictureUrl": "/assets/images/products/berretto-da-sci-in-lana.jpg",
     "Type": "Cappelli",
     "Brand": "WinterGear",
     "QuantityInStock": 32
@@ -66,7 +66,7 @@
     "Name": "Guanti da Neve Imbottiti",
     "Description": "Guanti impermeabili e traspiranti, con imbottitura in pile per massimizzare il calore. Palmo rinforzato per una presa sicura.",
     "Price": 35,
-    "PictureUrl": "/images/products/glove-code1.png",
+    "PictureUrl": "/assets/images/products/guanti-da-neve-imbottiti.jpg",
     "Type": "Guanti",
     "Brand": "SnowTech",
     "QuantityInStock": 74
@@ -75,7 +75,7 @@
     "Name": "Stivali da Trekking Impermeabili",
     "Description": "Stivali resistenti e impermeabili, ideali per escursioni e trekking su sentieri rocciosi. Suola antiscivolo e supporto per la caviglia.",
     "Price": 180,
-    "PictureUrl": "/images/products/boot-core2.png",
+    "PictureUrl": "/assets/images/products/stivali-da-trekking-impermeabili.jpg",
     "Type": "Stivali",
     "Brand": "TrailBlazer",
     "QuantityInStock": 28
@@ -84,7 +84,7 @@
     "Name": "Scarpe da Corsa Leggere",
     "Description": "Scarpe da corsa ultra leggere con ammortizzazione reattiva. Tomaia in mesh traspirante per una ventilazione ottimale durante la corsa.",
     "Price": 85,
-    "PictureUrl": "/images/products/shoe-new1.png",
+    "PictureUrl": "/assets/images/products/scarpe-da-corsa-leggere.jpg",
     "Type": "Scarpe",
     "Brand": "RunFit",
     "QuantityInStock": 112
@@ -93,7 +93,7 @@
     "Name": "Zaino da Viaggio 40L",
     "Description": "Zaino capiente e funzionale, perfetto per viaggi e avventure di più giorni. Scomparto per laptop, tasche multiple e spallacci imbottiti.",
     "Price": 75,
-    "PictureUrl": "/images/products/bag-new1.png",
+    "PictureUrl": "/assets/images/products/zaino-da-viaggio-40l.jpg",
     "Type": "Zaini",
     "Brand": "Wanderer",
     "QuantityInStock": 48
@@ -102,7 +102,7 @@
     "Name": "Tenda da Campeggio 2 Posti",
     "Description": "Tenda leggera e facile da montare, ideale per il campeggio estivo. Struttura in fibra di vetro e telo impermeabile per proteggerti dalla pioggia.",
     "Price": 60,
-    "PictureUrl": "/images/products/tent-new1.png",
+    "PictureUrl": "/assets/images/products/tenda-da-campeggio-2-posti.jpg",
     "Type": "Tende",
     "Brand": "NatureHike",
     "QuantityInStock": 23
@@ -111,7 +111,7 @@
     "Name": "Set Attrezzi Multiuso",
     "Description": "Set compatto con cacciavite, pinze, coltellino e apribottiglie. Strumento essenziale per piccole riparazioni e attività all'aria aperta.",
     "Price": 30,
-    "PictureUrl": "/images/products/tool-new1.png",
+    "PictureUrl": "/assets/images/products/set-attrezzi-multiuso.jpg",
     "Type": "Attrezzatura",
     "Brand": "HandyKit",
     "QuantityInStock": 89
@@ -120,7 +120,7 @@
     "Name": "Set Yoga Essenziale",
     "Description": "Set completo per la pratica dello yoga, include un tappetino antiscivolo, due blocchi di supporto in schiuma ad alta densità e una cinghia elastica per gli allungamenti.",
     "Price": 50,
-    "PictureUrl": "/images/products/yoga-set1.png",
+    "PictureUrl": "/assets/images/products/set-yoga-essenziale.jpg",
     "Type": "Fitness",
     "Brand": "ZenFlow",
     "QuantityInStock": 60
@@ -129,7 +129,7 @@
     "Name": "Borraccia Termica Acciaio Inox",
     "Description": "Borraccia isolata sottovuoto che mantiene le bevande calde per 12 ore e fredde per 24 ore. Realizzata in acciaio inossidabile resistente, perfetta per lo sport e la vita di tutti i giorni.",
     "Price": 25,
-    "PictureUrl": "/images/products/bottle-inox1.png",
+    "PictureUrl": "/assets/images/products/borraccia-termica-acciaio-inox.jpg",
     "Type": "Accessori",
     "Brand": "HydroPure",
     "QuantityInStock": 150
@@ -138,7 +138,7 @@
     "Name": "Set Manubri Regolabili",
     "Description": "Manubri compatti e regolabili, ideali per l'allenamento a casa. Permettono di cambiare il peso rapidamente con un semplice meccanismo a rotazione, sostituendo più manubri in un unico set.",
     "Price": 220,
-    "PictureUrl": "/images/products/dumbbells-adjustable1.png",
+    "PictureUrl": "/assets/images/products/set-manubri-regolabili.jpg",
     "Type": "Fitness",
     "Brand": "FlexiGym",
     "QuantityInStock": 15
@@ -147,7 +147,7 @@
     "Name": "Smartwatch Sportivo",
     "Description": "Orologio intelligente con GPS integrato, monitoraggio della frequenza cardiaca, e analisi del sonno. Ideale per atleti e appassionati di fitness che desiderano tenere traccia delle loro prestazioni.",
     "Price": 180,
-    "PictureUrl": "/images/products/smartwatch-sport1.png",
+    "PictureUrl": "/assets/images/products/smartwatch-sportivo.jpg",
     "Type": "Elettronica",
     "Brand": "ActiveTracker",
     "QuantityInStock": 45
@@ -156,7 +156,7 @@
     "Name": "Lenzuolo Copriletto in Cotone",
     "Description": "Lenzuolo copriletto in 100% cotone, morbido e traspirante. Aggiunge un tocco di eleganza alla camera da letto ed è disponibile in diverse colorazioni.",
     "Price": 45,
-    "PictureUrl": "/images/products/bed-sheet1.png",
+    "PictureUrl": "/assets/images/products/lenzuolo-copriletto-in-cotone.jpg",
     "Type": "Tessili per la Casa",
     "Brand": "HomeComfort",
     "QuantityInStock": 90
@@ -165,7 +165,7 @@
     "Name": "Set di Asciugamani in Spugna",
     "Description": "Set di asciugamani in spugna ultra assorbente, composto da un telo doccia, un asciugamano viso e uno per le mani. Morbidi, resistenti e perfetti per l'uso quotidiano.",
     "Price": 35,
-    "PictureUrl": "/images/products/towel-set1.png",
+    "PictureUrl": "/assets/images/products/set-di-asciugamani-in-spugna.jpg",
     "Type": "Tessili per la Casa",
     "Brand": "AquaSoft",
     "QuantityInStock": 200
@@ -174,7 +174,7 @@
     "Name": "Lampada da Tavolo a LED",
     "Description": "Lampada da scrivania a LED con braccio flessibile e tre livelli di luminosità. Design moderno e minimalista, ideale per l'ufficio o lo studio.",
     "Price": 60,
-    "PictureUrl": "/images/products/lamp-desk1.png",
+    "PictureUrl": "/assets/images/products/lampada-da-tavolo-a-led.jpg",
     "Type": "Illuminazione",
     "Brand": "Lumina",
     "QuantityInStock": 55
@@ -183,7 +183,7 @@
     "Name": "Vaso Decorativo in Ceramica",
     "Description": "Elegante vaso in ceramica smaltata, perfetto per aggiungere un tocco di colore e stile a qualsiasi ambiente. Ideale per fiori freschi o artificiali.",
     "Price": 28,
-    "PictureUrl": "/images/products/vase-ceramic1.png",
+    "PictureUrl": "/assets/images/products/vaso-decorativo-in-ceramica.jpg",
     "Type": "Decorazioni",
     "Brand": "ArtHome",
     "QuantityInStock": 70
@@ -192,7 +192,7 @@
     "Name": "Cuffie Wireless Noise Cancelling",
     "Description": "Cuffie Bluetooth con cancellazione attiva del rumore, autonomia fino a 30 ore e ricarica rapida. Audio di alta qualità per musica e chiamate.",
     "Price": 150,
-    "PictureUrl": "/images/products/headphones-noise1.png",
+    "PictureUrl": "/assets/images/products/cuffie-wireless-noise-cancelling.jpg",
     "Type": "Elettronica",
     "Brand": "SoundMax",
     "QuantityInStock": 65
@@ -201,7 +201,7 @@
     "Name": "Giacca Impermeabile da Montagna",
     "Description": "Giacca tecnica antivento e impermeabile, con cuciture termosaldate e cappuccio regolabile. Perfetta per trekking e alpinismo.",
     "Price": 130,
-    "PictureUrl": "/images/products/jacket-mountain1.png",
+    "PictureUrl": "/assets/images/products/giacca-impermeabile-da-montagna.jpg",
     "Type": "Abbigliamento",
     "Brand": "AlpinePro",
     "QuantityInStock": 40
@@ -210,7 +210,7 @@
     "Name": "Pallone da Calcio Professionale",
     "Description": "Pallone realizzato in materiali resistenti con cuciture termosaldate per una maggiore durata e performance. Perfetto per partite su erba naturale e sintetica.",
     "Price": 45,
-    "PictureUrl": "/images/products/soccer-ball1.png",
+    "PictureUrl": "/assets/images/products/pallone-da-calcio-professionale.jpg",
     "Type": "Sport",
     "Brand": "ProKick",
     "QuantityInStock": 120
@@ -219,7 +219,7 @@
     "Name": "Occhiali da Sole Polarizzati",
     "Description": "Occhiali con lenti polarizzate anti-riflesso, protezione UV400 e montatura leggera in policarbonato. Ideali per sport e tempo libero.",
     "Price": 70,
-    "PictureUrl": "/images/products/sunglasses-polarized1.png",
+    "PictureUrl": "/assets/images/products/occhiali-da-sole-polarizzati.jpg",
     "Type": "Accessori",
     "Brand": "SunGuard",
     "QuantityInStock": 95
@@ -228,7 +228,7 @@
     "Name": "Tappetino da Campeggio Gonfiabile",
     "Description": "Materassino ultraleggero gonfiabile, compatto e isolante, perfetto per campeggio e trekking. Include sacca di compressione.",
     "Price": 55,
-    "PictureUrl": "/images/products/camping-mat1.png",
+    "PictureUrl": "/assets/images/products/tappetino-da-campeggio-gonfiabile.jpg",
     "Type": "Campeggio",
     "Brand": "OutdoorPro",
     "QuantityInStock": 80
@@ -237,7 +237,7 @@
     "Name": "Frullatore Portatile USB",
     "Description": "Frullatore ricaricabile con porta USB, ideale per smoothie e bevande proteiche ovunque. Lame in acciaio inox e batteria a lunga durata.",
     "Price": 40,
-    "PictureUrl": "/images/products/portable-blender1.png",
+    "PictureUrl": "/assets/images/products/frullatore-portatile-usb.jpg",
     "Type": "Elettrodomestici",
     "Brand": "BlendGo",
     "QuantityInStock": 110
@@ -246,7 +246,7 @@
     "Name": "Casco da Bicicletta con Luce LED",
     "Description": "Casco regolabile con sistema di ventilazione e luce LED posteriore per maggiore sicurezza. Certificazione CE.",
     "Price": 65,
-    "PictureUrl": "/images/products/bike-helmet1.png",
+    "PictureUrl": "/assets/images/products/casco-da-bicicletta-con-luce-led.jpg",
     "Type": "Accessori Sportivi",
     "Brand": "SafeRide",
     "QuantityInStock": 58
@@ -255,7 +255,7 @@
     "Name": "Caricatore Solare Portatile",
     "Description": "Power bank solare impermeabile da 20.000 mAh con due porte USB. Ideale per campeggio e viaggi outdoor.",
     "Price": 50,
-    "PictureUrl": "/images/products/solar-charger1.png",
+    "PictureUrl": "/assets/images/products/caricatore-solare-portatile.jpg",
     "Type": "Elettronica",
     "Brand": "EcoCharge",
     "QuantityInStock": 90
@@ -264,7 +264,7 @@
     "Name": "Macchina per Caffè Espresso",
     "Description": "Macchina compatta per caffè espresso, con serbatoio rimovibile e funzione di spegnimento automatico. Compatibile con cialde e polvere.",
     "Price": 180,
-    "PictureUrl": "/images/products/coffee-machine1.png",
+    "PictureUrl": "/assets/images/products/macchina-per-caffe-espresso.jpg",
     "Type": "Elettrodomestici",
     "Brand": "CaffèVivo",
     "QuantityInStock": 32
@@ -273,7 +273,7 @@
     "Name": "Panca Pieghevole per Allenamento",
     "Description": "Panca multifunzione regolabile per allenamenti di forza, pieghevole per un facile stoccaggio. Struttura in acciaio robusta.",
     "Price": 130,
-    "PictureUrl": "/images/products/bench-gym1.png",
+    "PictureUrl": "/assets/images/products/panca-pieghevole-per-allenamento.jpg",
     "Type": "Fitness",
     "Brand": "StrongFit",
     "QuantityInStock": 27
@@ -282,7 +282,7 @@
     "Name": "Bici da Corsa Leggera",
     "Description": "Bicicletta da corsa con telaio in alluminio leggero e cambio a 21 velocità. Perfetta per lunghe percorrenze e allenamenti su strada.",
     "Price": 600,
-    "PictureUrl": "/images/products/bike-road1.png",
+    "PictureUrl": "/assets/images/products/bici-da-corsa-leggera.jpg",
     "Type": "Biciclette",
     "Brand": "SpeedLine",
     "QuantityInStock": 25
@@ -291,7 +291,7 @@
     "Name": "Tavola da Paddle Surf Gonfiabile",
     "Description": "Tavola da SUP gonfiabile, resistente e leggera, con pagaia regolabile e borsa per il trasporto. Adatta a principianti e intermedi.",
     "Price": 350,
-    "PictureUrl": "/images/products/sup-board1.png",
+    "PictureUrl": "/assets/images/products/tavola-da-paddle-surf-gonfiabile.jpg",
     "Type": "Sport Acquatici",
     "Brand": "WaveRider",
     "QuantityInStock": 30
@@ -300,7 +300,7 @@
     "Name": "Orologio da Parete Moderno",
     "Description": "Orologio elegante da parete con numeri grandi e movimento silenzioso. Design minimalista per ufficio o casa.",
     "Price": 45,
-    "PictureUrl": "/images/products/wall-clock1.png",
+    "PictureUrl": "/assets/images/products/orologio-da-parete-moderno.jpg",
     "Type": "Decorazioni",
     "Brand": "HomeStyle",
     "QuantityInStock": 80
@@ -309,7 +309,7 @@
     "Name": "Cintura Fitness con Tasca Porta Smartphone",
     "Description": "Cintura regolabile per attività sportive, con tasca per smartphone e chiusura sicura. Materiale traspirante e confortevole.",
     "Price": 25,
-    "PictureUrl": "/images/products/fitness-belt1.png",
+    "PictureUrl": "/assets/images/products/cintura-fitness-con-tasca-porta-smartphone.jpg",
     "Type": "Accessori Sportivi",
     "Brand": "RunGear",
     "QuantityInStock": 110
@@ -318,7 +318,7 @@
     "Name": "Zaino Termico Porta Pranzo",
     "Description": "Zaino compatto e isolante per trasportare cibi e bevande, con scomparti separati e facile da pulire.",
     "Price": 40,
-    "PictureUrl": "/images/products/lunch-backpack1.png",
+    "PictureUrl": "/assets/images/products/zaino-termico-porta-pranzo.jpg",
     "Type": "Accessori",
     "Brand": "CoolPack",
     "QuantityInStock": 65
@@ -327,7 +327,7 @@
     "Name": "Cuscino Ortopedico da Viaggio",
     "Description": "Cuscino memory foam ergonomico, ideale per viaggi in aereo, treno o auto. Supporto cervicale ottimale e rivestimento lavabile.",
     "Price": 30,
-    "PictureUrl": "/images/products/travel-pillow1.png",
+    "PictureUrl": "/assets/images/products/cuscino-ortopedico-da-viaggio.jpg",
     "Type": "Accessori Casa",
     "Brand": "TravelComfort",
     "QuantityInStock": 95
@@ -336,7 +336,7 @@
     "Name": "Pala da Neve in Alluminio",
     "Description": "Pala leggera e resistente, con manico ergonomico e lama in alluminio rinforzato. Perfetta per rimuovere neve e ghiaccio.",
     "Price": 35,
-    "PictureUrl": "/images/products/snow-shovel1.png",
+    "PictureUrl": "/assets/images/products/pala-da-neve-in-alluminio.jpg",
     "Type": "Attrezzatura",
     "Brand": "WinterTools",
     "QuantityInStock": 50
@@ -345,7 +345,7 @@
     "Name": "Corda per Saltare Regolabile",
     "Description": "Corda fitness regolabile in lunghezza, con maniglie antiscivolo e cuscinetti a sfera per rotazione fluida. Ideale per allenamenti cardio.",
     "Price": 15,
-    "PictureUrl": "/images/products/jump-rope1.png",
+    "PictureUrl": "/assets/images/products/corda-per-saltare-regolabile.jpg",
     "Type": "Fitness",
     "Brand": "JumpFit",
     "QuantityInStock": 120
@@ -354,7 +354,7 @@
     "Name": "Lampada Solare da Giardino",
     "Description": "Lampada da esterno alimentata a energia solare, con sensore di movimento e luce LED calda. Impermeabile e resistente agli agenti atmosferici.",
     "Price": 35,
-    "PictureUrl": "/images/products/solar-lamp1.png",
+    "PictureUrl": "/assets/images/products/lampada-solare-da-giardino.jpg",
     "Type": "Illuminazione",
     "Brand": "GreenLight",
     "QuantityInStock": 85
@@ -363,7 +363,7 @@
     "Name": "Bilancia Digitale da Cucina",
     "Description": "Bilancia elettronica precisa fino a 1g, con funzione tara e display LCD. Ideale per cucina e pasticceria.",
     "Price": 20,
-    "PictureUrl": "/images/products/kitchen-scale1.png",
+    "PictureUrl": "/assets/images/products/bilancia-digitale-da-cucina.jpg",
     "Type": "Elettrodomestici",
     "Brand": "CookSmart",
     "QuantityInStock": 140
@@ -372,16 +372,16 @@
     "Name": "Sedia da Campeggio Pieghevole",
     "Description": "Sedia leggera e compatta, facile da trasportare e perfetta per il campeggio, la pesca o gli eventi all'aperto. Struttura in acciaio e tessuto resistente.",
     "Price": 28,
-    "PictureUrl": "/images/products/camping-chair1.png",
+    "PictureUrl": "/assets/images/products/sedia-da-campeggio-pieghevole.jpg",
     "Type": "Campeggio",
     "Brand": "CampEasy",
     "QuantityInStock": 130
   },
   {
     "Name": "Altoparlante Bluetooth Portatile",
-    "Description": "Altoparlante wireless resistente all'acqua (IPX7) con bassi potenti e 12 ore di autonomia. Ideale per feste, piscina e avventure all'aperto.",
+    "Description": "Altoparlante wireless resistente all'acqua (IPX7) con bassi potenti e 12 ore di autonomia. Ideale per feste, piscina e avventure all'aria aperta.",
     "Price": 55,
-    "PictureUrl": "/images/products/bt-speaker1.png",
+    "PictureUrl": "/assets/images/products/altoparlante-bluetooth-portatile.jpg",
     "Type": "Elettronica",
     "Brand": "SoundWave",
     "QuantityInStock": 98
@@ -390,7 +390,7 @@
     "Name": "Foam Roller per Massaggio Muscolare",
     "Description": "Rullo in schiuma ad alta densità per il recupero muscolare, lo stretching e il rilascio miofasciale. Leggero e resistente.",
     "Price": 22,
-    "PictureUrl": "/images/products/foam-roller1.png",
+    "PictureUrl": "/assets/images/products/foam-roller-per-massaggio-muscolare.jpg",
     "Type": "Fitness",
     "Brand": "RecoverPro",
     "QuantityInStock": 78
@@ -399,7 +399,7 @@
     "Name": "Maglietta Tecnica da Corsa",
     "Description": "Maglietta a maniche corte in tessuto tecnico traspirante che allontana il sudore. Dettagli riflettenti per una maggiore visibilità.",
     "Price": 30,
-    "PictureUrl": "/images/products/running-shirt1.png",
+    "PictureUrl": "/assets/images/products/maglietta-tecnica-da-corsa.jpg",
     "Type": "Abbigliamento",
     "Brand": "RunFit",
     "QuantityInStock": 150
@@ -408,7 +408,7 @@
     "Name": "Lucchetto per Bicicletta a U",
     "Description": "Lucchetto a U in acciaio temprato con cavo flessibile per una sicurezza extra. Include due chiavi e un supporto per il montaggio sul telaio.",
     "Price": 40,
-    "PictureUrl": "/images/products/bike-lock1.png",
+    "PictureUrl": "/assets/images/products/lucchetto-per-bicicletta-a-u.jpg",
     "Type": "Accessori Sportivi",
     "Brand": "SecureRide",
     "QuantityInStock": 60
@@ -417,7 +417,7 @@
     "Name": "Fornello da Campeggio Portatile",
     "Description": "Fornello a gas compatto e leggero con accensione piezoelettrica. Potente e facile da usare, ideale per preparare pasti caldi durante le escursioni.",
     "Price": 38,
-    "PictureUrl": "/images/products/camping-stove1.png",
+    "PictureUrl": "/assets/images/products/fornello-da-campeggio-portatile.jpg",
     "Type": "Campeggio",
     "Brand": "PeakChef",
     "QuantityInStock": 72
@@ -426,7 +426,7 @@
     "Name": "Tastiera Meccanica da Gaming",
     "Description": "Tastiera da gaming retroilluminata RGB con switch meccanici reattivi. Layout italiano, anti-ghosting completo e design ergonomico.",
     "Price": 90,
-    "PictureUrl": "/images/products/gaming-keyboard1.png",
+    "PictureUrl": "/assets/images/products/tastiera-meccanica-da-gaming.jpg",
     "Type": "Elettronica",
     "Brand": "GamePro",
     "QuantityInStock": 45
@@ -435,7 +435,7 @@
     "Name": "Coperta da Picnic Impermeabile",
     "Description": "Ampia coperta da 200x200 cm con base impermeabile e strato superiore in morbido pile. Si ripiega in una comoda borsa da trasporto.",
     "Price": 32,
-    "PictureUrl": "/images/products/picnic-blanket1.png",
+    "PictureUrl": "/assets/images/products/coperta-da-picnic-impermeabile.jpg",
     "Type": "Accessori",
     "Brand": "OutdoorLiving",
     "QuantityInStock": 88
@@ -444,7 +444,7 @@
     "Name": "Asciugacapelli Professionale",
     "Description": "Asciugacapelli con motore AC da 2200W, tecnologia a ioni per ridurre l'effetto crespo e due concentratori d'aria per uno styling preciso.",
     "Price": 49,
-    "PictureUrl": "/images/products/hair-dryer1.png",
+    "PictureUrl": "/assets/images/products/asciugacapelli-professionale.jpg",
     "Type": "Elettrodomestici",
     "Brand": "StyleTech",
     "QuantityInStock": 63
@@ -453,7 +453,7 @@
     "Name": "Set di Elastici di Resistenza",
     "Description": "Set di 5 fasce elastiche di resistenza con diversi livelli di intensità. Ideali per riabilitazione, potenziamento muscolare e yoga.",
     "Price": 18,
-    "PictureUrl": "/images/products/resistance-bands1.png",
+    "PictureUrl": "/assets/images/products/set-di-elastici-di-resistenza.jpg",
     "Type": "Fitness",
     "Brand": "FlexiGym",
     "QuantityInStock": 180
@@ -462,7 +462,7 @@
     "Name": "Giacca da Neve Summit",
     "Description": "Giacca tecnica da neve con imbottitura termica e membrana impermeabile. Cappuccio compatibile con casco e gonnella antineve per la massima protezione.",
     "Price": 280,
-    "PictureUrl": "/images/products/jacket-snow1.png",
+    "PictureUrl": "/assets/images/products/giacca-da-neve-summit.jpg",
     "Type": "Abbigliamento",
     "Brand": "MountainPeak",
     "QuantityInStock": 55
@@ -471,7 +471,7 @@
     "Name": "Casco da Città con Visiera",
     "Description": "Casco moderno per l'uso urbano, ideale per monopattini e bici. Leggero, con visiera protettiva rimovibile e sistema di regolazione micrometrica.",
     "Price": 75,
-    "PictureUrl": "/images/products/helmet-urban1.png",
+    "PictureUrl": "/assets/images/products/casco-da-citta-con-visiera.jpg",
     "Type": "Accessori Sportivi",
     "Brand": "UrbanGlide",
     "QuantityInStock": 90
@@ -480,7 +480,7 @@
     "Name": "Muta Estiva WaveFlex",
     "Description": "Muta da surf a maniche corte (shorty) da 2mm in neoprene ultra-flessibile. Protezione solare UPF 50+ e cerniera posteriore per una facile vestizione.",
     "Price": 110,
-    "PictureUrl": "/images/products/wetsuit-summer1.png",
+    "PictureUrl": "/assets/images/products/muta-estiva-waveflex.jpg",
     "Type": "Sport Acquatici",
     "Brand": "OceanFlow",
     "QuantityInStock": 68
@@ -489,7 +489,7 @@
     "Name": "Bastoncini da Trekking in Carbonio",
     "Description": "Coppia di bastoncini da trekking telescopici in fibra di carbonio. Leggerissimi, con impugnatura ergonomica in sughero e punte intercambiabili.",
     "Price": 85,
-    "PictureUrl": "/images/products/trekking-poles1.png",
+    "PictureUrl": "/assets/images/products/bastoncini-da-trekking-in-carbonio.jpg",
     "Type": "Attrezzatura",
     "Brand": "TrailBlazer",
     "QuantityInStock": 40
@@ -498,7 +498,7 @@
     "Name": "Sacco a Pelo Comfort 10",
     "Description": "Sacco a pelo a mummia per temperature miti (comfort 10°C). Imbottitura sintetica, leggero e compatto, con sacca di compressione inclusa.",
     "Price": 65,
-    "PictureUrl": "/images/products/sleeping-bag1.png",
+    "PictureUrl": "/assets/images/products/sacco-a-pelo-comfort-10.jpg",
     "Type": "Campeggio",
     "Brand": "NatureHike",
     "QuantityInStock": 50
@@ -507,7 +507,7 @@
     "Name": "Striscia LED Smart RGB",
     "Description": "Striscia LED adesiva da 5 metri, controllabile tramite app e assistenti vocali. Milioni di colori per creare l'atmosfera perfetta in ogni stanza.",
     "Price": 40,
-    "PictureUrl": "/images/products/led-strip1.png",
+    "PictureUrl": "/assets/images/products/striscia-led-smart-rgb.jpg",
     "Type": "Illuminazione",
     "Brand": "Lumina",
     "QuantityInStock": 115
@@ -516,7 +516,7 @@
     "Name": "Cornice per Foto in Legno Naturale",
     "Description": "Set di 3 cornici per foto in legno di faggio. Design minimalista, adatte a foto 10x15 cm. Possono essere appese o appoggiate.",
     "Price": 22,
-    "PictureUrl": "/images/products/photo-frame-set1.png",
+    "PictureUrl": "/assets/images/products/cornice-per-foto-in-legno-naturale.jpg",
     "Type": "Decorazioni",
     "Brand": "ArtHome",
     "QuantityInStock": 130
@@ -525,7 +525,7 @@
     "Name": "Macinacaffè Elettrico",
     "Description": "Macinacaffè con lame in acciaio inox e diversi gradi di macinatura, dal caffè filtro all'espresso. Compatto e facile da pulire.",
     "Price": 55,
-    "PictureUrl": "/images/products/coffee-grinder1.png",
+    "PictureUrl": "/assets/images/products/macinacaffe-elettrico.jpg",
     "Type": "Elettrodomestici",
     "Brand": "CaffèVivo",
     "QuantityInStock": 75
@@ -534,7 +534,7 @@
     "Name": "Pantaloncini da Corsa 2-in-1",
     "Description": "Pantaloncini leggeri con tight interno a compressione per un supporto ottimale. Tasca posteriore con zip per chiavi o gel energetici.",
     "Price": 45,
-    "PictureUrl": "/images/products/running-shorts1.png",
+    "PictureUrl": "/assets/images/products/pantaloncini-da-corsa-2-in-1.jpg",
     "Type": "Abbigliamento",
     "Brand": "RunFit",
     "QuantityInStock": 95

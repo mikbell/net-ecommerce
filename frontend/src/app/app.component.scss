@@ -1,0 +1,20 @@
+// App Component Styles
+.app-container {
+  @apply min-h-screen flex flex-col bg-gray-50;
+}
+
+.main-content {
+  @apply flex-1;
+}
+
+.app-footer {
+  @apply bg-white border-t border-gray-200 mt-auto;
+  
+  a {
+    @apply transition-colors duration-200;
+    
+    &:hover {
+      @apply text-primary-600;
+    }
+  }
+}

@@ -1,0 +1,237 @@
+// Product Card Component Styles
+:host {
+  display: block;
+  height: 100%;
+}
+
+.product-card {
+  @apply bg-white rounded-2xl shadow-soft border border-gray-200 overflow-hidden transition-all duration-300 hover:shadow-medium hover:border-primary-300 h-full;
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+  
+  &:hover {
+    transform: translateY(-4px);
+  }
+}
+
+// Image Container
+.image-container {
+  @apply relative overflow-hidden bg-gradient-to-br from-gray-50 to-gray-100;
+  height: 240px;
+  position: relative;
+  
+  &::after {
+    content: '';
+    @apply absolute inset-0 bg-black opacity-0 transition-opacity duration-300;
+  }
+  
+  .product-card:hover &::after {
+    opacity: 0.05;
+  }
+}
+
+.product-image {
+  @apply w-full h-full object-contain p-4 transition-transform duration-500 ease-out;
+  
+  .product-card:hover & {
+    transform: scale(1.05);
+  }
+}
+
+// Quick Actions
+.quick-actions {
+  @apply absolute top-3 right-3 flex flex-col gap-2 opacity-0 translate-x-2 transition-all duration-300;
+  
+  .product-card:hover & {
+    @apply opacity-100 translate-x-0;
+  }
+}
+
+.quick-action-btn {
+  @apply w-10 h-10 bg-white/90 backdrop-blur-sm shadow-medium rounded-full flex items-center justify-center text-gray-600 hover:text-primary-600 hover:bg-white transition-all duration-200;
+  
+  &:hover {
+    transform: scale(1.1);
+  }
+  
+  mat-icon {
+    font-size: 18px;
+    width: 18px;
+    height: 18px;
+  }
+}
+
+// Discount Badge
+.discount-badge {
+  @apply absolute top-3 left-3 bg-error-500 text-white text-xs font-bold px-2 py-1 rounded-full z-10;
+  animation: pulse 2s ease-in-out infinite;
+}
+
+// Content Area
+.card-content {
+  @apply p-5 flex-1 flex flex-col;
+}
+
+.brand {
+  @apply text-xs text-gray-500 uppercase tracking-widest font-semibold mb-2 leading-none;
+}
+
+.name {
+  @apply text-lg font-semibold text-gray-900 mb-2 leading-tight;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  min-height: 3.5rem;
+}
+
+.description {
+  @apply text-sm text-gray-600 mb-3 flex-1;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+// Rating
+.rating {
+  @apply flex items-center gap-2 mb-3;
+  
+  .stars {
+    @apply flex items-center gap-0.5;
+    
+    .star {
+      @apply text-gray-300 transition-colors duration-200;
+      font-size: 16px;
+      width: 16px;
+      height: 16px;
+      
+      &.filled {
+        @apply text-warning-400;
+      }
+    }
+  }
+  
+  .count {
+    @apply text-sm text-gray-500 font-medium;
+  }
+}
+
+// Price Section
+.price-section {
+  @apply flex items-center justify-between mb-4;
+  
+  .price-container {
+    @apply flex items-center gap-2;
+  }
+  
+  .price {
+    @apply text-2xl font-bold text-primary-600;
+  }
+  
+  .original-price {
+    @apply text-sm text-gray-400 line-through;
+  }
+  
+  .discount {
+    @apply bg-error-100 text-error-600 text-xs font-semibold px-2 py-1 rounded-full;
+  }
+}
+
+// Actions
+.card-actions {
+  @apply p-5 pt-0;
+}
+
+.add-to-cart-btn {
+  @apply w-full bg-primary-500 hover:bg-primary-600 text-white font-semibold py-3 px-6 rounded-xl transition-all duration-200 flex items-center justify-center gap-2 shadow-soft hover:shadow-medium active:scale-95;
+  
+  &:hover {
+    transform: translateY(-1px);
+  }
+  
+  &:active {
+    transform: translateY(0) scale(0.98);
+  }
+  
+  mat-icon {
+    font-size: 20px;
+    width: 20px;
+    height: 20px;
+  }
+}
+
+// Loading State
+.product-card.loading {
+  .image-container {
+    @apply bg-gray-200 animate-pulse;
+  }
+  
+  .card-content {
+    .name, .price {
+      @apply bg-gray-200 rounded animate-pulse;
+    }
+    
+    .name {
+      height: 1.5rem;
+      width: 80%;
+      margin-bottom: 0.5rem;
+    }
+    
+    .price {
+      height: 1.25rem;
+      width: 60%;
+    }
+  }
+}
+
+// Animation for card entrance
+@keyframes cardEntrance {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.product-card {
+  animation: cardEntrance 0.5s ease-out;
+}
+
+// Pulse animation for discount badge
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.8;
+  }
+}
+
+// Responsive adjustments
+@media (max-width: 640px) {
+  .image-container {
+    height: 200px;
+  }
+  
+  .card-content {
+    @apply p-4;
+  }
+  
+  .card-actions {
+    @apply p-4 pt-0;
+  }
+  
+  .name {
+    @apply text-base;
+    min-height: 3rem;
+  }
+  
+  .price {
+    @apply text-xl;
+  }
+}

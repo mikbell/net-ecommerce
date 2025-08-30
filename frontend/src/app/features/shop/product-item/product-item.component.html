@@ -1,0 +1,91 @@
+@if(product){
+<div class="product-card group">
+  <!-- Image Container -->
+  <div class="image-container">
+    <img 
+      [src]="product.pictureUrl" 
+      [alt]="product.name"
+      class="product-image"
+      loading="lazy"
+    />
+    
+    <!-- Quick Actions (shown on hover) -->
+    <div class="quick-actions">
+      <button 
+        mat-icon-button 
+        aria-label="Aggiungi ai preferiti"
+        class="quick-action-btn"
+      >
+        <mat-icon>favorite_border</mat-icon>
+      </button>
+      <button 
+        mat-icon-button 
+        aria-label="Visualizza rapidamente"
+        class="quick-action-btn"
+      >
+        <mat-icon>visibility</mat-icon>
+      </button>
+    </div>
+    
+    <!-- Discount Badge -->
+    @if(product.discount) {
+    <div class="discount-badge">
+      -{{ product.discount }}%
+    </div>
+    }
+  </div>
+
+  <!-- Content -->
+  <div class="card-content">
+    <!-- Brand -->
+    @if(product.brand) {
+    <div class="brand">{{ product.brand }}</div>
+    }
+    
+    <!-- Product Name -->
+    <h3 class="name">{{ product.name }}</h3>
+    
+    <!-- Description -->
+    @if(product.description) {
+    <p class="description">{{ product.description }}</p>
+    }
+    
+    <!-- Rating (if available) -->
+    @if(product.rating) {
+    <div class="rating">
+      <div class="stars">
+        @for(star of [1,2,3,4,5]; track $index) {
+        <mat-icon class="star" [class.filled]="star <= product.rating">
+          {{ star <= product.rating ? 'star' : 'star_border' }}
+        </mat-icon>
+        }
+      </div>
+      @if(product.reviewCount) {
+      <span class="count">({{ product.reviewCount }})</span>
+      }
+    </div>
+    }
+    
+    <!-- Price Section -->
+    <div class="price-section">
+      <div class="price-container">
+        <span class="price">{{ product.price | currency : "EUR" }}</span>
+        @if(product.originalPrice && product.originalPrice > product.price) {
+        <span class="original-price">{{ product.originalPrice | currency : "EUR" }}</span>
+        }
+      </div>
+      @if(product.discount) {
+      <span class="discount">-{{ product.discount }}%</span>
+      }
+    </div>
+  </div>
+
+  <!-- Actions -->
+  <div class="card-actions">
+    <button class="add-to-cart-btn">
+      <mat-icon class="mr-2">add_shopping_cart</mat-icon>
+      <span>Aggiungi al carrello</span>
+    </button>
+  </div>
+</div>
+}

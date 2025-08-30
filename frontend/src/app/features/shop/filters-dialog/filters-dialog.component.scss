@@ -1,0 +1,350 @@
+// Filters Dialog Component Styles
+.filters-dialog {
+  @apply w-full max-w-2xl bg-white rounded-2xl overflow-hidden;
+  min-height: 500px;
+  max-height: 90vh;
+  display: flex;
+  flex-direction: column;
+}
+
+// Dialog Header
+.dialog-header {
+  @apply flex items-center justify-between p-6 border-b border-gray-200 bg-gradient-to-r from-primary-50 to-accent-50;
+  
+  .dialog-title {
+    @apply flex items-center gap-3 text-2xl font-bold text-gray-900 m-0;
+    
+    .title-icon {
+      @apply text-primary-600;
+      font-size: 28px;
+      width: 28px;
+      height: 28px;
+    }
+  }
+  
+  .close-btn {
+    @apply text-gray-500 hover:text-gray-700 hover:bg-gray-100 rounded-full transition-all duration-200;
+    
+    &:hover {
+      transform: scale(1.1);
+    }
+  }
+}
+
+// Dialog Content
+.dialog-content {
+  @apply flex-1 p-6 overflow-y-auto;
+  scrollbar-width: thin;
+  scrollbar-color: #cbd5e1 #f1f5f9;
+  
+  &::-webkit-scrollbar {
+    width: 6px;
+  }
+  
+  &::-webkit-scrollbar-track {
+    @apply bg-gray-100 rounded;
+  }
+  
+  &::-webkit-scrollbar-thumb {
+    @apply bg-gray-300 rounded hover:bg-gray-400;
+  }
+}
+
+// Filter Sections
+.filter-section {
+  @apply mb-8 last:mb-0;
+  
+  .section-header {
+    @apply flex items-center gap-3 mb-4;
+    
+    .section-icon {
+      @apply text-primary-600 bg-primary-100 p-2 rounded-xl;
+      font-size: 20px;
+      width: 36px;
+      height: 36px;
+    }
+    
+    .section-title {
+      @apply text-lg font-semibold text-gray-900 m-0;
+    }
+  }
+}
+
+// Price Range
+.price-range-container {
+  @apply bg-gray-50 rounded-xl p-4;
+  
+  .price-inputs {
+    @apply flex items-center gap-4;
+    
+    .price-input-group {
+      @apply flex-1;
+      
+      .price-label {
+        @apply block text-sm font-medium text-gray-700 mb-2;
+      }
+      
+      .price-input {
+        @apply w-full px-4 py-3 bg-white border border-gray-200 rounded-xl text-sm focus:outline-none focus:border-primary-500 focus:ring-2 focus:ring-primary-100 transition-all duration-200;
+        
+        &::placeholder {
+          @apply text-gray-400;
+        }
+        
+        &:focus {
+          transform: translateY(-1px);
+        }
+      }
+    }
+    
+    .price-separator {
+      @apply text-gray-400 font-medium mt-6;
+    }
+  }
+}
+
+// Filters Grid
+.filters-grid {
+  @apply grid grid-cols-1 md:grid-cols-2 gap-6 mb-8;
+}
+
+// Filter Options
+.filter-options {
+  @apply bg-gray-50 rounded-xl p-4 max-h-64 overflow-y-auto;
+  
+  &::-webkit-scrollbar {
+    width: 4px;
+  }
+  
+  &::-webkit-scrollbar-track {
+    @apply bg-transparent;
+  }
+  
+  &::-webkit-scrollbar-thumb {
+    @apply bg-gray-300 rounded-full hover:bg-gray-400;
+  }
+}
+
+// Custom Selection List
+.custom-selection-list {
+  @apply p-0;
+  
+  .filter-option {
+    @apply rounded-lg mb-2 last:mb-0 hover:bg-white border-2 border-transparent hover:border-gray-200 transition-all duration-200;
+    
+    &.mdc-list-item--selected {
+      @apply bg-primary-50 border-primary-200;
+      
+      .option-content {
+        .option-text {
+          @apply text-primary-700 font-medium;
+        }
+        
+        .check-icon {
+          @apply text-primary-600 opacity-100;
+        }
+      }
+    }
+    
+    .option-content {
+      @apply flex items-center justify-between w-full;
+      
+      .option-text {
+        @apply text-gray-700 transition-colors duration-200;
+      }
+      
+      .check-icon {
+        @apply text-gray-300 opacity-0 transition-all duration-200;
+        font-size: 20px;
+        width: 20px;
+        height: 20px;
+      }
+    }
+    
+    &:hover .option-content .check-icon {
+      @apply opacity-50;
+    }
+  }
+}
+
+// Quick Filters
+.quick-filters {
+  @apply flex flex-wrap gap-3;
+  
+  .quick-filter-chip {
+    @apply flex items-center gap-2 px-4 py-3 bg-white border-2 border-gray-200 rounded-xl font-medium text-gray-700 transition-all duration-200 hover:border-primary-300 hover:bg-primary-50 hover:text-primary-700;
+    
+    &:hover {
+      transform: translateY(-1px);
+      box-shadow: var(--shadow-soft);
+    }
+    
+    &.active {
+      @apply border-primary-500 bg-primary-500 text-white shadow-medium;
+      
+      mat-icon {
+        @apply text-white;
+      }
+    }
+    
+    mat-icon {
+      @apply text-primary-600 transition-colors duration-200;
+      font-size: 18px;
+      width: 18px;
+      height: 18px;
+    }
+    
+    span {
+      @apply text-sm;
+    }
+  }
+}
+
+// Dialog Footer
+.dialog-footer {
+  @apply border-t border-gray-200 bg-gray-50 p-6;
+  
+  .footer-actions {
+    @apply flex items-center justify-between;
+    
+    .btn-secondary {
+      @apply flex items-center gap-2 px-4 py-2 bg-gray-200 hover:bg-gray-300 text-gray-700 rounded-xl font-medium transition-all duration-200;
+      
+      &:hover {
+        transform: translateY(-1px);
+      }
+      
+      mat-icon {
+        font-size: 18px;
+        width: 18px;
+        height: 18px;
+      }
+    }
+    
+    .primary-actions {
+      @apply flex items-center gap-3;
+      
+      .btn-ghost {
+        @apply px-4 py-2 text-gray-600 hover:text-gray-800 hover:bg-gray-200 rounded-xl font-medium transition-all duration-200;
+      }
+      
+      .btn-primary {
+        @apply flex items-center gap-2 px-6 py-3 bg-primary-500 hover:bg-primary-600 text-white rounded-xl font-semibold transition-all duration-200 shadow-soft hover:shadow-medium;
+        
+        &:hover {
+          transform: translateY(-1px);
+        }
+        
+        mat-icon {
+          font-size: 18px;
+          width: 18px;
+          height: 18px;
+        }
+      }
+    }
+  }
+}
+
+// Animation for dialog entrance
+:host {
+  animation: dialogEntrance 0.4s ease-out;
+}
+
+@keyframes dialogEntrance {
+  from {
+    opacity: 0;
+    transform: scale(0.9) translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+// Responsive Design
+@media (max-width: 768px) {
+  .filters-dialog {
+    @apply max-w-full mx-4;
+    max-height: 85vh;
+  }
+  
+  .dialog-header {
+    @apply p-4;
+    
+    .dialog-title {
+      @apply text-xl;
+      
+      .title-icon {
+        font-size: 24px;
+        width: 24px;
+        height: 24px;
+      }
+    }
+  }
+  
+  .dialog-content {
+    @apply p-4;
+  }
+  
+  .dialog-footer {
+    @apply p-4;
+  }
+  
+  .filters-grid {
+    @apply grid-cols-1;
+  }
+  
+  .price-inputs {
+    @apply flex-col gap-3;
+    
+    .price-separator {
+      @apply self-center mt-0;
+    }
+  }
+  
+  .quick-filters {
+    .quick-filter-chip {
+      @apply flex-1 justify-center min-w-0;
+      
+      span {
+        @apply truncate;
+      }
+    }
+  }
+  
+  .footer-actions {
+    @apply flex-col gap-3;
+    
+    .primary-actions {
+      @apply w-full;
+      
+      .btn-ghost {
+        @apply flex-1 text-center;
+      }
+      
+      .btn-primary {
+        @apply flex-1 justify-center;
+      }
+    }
+    
+    .btn-secondary {
+      @apply w-full justify-center;
+    }
+  }
+}
+
+// Material overrides for this component
+::ng-deep .filters-dialog {
+  .mat-mdc-list-item {
+    min-height: 48px !important;
+    padding: 8px 12px !important;
+    
+    .mat-pseudo-checkbox {
+      display: none !important;
+    }
+  }
+  
+  .mat-mdc-selection-list {
+    padding: 0 !important;
+  }
+}

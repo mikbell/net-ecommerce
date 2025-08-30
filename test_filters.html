@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Test Filtri API</title>
+</head>
+<body>
+    <h1>Test Filtri API</h1>
+    
+    <h2>Test 1: Nessun filtro</h2>
+    <button onclick="testNoFilters()">Test Nessun Filtro</button>
+    
+    <h2>Test 2: Un solo brand</h2>
+    <button onclick="testSingleBrand()">Test Singolo Brand (UrbanGlide)</button>
+    
+    <h2>Test 3: Multiple brands</h2>
+    <button onclick="testMultipleBrands()">Test Multiple Brands (UrbanGlide + EcoRide)</button>
+    
+    <h2>Test 4: Un solo type</h2>
+    <button onclick="testSingleType()">Test Singolo Type (Monopattini)</button>
+    
+    <h2>Test 5: Multiple types</h2>
+    <button onclick="testMultipleTypes()">Test Multiple Types (Monopattini + Skateboard)</button>
+    
+    <h2>Test 6: Brand + Type</h2>
+    <button onclick="testBrandAndType()">Test Brand + Type</button>
+    
+    <div id="results"></div>
+
+    <script>
+        const baseUrl = 'https://localhost:5001/api/products';
+        
+        async function makeRequest(params) {
+            const url = new URL(baseUrl);
+            if (params) {
+                Object.keys(params).forEach(key => {
+                    if (Array.isArray(params[key])) {
+                        params[key].forEach(value => url.searchParams.append(key, value));
+                    } else {
+                        url.searchParams.append(key, params[key]);
+                    }
+                });
+            }
+            
+            console.log('Request URL:', url.toString());
+            
+            try {
+                const response = await fetch(url);
+                const data = await response.json();
+                console.log('Response:', data);
+                displayResults(`${url.toString()}: ${data.totalCount} prodotti trovati`);
+                return data;
+            } catch (error) {
+                console.error('Error:', error);
+                displayResults(`Error: ${error.message}`);
+            }
+        }
+        
+        function displayResults(text) {
+            const resultsDiv = document.getElementById('results');
+            resultsDiv.innerHTML += `<p>${text}</p>`;
+        }
+        
+        async function testNoFilters() {
+            displayResults('<h3>Test: Nessun filtro</h3>');
+            await makeRequest({ pageSize: 15 });
+        }
+        
+        async function testSingleBrand() {
+            displayResults('<h3>Test: Singolo Brand (UrbanGlide)</h3>');
+            await makeRequest({ brands: ['UrbanGlide'], pageSize: 15 });
+        }
+        
+        async function testMultipleBrands() {
+            displayResults('<h3>Test: Multiple Brands (UrbanGlide + EcoRide)</h3>');
+            await makeRequest({ brands: ['UrbanGlide', 'EcoRide'], pageSize: 15 });
+        }
+        
+        async function testSingleType() {
+            displayResults('<h3>Test: Singolo Type (Monopattini)</h3>');
+            await makeRequest({ types: ['Monopattini'], pageSize: 15 });
+        }
+        
+        async function testMultipleTypes() {
+            displayResults('<h3>Test: Multiple Types (Monopattini + Skateboard)</h3>');
+            await makeRequest({ types: ['Monopattini', 'Skateboard'], pageSize: 15 });
+        }
+        
+        async function testBrandAndType() {
+            displayResults('<h3>Test: Brand (UrbanGlide) + Type (Monopattini)</h3>');
+            await makeRequest({ brands: ['UrbanGlide'], types: ['Monopattini'], pageSize: 15 });
+        }
+    </script>
+</body>
+</html>

@@ -7,4 +7,9 @@ export type Product = {
     type: string;
     brand: string;
     quantityInStock: number;
+    // Optional additional properties for enhanced design
+    originalPrice?: number;
+    discount?: number;
+    rating?: number;
+    reviewCount?: number;
 }
