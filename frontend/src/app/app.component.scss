@@ -5,6 +5,12 @@
 
 .main-content {
   @apply flex-1;
+  // Add top padding to account for fixed header height
+  padding-top: 80px; /* Match the header height for lg screens */
+  
+  @media (max-width: 1024px) {
+    padding-top: 64px; /* Match the header height for smaller screens */
+  }
 }
 
 .app-footer {

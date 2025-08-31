@@ -1,0 +1,120 @@
+<div 
+  *ngIf="error" 
+  class="error-display"
+  [class.center-layout]="centerLayout"
+  [class.compact]="compact"
+  [ngClass]="getSeverityClass()"
+>
+  <!-- Compact Layout -->
+  <div *ngIf="compact" class="compact-error">
+    <div class="error-content">
+      <mat-icon [ngClass]="getErrorColorClass()" class="error-icon-small">
+        {{ getErrorIcon() }}
+      </mat-icon>
+      <div class="error-text">
+        <span class="error-message">{{ error.message }}</span>
+        <button 
+          *ngIf="canRetry()" 
+          mat-icon-button 
+          (click)="onRetry()" 
+          class="retry-button"
+          matTooltip="Riprova"
+        >
+          <mat-icon>refresh</mat-icon>
+        </button>
+      </div>
+      <button 
+        *ngIf="showActions" 
+        mat-icon-button 
+        (click)="onDismiss()" 
+        class="dismiss-button"
+        matTooltip="Chiudi"
+      >
+        <mat-icon>close</mat-icon>
+      </button>
+    </div>
+  </div>
+
+  <!-- Full Layout -->
+  <mat-card *ngIf="!compact" class="error-card" [ngClass]="getSeverityClass()">
+    <mat-card-content>
+      <div class="error-header">
+        <mat-icon [ngClass]="getErrorColorClass()" class="error-icon">
+          {{ getErrorIcon() }}
+        </mat-icon>
+        <div class="error-info">
+          <h3 class="error-title">{{ error.title }}</h3>
+          <p class="error-message">{{ error.message }}</p>
+        </div>
+      </div>
+
+      <!-- Error Details (expandable) -->
+      <div *ngIf="showDetails && error.details" class="error-details">
+        <details>
+          <summary>Dettagli tecnici</summary>
+          <pre class="error-details-text">{{ error.details }}</pre>
+        </details>
+      </div>
+
+      <!-- Actions -->
+      <div *ngIf="showActions" class="error-actions">
+        <!-- Retry Button -->
+        <button 
+          *ngIf="canRetry()" 
+          [attr.mat-raised-button]="getButtonVariant() === 'raised' ? '' : null"
+          [attr.mat-stroked-button]="getButtonVariant() === 'stroked' ? '' : null"
+          color="primary"
+          (click)="onRetry()"
+          class="action-button retry-button"
+        >
+          <mat-icon>refresh</mat-icon>
+          Riprova
+        </button>
+
+        <!-- Custom Action Button -->
+        <button 
+          *ngIf="error.action && !canRetry()"
+          [attr.mat-raised-button]="getButtonVariant() === 'raised' ? '' : null"
+          [attr.mat-stroked-button]="getButtonVariant() === 'stroked' ? '' : null"
+          color="primary"
+          (click)="onAction()"
+          class="action-button"
+        >
+          {{ error.action }}
+        </button>
+
+        <!-- Dismiss Button -->
+        <button 
+          mat-stroked-button
+          (click)="onDismiss()"
+          class="action-button dismiss-button"
+        >
+          <mat-icon>close</mat-icon>
+          Chiudi
+        </button>
+
+        <!-- Back to Shop (for NOT_FOUND errors) -->
+        <button 
+          *ngIf="error.type === ErrorType.NOT_FOUND"
+          mat-stroked-button
+          routerLink="/shop"
+          class="action-button"
+        >
+          <mat-icon>storefront</mat-icon>
+          Vai al catalogo
+        </button>
+
+        <!-- Go Home -->
+        <button 
+          *ngIf="error.severity === ErrorSeverity.CRITICAL"
+          mat-stroked-button
+          routerLink="/"
+          class="action-button"
+        >
+          <mat-icon>home</mat-icon>
+          Torna alla home
+        </button>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>

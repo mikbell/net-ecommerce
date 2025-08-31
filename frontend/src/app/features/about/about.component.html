@@ -1,0 +1,253 @@
+<!-- Page Header -->
+<section class="page-header">
+  <div class="container">
+    <div class="header-content">
+      <h1 class="page-title">{{ projectInfo.title }}</h1>
+      <p class="page-subtitle">Un progetto di portfolio per dimostrare competenze full-stack moderne</p>
+      
+      <!-- Project Status Badge -->
+      <div class="project-status">
+        <mat-chip class="status-chip">
+          <mat-icon>construction</mat-icon>
+          Progetto Portfolio - Non Commerciale
+        </mat-chip>
+        <div class="completion-badge">
+          <span class="completion-text">{{ getCompletionPercentage() }}% Completato</span>
+          <div class="progress-bar">
+            <div class="progress-fill" [style.width.%]="getCompletionPercentage()"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Project Information -->
+<section class="project-info-section">
+  <div class="container">
+    <div class="info-grid">
+      <!-- Project Description Card -->
+      <mat-card class="info-card main-info">
+        <mat-card-header>
+          <mat-icon mat-card-avatar class="info-icon">info</mat-icon>
+          <mat-card-title>Informazioni sul Progetto</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <div class="warning-notice">
+            <mat-icon class="warning-icon">warning</mat-icon>
+            <div class="warning-text">
+              <strong>Attenzione:</strong> Questo NON è un vero e-commerce. 
+              È un progetto dimostrativo per portfolio professionale.
+            </div>
+          </div>
+          
+          <p class="project-description">{{ projectInfo.description }}</p>
+          <p class="project-purpose">{{ projectInfo.purpose }}</p>
+          
+          <div class="project-links">
+            <a href="{{ projectInfo.githubUrl }}" target="_blank" mat-raised-button color="primary">
+              <mat-icon>code</mat-icon>
+              Codice Sorgente
+            </a>
+            <a href="{{ projectInfo.linkedinUrl }}" target="_blank" mat-stroked-button>
+              <mat-icon>person</mat-icon>
+              Profilo LinkedIn
+            </a>
+          </div>
+        </mat-card-content>
+      </mat-card>
+
+      <!-- Features Progress Card -->
+      <mat-card class="info-card features-card">
+        <mat-card-header>
+          <mat-icon mat-card-avatar class="features-icon">checklist</mat-icon>
+          <mat-card-title>Stato Implementazione</mat-card-title>
+          <mat-card-subtitle>{{ getImplementedCount() }} di {{ getTotalFeaturesCount() }} funzionalità</mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content>
+          <div class="features-list">
+            <div class="feature-item" *ngFor="let feature of implementedFeatures">
+              <div class="feature-status">
+                <mat-icon 
+                  [class]="feature.implemented ? 'status-done' : 'status-pending'"
+                  [ngClass]="{
+                    'text-green-600': feature.implemented,
+                    'text-gray-400': !feature.implemented
+                  }"
+                >
+                  {{ feature.implemented ? 'check_circle' : 'radio_button_unchecked' }}
+                </mat-icon>
+              </div>
+              <div class="feature-content">
+                <div class="feature-header">
+                  <mat-icon class="feature-icon">{{ feature.icon }}</mat-icon>
+                  <span class="feature-title" [class.completed]="feature.implemented">
+                    {{ feature.title }}
+                  </span>
+                </div>
+                <p class="feature-description">{{ feature.description }}</p>
+              </div>
+            </div>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
+</section>
+
+<!-- Tech Stack Section -->
+<section class="tech-stack-section">
+  <div class="container">
+    <div class="section-header">
+      <h2 class="section-title">Tech Stack</h2>
+      <p class="section-subtitle">
+        Tecnologie moderne utilizzate per creare un'applicazione robusta e scalabile
+      </p>
+    </div>
+
+    <!-- Tech Categories -->
+    <div class="tech-categories">
+      <div class="tech-category" *ngFor="let category of getCategories()">
+        <h3 class="category-title">
+          <mat-icon class="category-icon">
+            {{ category === 'Frontend' ? 'web' : 
+               category === 'Backend' ? 'dns' : 
+               category === 'Database' ? 'storage' : 'build' }}
+          </mat-icon>
+          {{ category }}
+        </h3>
+        
+        <div class="tech-grid">
+          <div class="tech-card" *ngFor="let tech of getCategoryTechs(category)">
+            <div class="tech-header">
+              <mat-icon class="tech-icon" [style.color]="tech.color">{{ tech.icon }}</mat-icon>
+              <div class="tech-info">
+                <h4 class="tech-name">{{ tech.name }}</h4>
+                <span class="tech-version" *ngIf="tech.version">v{{ tech.version }}</span>
+              </div>
+            </div>
+            <p class="tech-description">{{ tech.description }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Architecture Overview -->
+<section class="architecture-section">
+  <div class="container">
+    <div class="section-header">
+      <h2 class="section-title">Architettura del Sistema</h2>
+      <p class="section-subtitle">
+        Struttura modulare e scalabile seguendo le best practices moderne
+      </p>
+    </div>
+
+    <div class="architecture-grid">
+      <!-- Frontend Architecture -->
+      <mat-card class="arch-card">
+        <mat-card-header>
+          <mat-icon mat-card-avatar class="arch-icon frontend">web</mat-icon>
+          <mat-card-title>Frontend (SPA)</mat-card-title>
+          <mat-card-subtitle>Angular + Material Design</mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content>
+          <ul class="arch-features">
+            <li><mat-icon>check</mat-icon> Componenti standalone</li>
+            <li><mat-icon>check</mat-icon> Lazy loading per performance</li>
+            <li><mat-icon>check</mat-icon> RxJS per state management</li>
+            <li><mat-icon>check</mat-icon> HTTP Interceptors</li>
+            <li><mat-icon>check</mat-icon> Error handling centralizzato</li>
+            <li><mat-icon>check</mat-icon> Design system consistente</li>
+          </ul>
+        </mat-card-content>
+      </mat-card>
+
+      <!-- Backend Architecture -->
+      <mat-card class="arch-card">
+        <mat-card-header>
+          <mat-icon mat-card-avatar class="arch-icon backend">dns</mat-icon>
+          <mat-card-title>Backend (API)</mat-card-title>
+          <mat-card-subtitle>.NET 8 Web API</mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content>
+          <ul class="arch-features">
+            <li><mat-icon>check</mat-icon> Repository Pattern</li>
+            <li><mat-icon>check</mat-icon> Specification Pattern</li>
+            <li><mat-icon>check</mat-icon> DTO mapping con AutoMapper</li>
+            <li><mat-icon>check</mat-icon> Validation & Error handling</li>
+            <li><mat-icon>check</mat-icon> Swagger documentation</li>
+            <li><mat-icon>check</mat-icon> CORS configuration</li>
+          </ul>
+        </mat-card-content>
+      </mat-card>
+
+      <!-- Database Architecture -->
+      <mat-card class="arch-card">
+        <mat-card-header>
+          <mat-icon mat-card-avatar class="arch-icon database">storage</mat-icon>
+          <mat-card-title>Database</mat-card-title>
+          <mat-card-subtitle>Entity Framework Core</mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content>
+          <ul class="arch-features">
+            <li><mat-icon>check</mat-icon> Code First migrations</li>
+            <li><mat-icon>check</mat-icon> Entity relationships</li>
+            <li><mat-icon>check</mat-icon> Data annotations</li>
+            <li><mat-icon>check</mat-icon> Generic repository</li>
+            <li><mat-icon>check</mat-icon> Specification queries</li>
+            <li><mat-icon>check</mat-icon> Connection management</li>
+          </ul>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
+</section>
+
+<!-- BusyService Test Section (Development Only) -->
+<section class="test-section" style="padding: 4rem 0; background: #f8fafc;">
+  <div class="container">
+    <h2 style="text-align: center; font-size: 2.5rem; font-weight: 700; color: #1f2937; margin-bottom: 1rem;">🔧 BusyService Testing</h2>
+    <p style="text-align: center; font-size: 1.1rem; color: #6b7280; max-width: 600px; margin: 0 auto 3rem; line-height: 1.6;">Componente di test per verificare il funzionamento del BusyService globale e la progress bar nell'header</p>
+    <app-busy-test></app-busy-test>
+  </div>
+</section>
+
+<!-- Contact & Links -->
+<section class="contact-section">
+  <div class="container">
+    <mat-card class="contact-card">
+      <mat-card-content>
+        <div class="contact-content">
+          <div class="contact-info">
+            <mat-icon class="contact-main-icon">person</mat-icon>
+            <h3>Sviluppato con Passione</h3>
+            <p>
+              Questo progetto rappresenta il mio impegno nel creare applicazioni web moderne, 
+              efficienti e user-friendly utilizzando le più recenti tecnologie disponibili.
+            </p>
+          </div>
+          
+          <div class="contact-actions">
+            <h4>Connettiti con me:</h4>
+            <div class="social-links">
+              <a href="{{ projectInfo.githubUrl }}" target="_blank" mat-raised-button class="github-btn">
+                <mat-icon>code</mat-icon>
+                GitHub
+              </a>
+              <a href="{{ projectInfo.linkedinUrl }}" target="_blank" mat-raised-button class="linkedin-btn">
+                <mat-icon>business</mat-icon>
+                LinkedIn
+              </a>
+              <button mat-stroked-button routerLink="/shop" class="demo-btn">
+                <mat-icon>storefront</mat-icon>
+                Esplora la Demo
+              </button>
+            </div>
+          </div>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</section>

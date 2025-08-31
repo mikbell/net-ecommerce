@@ -12,6 +12,9 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { Product } from '../../../shared/models/product';
 import { ShopService } from '../../../core/services/shop.service';
+import { ErrorHandlingService } from '../../../core/services/error-handling.service';
+import { UserError, ErrorType, ErrorSeverity } from '../../../shared/models/error';
+import { ErrorDisplayComponent } from '../../../shared/components/error-display/error-display.component';
 
 @Component({
   selector: 'app-product-details',
@@ -27,7 +30,8 @@ import { ShopService } from '../../../core/services/shop.service';
     MatBadgeModule,
     MatChipsModule,
     MatProgressSpinnerModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    ErrorDisplayComponent
   ],
   templateUrl: './product-details.component.html',
   styleUrl: './product-details.component.scss'
@@ -37,12 +41,15 @@ export class ProductDetailsComponent implements OnInit {
   private router = inject(Router);
   private shopService = inject(ShopService);
   private snackBar = inject(MatSnackBar);
+  private errorHandlingService = inject(ErrorHandlingService);
 
   product: Product | null = null;
   quantity: number = 1;
   isLoading = true;
-  error: string | null = null;
+  error: UserError | null = null;
   maxQuantity = 10; // Default max quantity
+  retryCount = 0;
+  maxRetries = 3;
 
   ngOnInit(): void {
     this.loadProduct();
@@ -52,31 +59,79 @@ export class ProductDetailsComponent implements OnInit {
     const id = this.route.snapshot.paramMap.get('id');
     
     if (!id) {
-      this.error = 'ID prodotto non valido';
-      this.isLoading = false;
+      this.handleInvalidId('ID mancante');
       return;
     }
 
     const productId = parseInt(id, 10);
     
     if (isNaN(productId) || productId <= 0) {
-      this.error = 'ID prodotto non valido';
-      this.isLoading = false;
+      this.handleInvalidId('ID non valido');
       return;
     }
 
+    this.isLoading = true;
+    this.error = null;
+
     this.shopService.getProduct(productId).subscribe({
       next: (product) => {
-        this.product = product;
-        this.maxQuantity = Math.min(product.quantityInStock, 10);
-        this.isLoading = false;
+        this.handleProductLoaded(product);
       },
-      error: (error) => {
-        console.error('Error loading product:', error);
-        this.error = 'Prodotto non trovato';
-        this.isLoading = false;
+      error: (httpError) => {
+        this.handleLoadError(httpError, productId);
       }
     });
+  }
+
+  private handleInvalidId(details: string): void {
+    this.error = {
+      type: ErrorType.VALIDATION,
+      severity: ErrorSeverity.ERROR,
+      title: 'Prodotto non valido',
+      message: 'L\'ID del prodotto specificato non è valido.',
+      details: details,
+      action: 'Torna al catalogo'
+    };
+    this.isLoading = false;
+  }
+
+  private handleProductLoaded(product: Product): void {
+    this.product = product;
+    this.maxQuantity = Math.min(product.quantityInStock, 10);
+    this.error = null;
+    this.isLoading = false;
+    this.retryCount = 0;
+    
+    // Log successful load for analytics
+    console.log(`Product loaded successfully: ${product.name} (ID: ${product.id})`);
+  }
+
+  private handleLoadError(httpError: any, productId: number): void {
+    this.isLoading = false;
+    
+    const userError = this.errorHandlingService.handleHttpError(httpError, {
+      url: `/products/${productId}`,
+      method: 'GET'
+    });
+
+    // Customize error message for product context
+    if (httpError.status === 404) {
+      this.error = {
+        ...userError,
+        title: 'Prodotto non trovato',
+        message: 'Il prodotto che stai cercando non esiste o non è più disponibile.',
+        action: 'Vai al catalogo'
+      };
+    } else if (httpError.status === 0) {
+      this.error = {
+        ...userError,
+        title: 'Errore di connessione',
+        message: 'Impossibile caricare i dettagli del prodotto. Controlla la connessione internet.',
+        action: 'Riprova'
+      };
+    } else {
+      this.error = userError;
+    }
   }
 
   onQuantityChange(event: any): void {
@@ -148,5 +203,40 @@ export class ProductDetailsComponent implements OnInit {
       style: 'currency',
       currency: 'EUR'
     }).format(price);
+  }
+
+  // Error handling action methods
+  onRetryClick(): void {
+    if (this.retryCount < this.maxRetries) {
+      this.retryCount++;
+      console.log(`Retrying product load (attempt ${this.retryCount}/${this.maxRetries})`);
+      this.loadProduct();
+    } else {
+      this.errorHandlingService.showError({
+        type: ErrorType.UNKNOWN,
+        severity: ErrorSeverity.ERROR,
+        title: 'Troppi tentativi',
+        message: 'Massimo numero di tentativi raggiunto. Riprova più tardi.',
+        action: 'Torna al catalogo'
+      });
+    }
+  }
+
+  onErrorDismiss(): void {
+    this.error = null;
+  }
+
+  onErrorAction(action: string): void {
+    switch (action) {
+      case 'Riprova':
+        this.onRetryClick();
+        break;
+      case 'Torna al catalogo':
+      case 'Vai al catalogo':
+        this.router.navigate(['/shop']);
+        break;
+      default:
+        this.onErrorDismiss();
+    }
   }
 }

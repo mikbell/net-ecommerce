@@ -1,1 +1,175 @@
-<p>home works!</p>
+<!-- Hero Section -->
+<section class="hero-section">
+  <div class="hero-content">
+    <div class="hero-text">
+      <h1 class="hero-title">{{ heroData.title }}</h1>
+      <p class="hero-subtitle">{{ heroData.subtitle }}</p>
+      
+      <div class="hero-actions">
+        <button mat-raised-button color="primary" class="cta-primary" routerLink="/shop">
+          <mat-icon>shopping_bag</mat-icon>
+          {{ heroData.ctaText }}
+        </button>
+        <button mat-stroked-button class="cta-secondary" (click)="scrollToProducts()">
+          <mat-icon>local_offer</mat-icon>
+          {{ heroData.ctaSecondary }}
+        </button>
+      </div>
+    </div>
+    
+    <!-- Stats Cards -->
+    <div class="hero-stats">
+      <div class="stat-card" *ngFor="let stat of stats">
+        <mat-icon class="stat-icon">{{ stat.icon }}</mat-icon>
+        <div class="stat-content">
+          <span class="stat-value">{{ stat.value }}</span>
+          <span class="stat-label">{{ stat.label }}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Scroll Down Indicator -->
+  <div class="scroll-indicator" (click)="scrollToProducts()">
+    <mat-icon>keyboard_arrow_down</mat-icon>
+  </div>
+</section>
+
+<!-- Featured Products Section -->
+<section id="featured-products" class="featured-products-section">
+  <div class="section-container">
+    <!-- Section Header -->
+    <div class="section-header">
+      <h2 class="section-title">Prodotti in Evidenza</h2>
+      <p class="section-subtitle">
+        Scopri la nostra selezione dei migliori prodotti, scelti appositamente per te
+      </p>
+      <a mat-stroked-button routerLink="/shop" class="view-all-btn">
+        Vedi Tutti i Prodotti
+        <mat-icon>arrow_forward</mat-icon>
+      </a>
+    </div>
+
+    <!-- Error State -->
+    <app-error-display
+      *ngIf="error"
+      [error]="error"
+      [compact]="true"
+      [showDetails]="false"
+      (retry)="onRetryLoadProducts()"
+      (dismiss)="onErrorDismiss()"
+      (action)="onErrorAction($event)"
+    ></app-error-display>
+
+    <!-- Products Grid -->
+    <div *ngIf="!error && featuredProducts.length > 0" class="products-grid">
+      <div class="product-card" *ngFor="let product of featuredProducts; trackBy: trackByProductId">
+        <div class="product-image-container" [routerLink]="['/shop', product.id]">
+          <img 
+            [src]="product.pictureUrl" 
+            [alt]="product.name"
+            class="product-image"
+            (error)="$any($event.target).style.display='none'; $any($event.target).nextElementSibling.style.display='flex'"
+          />
+          <div class="image-placeholder" style="display: none;">
+            <mat-icon class="placeholder-icon">image</mat-icon>
+            <span>Immagine non disponibile</span>
+          </div>
+          
+          <!-- Discount Badge -->
+          <div *ngIf="product.discount" class="discount-badge">
+            -{{ product.discount }}%
+          </div>
+        </div>
+        
+        <div class="product-info">
+          <div class="product-header">
+            <mat-chip class="brand-chip">{{ product.brand }}</mat-chip>
+            <h3 class="product-name" [routerLink]="['/shop', product.id]">{{ product.name }}</h3>
+            <p class="product-type">{{ product.type }}</p>
+          </div>
+          
+          <div class="product-pricing">
+            <span class="current-price">{{ formatPrice(product.price) }}</span>
+            <span *ngIf="getDiscountedPrice(product)" class="original-price">
+              {{ formatPrice(getDiscountedPrice(product)!) }}
+            </span>
+          </div>
+          
+          <!-- Stock Status -->
+          <div class="stock-status">
+            <mat-icon 
+              class="stock-icon" 
+              [ngClass]="{
+                'stock-available': product.quantityInStock > 5,
+                'stock-low': product.quantityInStock <= 5 && product.quantityInStock > 0,
+                'stock-out': product.quantityInStock === 0
+              }"
+            >
+              {{ product.quantityInStock > 0 ? 'check_circle' : 'cancel' }}
+            </mat-icon>
+            <span class="stock-text">
+              {{ product.quantityInStock > 0 ? 'Disponibile' : 'Esaurito' }}
+            </span>
+          </div>
+        </div>
+        
+        <!-- Product Actions -->
+        <div class="product-actions">
+          <button mat-raised-button color="primary" class="add-to-cart-btn" 
+            [disabled]="product.quantityInStock === 0"
+            [routerLink]="['/shop', product.id]">
+            <mat-icon>{{ product.quantityInStock > 0 ? 'add_shopping_cart' : 'remove_shopping_cart' }}</mat-icon>
+            {{ product.quantityInStock > 0 ? 'Aggiungi al Carrello' : 'Non Disponibile' }}
+          </button>
+          
+          <button mat-icon-button class="wishlist-btn" matTooltip="Aggiungi ai preferiti">
+            <mat-icon>favorite_border</mat-icon>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Empty State -->
+    <div *ngIf="!error && featuredProducts.length === 0" class="empty-state">
+      <mat-icon class="empty-icon">inventory_2</mat-icon>
+      <h3>Nessun prodotto disponibile</h3>
+      <p>Non ci sono prodotti in evidenza al momento. Torna più tardi!</p>
+      <button mat-raised-button color="primary" routerLink="/shop">
+        Esplora Tutti i Prodotti
+      </button>
+    </div>
+  </div>
+</section>
+
+<!-- Features Section -->
+<section class="features-section">
+  <div class="section-container">
+    <h2 class="section-title">Perché Scegliere Noi?</h2>
+    <div class="features-grid">
+      <div class="feature-card">
+        <mat-icon class="feature-icon">local_shipping</mat-icon>
+        <h3 class="feature-title">Spedizione Veloce</h3>
+        <p class="feature-description">Consegna gratuita in 24-48 ore per ordini sopra i €50</p>
+      </div>
+      
+      <div class="feature-card">
+        <mat-icon class="feature-icon">security</mat-icon>
+        <h3 class="feature-title">Pagamenti Sicuri</h3>
+        <p class="feature-description">Transazioni protette con crittografia SSL avanzata</p>
+      </div>
+      
+      <div class="feature-card">
+        <mat-icon class="feature-icon">support_agent</mat-icon>
+        <h3 class="feature-title">Supporto 24/7</h3>
+        <p class="feature-description">Il nostro team è sempre a tua disposizione per aiutarti</p>
+      </div>
+      
+      <div class="feature-card">
+        <mat-icon class="feature-icon">verified</mat-icon>
+        <h3 class="feature-title">Qualità Garantita</h3>
+        <p class="feature-description">Solo prodotti di alta qualità da fornitori certificati</p>
+      </div>
+    </div>
+  </div>
+</section>

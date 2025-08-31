@@ -1,6 +1,13 @@
 <header
-  class="w-full bg-white border-b border-gray-200 sticky top-0 z-50 backdrop-blur-md"
+  class="header-container"
 >
+  <!-- Progress Bar -->
+  <mat-progress-bar
+    *ngIf="busyService.isBusy$ | async"
+    mode="indeterminate"
+    class="progress-bar"
+  >
+  </mat-progress-bar>
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <div class="flex items-center justify-between h-16 lg:h-20">
       <!-- Logo Section -->
@@ -48,6 +55,7 @@
         <div class="hidden sm:flex items-center space-x-3">
           <button class="btn-ghost">Accedi</button>
           <button class="btn-primary">Registrati</button>
+          <button class="btn-ghost" (click)="testProgressBar()" title="Test Progress Bar">🧪</button>
         </div>
 
         <!-- Mobile Menu -->
@@ -74,7 +82,7 @@
           >Shop</a
         >
         <a
-          routerLink="about"
+          routerLink="/about"
           class="block py-3 px-4 text-gray-700 hover:bg-gray-50 rounded-xl transition-colors duration-200"
           >About</a
         >

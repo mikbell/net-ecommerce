@@ -1,11 +1,24 @@
-import { Component } from '@angular/core';
+import { MatProgressBar } from '@angular/material/progress-bar';
+import { Component, inject } from '@angular/core';
 import { MatIcon } from '@angular/material/icon';
 import { RouterLink, RouterLinkActive } from '@angular/router';
+import { CommonModule } from '@angular/common';
+import { BusyService } from '../../core/services/busy.service';
 
 @Component({
   selector: 'app-header',
-  imports: [MatIcon, RouterLink, RouterLinkActive],
+  imports: [MatIcon, MatProgressBar, RouterLink, RouterLinkActive, CommonModule],
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss',
 })
-export class HeaderComponent {}
+export class HeaderComponent {
+  busyService = inject(BusyService);
+  
+  // Test method to trigger progress bar (remove in production)
+  testProgressBar() {
+    this.busyService.setBusy();
+    setTimeout(() => {
+      this.busyService.setIdle();
+    }, 3000);
+  }
+}
