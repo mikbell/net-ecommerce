@@ -12,39 +12,6 @@
 
   <!-- Content -->
   <div class="dialog-content">
-    <!-- Price Range -->
-    <div class="filter-section">
-      <div class="section-header">
-        <mat-icon class="section-icon">euro</mat-icon>
-        <h3 class="section-title">Fascia di prezzo</h3>
-      </div>
-      <div class="price-range-container">
-        <div class="price-inputs">
-          <div class="price-input-group">
-            <label class="price-label">Min</label>
-            <input 
-              type="number" 
-              class="price-input" 
-              placeholder="0"
-              [(ngModel)]="minPrice"
-              min="0"
-            >
-          </div>
-          <div class="price-separator">-</div>
-          <div class="price-input-group">
-            <label class="price-label">Max</label>
-            <input 
-              type="number" 
-              class="price-input" 
-              placeholder="1000"
-              [(ngModel)]="maxPrice"
-              min="0"
-            >
-          </div>
-        </div>
-      </div>
-    </div>
-
     <div class="filters-grid">
       <!-- Tipi -->
       <div class="filter-section">
@@ -53,7 +20,10 @@
           <h3 class="section-title">Categorie</h3>
         </div>
         <div class="filter-options">
-          <mat-selection-list [(ngModel)]="selectedTypes" class="custom-selection-list">
+          <mat-selection-list
+            [(ngModel)]="selectedTypes"
+            class="custom-selection-list"
+          >
             @for (type of ShopService.types; track $index) {
             <mat-list-option [value]="type" class="filter-option">
               <div class="option-content">
@@ -73,7 +43,10 @@
           <h3 class="section-title">Marchi</h3>
         </div>
         <div class="filter-options">
-          <mat-selection-list [(ngModel)]="selectedBrands" class="custom-selection-list">
+          <mat-selection-list
+            [(ngModel)]="selectedBrands"
+            class="custom-selection-list"
+          >
             @for (brand of ShopService.brands; track $index) {
             <mat-list-option [value]="brand" class="filter-option">
               <div class="option-content">
@@ -87,48 +60,19 @@
       </div>
     </div>
 
-    <!-- Quick Filters -->
-    <div class="filter-section">
-      <div class="section-header">
-        <mat-icon class="section-icon">flash_on</mat-icon>
-        <h3 class="section-title">Filtri rapidi</h3>
-      </div>
-      <div class="quick-filters">
-        <button class="quick-filter-chip" [class.active]="quickFilter === 'new'">
-          <mat-icon>fiber_new</mat-icon>
-          <span>Novità</span>
+    <!-- Footer Actions -->
+    <div class="dialog-footer">
+      <div class="footer-actions">
+        <button class="btn-secondary" (click)="resetFilters()">
+          <mat-icon>refresh</mat-icon>
+          <span>Reset</span>
         </button>
-        <button class="quick-filter-chip" [class.active]="quickFilter === 'popular'">
-          <mat-icon>trending_up</mat-icon>
-          <span>Popolari</span>
-        </button>
-        <button class="quick-filter-chip" [class.active]="quickFilter === 'sale'">
-          <mat-icon>local_offer</mat-icon>
-          <span>In offerta</span>
-        </button>
-        <button class="quick-filter-chip" [class.active]="quickFilter === 'rating'">
-          <mat-icon>star</mat-icon>
-          <span>Più votati</span>
-        </button>
-      </div>
-    </div>
-  </div>
-
-  <!-- Footer Actions -->
-  <div class="dialog-footer">
-    <div class="footer-actions">
-      <button class="btn-secondary" (click)="resetFilters()">
-        <mat-icon>refresh</mat-icon>
-        <span>Reset</span>
-      </button>
-      <div class="primary-actions">
-        <button class="btn-ghost" mat-dialog-close>
-          Annulla
-        </button>
-        <button class="btn-primary" (click)="applyFilters()">
-          <mat-icon>check</mat-icon>
-          <span>Applica filtri</span>
-        </button>
+        <div class="primary-actions">
+          <button class="btn-primary" (click)="applyFilters()">
+            <mat-icon>check</mat-icon>
+            <span>Applica filtri</span>
+          </button>
+        </div>
       </div>
     </div>
   </div>

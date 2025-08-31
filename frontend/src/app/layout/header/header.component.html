@@ -1,48 +1,39 @@
-<header class="w-full bg-white border-b border-gray-200 sticky top-0 z-50 backdrop-blur-md">
+<header
+  class="w-full bg-white border-b border-gray-200 sticky top-0 z-50 backdrop-blur-md"
+>
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <div class="flex items-center justify-between h-16 lg:h-20">
       <!-- Logo Section -->
-      <div class="flex items-center space-x-4">
-        <div class="flex-shrink-0">
-          <div class="flex items-center gap-3">
-            <div class="w-10 h-10 bg-gradient-to-br from-primary-500 to-accent-500 rounded-xl flex items-center justify-center">
-              <mat-icon class="text-white text-2xl">storefront</mat-icon>
-            </div>
-            <div class="hidden sm:block">
-              <h1 class="text-xl font-bold text-gray-900">ShopHub</h1>
-              <p class="text-xs text-gray-500 -mt-1">Your favorite store</p>
-            </div>
-          </div>
-        </div>
-      </div>
+      <img
+        routerLink="/"
+        src="assets/images/logo.svg"
+        alt="Logo"
+        class="h-6 lg:h-8"
+      />
 
       <!-- Navigation -->
       <nav class="hidden lg:flex items-center space-x-8">
-        <a href="#" class="nav-link group">
+        <a
+          routerLink="/"
+          routerLinkActive="active"
+          class="nav-link group"
+          [routerLinkActiveOptions]="{ exact: true }"
+        >
           <span class="nav-text">Home</span>
           <div class="nav-underline"></div>
         </a>
-        <a href="#" class="nav-link group">
+        <a routerLink="/shop" routerLinkActive="active" class="nav-link group">
           <span class="nav-text">Shop</span>
           <div class="nav-underline"></div>
         </a>
-        <a href="#" class="nav-link group">
-          <span class="nav-text">Categories</span>
-          <div class="nav-underline"></div>
-        </a>
-        <a href="#" class="nav-link group">
+        <a routerLink="/about" routerLinkActive="active" class="nav-link group">
           <span class="nav-text">About</span>
-          <div class="nav-underline"></div>
-        </a>
-        <a href="#" class="nav-link group">
-          <span class="nav-text">Contact</span>
           <div class="nav-underline"></div>
         </a>
       </nav>
 
       <!-- Actions -->
       <div class="flex items-center space-x-4">
-
         <!-- Cart -->
         <div class="relative">
           <button class="cart-button group">
@@ -70,25 +61,25 @@
   <!-- Mobile Navigation Overlay (add this to the component logic) -->
   <div class="lg:hidden mobile-nav hidden">
     <div class="bg-white border-t border-gray-200 px-4 py-6 space-y-4">
-      <!-- Mobile Search -->
-      <div class="relative mb-6">
-        <input 
-          type="search" 
-          placeholder="Cerca prodotti..."
-          class="w-full pl-10 pr-4 py-3 bg-gray-50 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-primary-200 focus:border-primary-500"
-        >
-        <mat-icon class="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400">search</mat-icon>
-      </div>
-      
       <!-- Mobile Navigation Links -->
       <div class="space-y-3">
-        <a href="#" class="block py-3 px-4 text-gray-700 hover:bg-gray-50 rounded-xl transition-colors duration-200">Home</a>
-        <a href="#" class="block py-3 px-4 text-gray-700 hover:bg-gray-50 rounded-xl transition-colors duration-200">Shop</a>
-        <a href="#" class="block py-3 px-4 text-gray-700 hover:bg-gray-50 rounded-xl transition-colors duration-200">Categories</a>
-        <a href="#" class="block py-3 px-4 text-gray-700 hover:bg-gray-50 rounded-xl transition-colors duration-200">About</a>
-        <a href="#" class="block py-3 px-4 text-gray-700 hover:bg-gray-50 rounded-xl transition-colors duration-200">Contact</a>
+        <a
+          routerLink="/"
+          class="block py-3 px-4 text-gray-700 hover:bg-gray-50 rounded-xl transition-colors duration-200"
+          >Home</a
+        >
+        <a
+          routerLink="/shop"
+          class="block py-3 px-4 text-gray-700 hover:bg-gray-50 rounded-xl transition-colors duration-200"
+          >Shop</a
+        >
+        <a
+          routerLink="about"
+          class="block py-3 px-4 text-gray-700 hover:bg-gray-50 rounded-xl transition-colors duration-200"
+          >About</a
+        >
       </div>
-      
+
       <!-- Mobile Auth Buttons -->
       <div class="flex flex-col space-y-3 pt-6 border-t border-gray-200">
         <button class="btn-ghost w-full">Accedi</button>

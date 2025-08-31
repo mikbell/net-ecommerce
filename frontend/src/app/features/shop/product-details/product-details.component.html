@@ -1,0 +1,180 @@
+<!-- Loading State -->
+<div *ngIf="isLoading" class="loading-container">
+  <mat-spinner diameter="50"></mat-spinner>
+  <p class="loading-text">Caricamento prodotto...</p>
+</div>
+
+<!-- Error State -->
+<div *ngIf="error && !isLoading" class="error-container">
+  <mat-icon class="error-icon">error_outline</mat-icon>
+  <h2>{{ error }}</h2>
+  <button mat-raised-button color="primary" (click)="onBackClick()">
+    <mat-icon>arrow_back</mat-icon>
+    Torna al catalogo
+  </button>
+</div>
+
+<!-- Product Details -->
+<div *ngIf="product && !isLoading && !error" class="product-details-container">
+  <!-- Breadcrumbs and Navigation -->
+  <div class="navigation-section">
+    <button mat-icon-button (click)="onBackClick()" class="back-button">
+      <mat-icon>arrow_back</mat-icon>
+    </button>
+    <nav class="breadcrumbs">
+      <a routerLink="/" class="breadcrumb-link">Home</a>
+      <mat-icon class="breadcrumb-separator">chevron_right</mat-icon>
+      <a routerLink="/shop" class="breadcrumb-link">Prodotti</a>
+      <mat-icon class="breadcrumb-separator">chevron_right</mat-icon>
+      <span class="breadcrumb-current">{{ product.name }}</span>
+    </nav>
+  </div>
+
+  <!-- Main Product Content -->
+  <div class="product-content">
+    <!-- Product Image Section -->
+    <div class="product-image-section">
+      <div class="main-image-container">
+        <img 
+          [src]="product.pictureUrl" 
+          [alt]="product.name"
+          class="main-image"
+          (error)="$any($event.target).style.display='none'; $any($event.target).nextElementSibling.style.display='flex'"
+        />
+        <div class="image-placeholder" style="display: none;">
+          <mat-icon class="placeholder-icon">image</mat-icon>
+          <span>Immagine non disponibile</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Product Info Section -->
+    <div class="product-info-section">
+      <!-- Product Header -->
+      <div class="product-header">
+        <mat-chip class="brand-chip">{{ product.brand }}</mat-chip>
+        <h1 class="product-title">{{ product.name }}</h1>
+        <p class="product-type">{{ product.type }}</p>
+      </div>
+
+      <!-- Product Price -->
+      <div class="price-section">
+        <div class="current-price">{{ formatPrice(product.price) }}</div>
+        <div *ngIf="product.originalPrice && product.originalPrice > product.price" class="original-price">
+          {{ formatPrice(product.originalPrice) }}
+        </div>
+        <div *ngIf="product.discount" class="discount-badge">
+          -{{ product.discount }}%
+        </div>
+      </div>
+
+      <!-- Stock Status -->
+      <div class="stock-section">
+        <mat-icon 
+          [class]="'stock-icon ' + getStockStatusClass()"
+          [ngClass]="{
+            'text-green-500': isInStock() && product.quantityInStock >= 5,
+            'text-orange-500': isInStock() && product.quantityInStock < 5,
+            'text-red-500': !isInStock()
+          }"
+        >
+          {{ isInStock() ? 'check_circle' : 'cancel' }}
+        </mat-icon>
+        <span [class]="'stock-text ' + getStockStatusClass()">
+          {{ getStockStatusText() }}
+        </span>
+      </div>
+
+      <!-- Product Description -->
+      <div class="description-section">
+        <h3>Descrizione</h3>
+        <p class="description-text">{{ product.description }}</p>
+      </div>
+
+      <!-- Quantity and Add to Cart -->
+      <div class="purchase-section" *ngIf="isInStock()">
+        <div class="quantity-section">
+          <label class="quantity-label">Quantità:</label>
+          <div class="quantity-controls">
+            <button 
+              mat-icon-button 
+              (click)="decreaseQuantity()"
+              [disabled]="quantity <= 1"
+              class="quantity-btn"
+            >
+              <mat-icon>remove</mat-icon>
+            </button>
+            
+            <mat-form-field appearance="outline" class="quantity-input">
+              <input 
+                matInput 
+                type="number" 
+                [value]="quantity"
+                (input)="onQuantityChange($event)"
+                [min]="1"
+                [max]="maxQuantity"
+                class="quantity-field"
+              />
+            </mat-form-field>
+            
+            <button 
+              mat-icon-button 
+              (click)="increaseQuantity()"
+              [disabled]="quantity >= maxQuantity"
+              class="quantity-btn"
+            >
+              <mat-icon>add</mat-icon>
+            </button>
+          </div>
+        </div>
+
+        <button 
+          mat-raised-button 
+          color="primary" 
+          (click)="addToCart()"
+          class="add-to-cart-btn"
+        >
+          <mat-icon>shopping_cart</mat-icon>
+          Aggiungi al carrello
+        </button>
+      </div>
+
+      <!-- Out of Stock Message -->
+      <div class="out-of-stock-section" *ngIf="!isInStock()">
+        <button mat-stroked-button disabled class="out-of-stock-btn">
+          <mat-icon>remove_shopping_cart</mat-icon>
+          Non disponibile
+        </button>
+        <p class="out-of-stock-text">
+          Questo prodotto è attualmente esaurito. Controlla più tardi per verificare la disponibilità.
+        </p>
+      </div>
+
+      <!-- Product Specifications -->
+      <div class="specifications-section">
+        <h3>Specifiche prodotto</h3>
+        <div class="spec-grid">
+          <div class="spec-item">
+            <span class="spec-label">Marca:</span>
+            <span class="spec-value">{{ product.brand }}</span>
+          </div>
+          <div class="spec-item">
+            <span class="spec-label">Categoria:</span>
+            <span class="spec-value">{{ product.type }}</span>
+          </div>
+          <div class="spec-item">
+            <span class="spec-label">Disponibilità:</span>
+            <span class="spec-value">{{ product.quantityInStock }} pezzi</span>
+          </div>
+          <div class="spec-item" *ngIf="product.rating">
+            <span class="spec-label">Valutazione:</span>
+            <span class="spec-value">
+              {{ product.rating }}/5 
+              <span *ngIf="product.reviewCount">({{ product.reviewCount }} recensioni)</span>
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
