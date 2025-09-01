@@ -118,17 +118,7 @@
               <mat-icon>remove</mat-icon>
             </button>
 
-            <mat-form-field appearance="outline" class="quantity-input">
-              <input
-                matInput
-                type="number"
-                [value]="quantity"
-                (input)="onQuantityChange($event)"
-                [min]="1"
-                [max]="maxQuantity"
-                class="quantity-field"
-              />
-            </mat-form-field>
+            <span>{{ quantity }}</span>
 
             <button
               mat-icon-button
@@ -150,20 +140,20 @@
           class="add-to-cart-btn"
         >
           @if (isAddingToCart) {
-            <ng-container>
-              <mat-icon class="mr-2 spinning">refresh</mat-icon>
-              <span>Aggiungendo...</span>
-            </ng-container>
+          <ng-container>
+            <mat-icon class="mr-2 spinning">refresh</mat-icon>
+            <span>Aggiungendo...</span>
+          </ng-container>
           } @else if (isInCart()) {
-            <ng-container>
-              <mat-icon class="mr-2">check_circle</mat-icon>
-              <span>Nel carrello ({{ getQuantityInCart() }})</span>
-            </ng-container>
+          <ng-container>
+            <mat-icon class="mr-2">check_circle</mat-icon>
+            <span>Nel carrello ({{ getQuantityInCart() }})</span>
+          </ng-container>
           } @else {
-            <ng-container>
-              <mat-icon class="mr-2">add_shopping_cart</mat-icon>
-              <span>Aggiungi al carrello</span>
-            </ng-container>
+          <ng-container>
+            <mat-icon class="mr-2">add_shopping_cart</mat-icon>
+            <span>Aggiungi al carrello</span>
+          </ng-container>
           }
         </button>
       </div>

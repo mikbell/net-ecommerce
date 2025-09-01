@@ -48,7 +48,7 @@
             mat-stroked-button
             color="warn"
             (click)="clearCart()"
-            [disabled]="isLoading"
+            [disabled]="busyService.isBusy$ | async"
             class="clear-cart-btn"
           >
             <mat-icon>delete</mat-icon>
@@ -90,30 +90,18 @@
                 <button
                   mat-icon-button
                   (click)="updateQuantity(item.productId, item.quantity - 1)"
-                  [disabled]="isLoading || item.quantity <= 1"
+                  [disabled]="(busyService.isBusy$ | async) || item.quantity <= 1"
                   class="quantity-btn"
                 >
                   <mat-icon>remove</mat-icon>
                 </button>
 
-                <mat-form-field appearance="outline" class="quantity-input">
-                  <input
-                    matInput
-                    type="number"
-                    [value]="item.quantity"
-                    (change)="
-                      updateQuantity(item.productId, $any($event.target).value)
-                    "
-                    min="1"
-                    [disabled]="isLoading"
-                    class="quantity-field"
-                  />
-                </mat-form-field>
+                <span>{{ item.quantity }}</span>
 
                 <button
                   mat-icon-button
                   (click)="updateQuantity(item.productId, item.quantity + 1)"
-                  [disabled]="isLoading"
+                  [disabled]="busyService.isBusy$ | async"
                   class="quantity-btn"
                 >
                   <mat-icon>add</mat-icon>
@@ -130,7 +118,7 @@
                 mat-icon-button
                 color="warn"
                 (click)="removeItem(item.productId)"
-                [disabled]="isLoading"
+                [disabled]="busyService.isBusy$ | async"
                 class="remove-btn"
                 matTooltip="Rimuovi prodotto"
               >
@@ -153,8 +141,20 @@
         <div class="summary-details">
           <div class="summary-row">
             <span>Subtotale ({{ cart.totalItems }} articoli)</span>
-            <span>{{ cartTotals?.subtotal | currency : "EUR" }}</span>
+            <span>{{ cart.subtotal | currency : "EUR" }}</span>
           </div>
+
+          @if(cart.appliedDiscount) {
+          <div class="summary-row discount-row">
+            <span>
+              <mat-icon class="discount-icon">local_offer</mat-icon>
+              {{ cart.appliedDiscount.name }}
+            </span>
+            <span class="discount-amount"
+              >-{{ cart.discountAmount | currency : "EUR" }}</span
+            >
+          </div>
+          }
 
           <div class="summary-row">
             <span>Spedizione</span>
@@ -182,10 +182,24 @@
       </mat-card-content>
 
       <mat-card-actions class="summary-actions">
+        <div class="discount-section">
+          <input type="text" placeholder="Codice sconto" #discountCode />
+          <button
+            mat-raised-button
+            color="primary"
+            (click)="applyDiscount(discountCode.value)"
+            [disabled]="busyService.isBusy$ | async"
+            class="apply-discount-btn"
+          >
+            <mat-icon>redeem</mat-icon>
+            Applica Sconto
+          </button>
+        </div>
+
         <button
           mat-raised-button
           color="primary"
-          [disabled]="isLoading"
+          [disabled]="busyService.isBusy$ | async"
           class="checkout-btn"
         >
           <mat-icon>payment</mat-icon>
@@ -205,11 +219,4 @@
   </div>
   }
 
-  <!-- Loading overlay -->
-  @if(isLoading) {
-  <div class="loading-overlay">
-    <mat-spinner diameter="50"></mat-spinner>
-    <p class="loading-text">Aggiornamento carrello...</p>
-  </div>
-  }
 </div>

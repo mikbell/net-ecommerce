@@ -1,33 +1,88 @@
-// Main Container
+// Modern Cart Container with Enhanced Background
 .cart-container {
   max-width: 1200px;
   margin: 0 auto;
   padding: 2rem 1rem;
   min-height: 80vh;
   position: relative;
+  background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+  border-radius: 2rem;
+  
+  @media (max-width: 768px) {
+    border-radius: 1.5rem;
+  }
 }
 
-// Header Section
+// Enhanced Header Section
 .cart-header {
-  margin-bottom: 2rem;
+  margin-bottom: 3rem;
+  text-align: center;
+  position: relative;
   
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: -1rem;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100px;
+    height: 3px;
+    background: linear-gradient(90deg, var(--color-primary), var(--color-accent));
+    border-radius: 2px;
+  }
+
   .cart-title {
     display: flex;
     align-items: center;
-    gap: 0.75rem;
-    font-size: 2.25rem;
-    font-weight: 700;
-    color: #1f2937;
+    justify-content: center;
+    gap: 1rem;
+    font-size: 3rem;
+    font-weight: 800;
     margin: 0;
+    background: linear-gradient(135deg, var(--color-primary), var(--color-accent));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: titleGlow 3s ease-in-out infinite alternate;
     
-    .cart-title-icon {
+    @media (max-width: 768px) {
       font-size: 2.5rem;
-      color: #1976d2;
+    }
+
+    .cart-title-icon {
+      font-size: 3.5rem;
+      background: linear-gradient(135deg, var(--color-primary), var(--color-accent));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      animation: iconBounce 2s ease-in-out infinite;
+      
+      @media (max-width: 768px) {
+        font-size: 3rem;
+      }
     }
   }
 }
 
-// Empty Cart Styles
+@keyframes titleGlow {
+  from {
+    filter: drop-shadow(0 0 5px rgba(99, 102, 241, 0.3));
+  }
+  to {
+    filter: drop-shadow(0 0 15px rgba(99, 102, 241, 0.5));
+  }
+}
+
+@keyframes iconBounce {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-5px) rotate(5deg);
+  }
+}
+
+// Enhanced Empty Cart with Glassmorphism
 .empty-cart {
   display: flex;
   flex-direction: column;
@@ -36,35 +91,88 @@
   text-align: center;
   padding: 4rem 2rem;
   min-height: 400px;
-  
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border-radius: 2rem;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 
+    0 25px 50px rgba(0, 0, 0, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.3);
+  animation: emptyCartFloat 6s ease-in-out infinite;
+
   .empty-cart-icon {
     font-size: 6rem;
     color: #9ca3af;
     margin-bottom: 1.5rem;
+    animation: iconFloat 3s ease-in-out infinite;
+    filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.1));
   }
-  
+
   .empty-cart-title {
     font-size: 1.75rem;
-    font-weight: 600;
+    font-weight: 700;
     color: #374151;
     margin: 0 0 1rem 0;
+    background: linear-gradient(135deg, #374151, #6b7280);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
   }
-  
+
   .empty-cart-text {
     color: #6b7280;
     margin-bottom: 2rem;
     font-size: 1.1rem;
     line-height: 1.6;
     max-width: 500px;
+    font-weight: 500;
   }
-  
+
   .continue-shopping-btn {
     font-size: 1.1rem;
-    padding: 0.75rem 2rem;
+    padding: 1rem 2.5rem;
+    background: linear-gradient(135deg, var(--color-primary), var(--color-accent));
+    border: none;
+    border-radius: 1.5rem;
+    color: white;
+    font-weight: 700;
+    box-shadow: 0 8px 32px rgba(99, 102, 241, 0.3);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     
+    &:hover {
+      transform: translateY(-3px) scale(1.05);
+      box-shadow: 0 16px 40px rgba(99, 102, 241, 0.4);
+    }
+    
+    &:active {
+      transform: translateY(-1px) scale(1.02);
+    }
+
     mat-icon {
       margin-right: 0.5rem;
     }
+  }
+}
+
+@keyframes emptyCartFloat {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes iconFloat {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  33% {
+    transform: translateY(-8px) rotate(2deg);
+  }
+  66% {
+    transform: translateY(-4px) rotate(-1deg);
   }
 }
 
@@ -72,7 +180,7 @@
 .cart-content {
   display: grid;
   gap: 2rem;
-  
+
   @media (min-width: 1024px) {
     grid-template-columns: 1fr 400px;
   }
@@ -84,18 +192,18 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    
+
     mat-card-title {
       display: flex;
       align-items: center;
       gap: 1rem;
       font-size: 1.5rem;
-      
+
       .item-count {
         display: inline-block;
       }
     }
-    
+
     .header-actions {
       .clear-cart-btn {
         mat-icon {
@@ -117,16 +225,16 @@
   border-radius: 12px;
   border: 1px solid #e9ecef;
   transition: all 0.3s ease;
-  
+
   &:hover {
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     transform: translateY(-2px);
   }
-  
+
   &:not(:last-child) {
     margin-bottom: 1rem;
   }
-  
+
   .item-image {
     .product-image {
       width: 80px;
@@ -137,10 +245,10 @@
       padding: 4px;
     }
   }
-  
+
   .item-details {
     min-width: 0; // Per permettere il text truncation
-    
+
     .product-name {
       font-size: 1.1rem;
       font-weight: 600;
@@ -148,17 +256,17 @@
       margin: 0 0 0.5rem 0;
       line-height: 1.3;
     }
-    
+
     .product-meta {
       display: flex;
       flex-direction: column;
       gap: 0.25rem;
-      
+
       .brand-type {
         color: #6b7280;
         font-size: 0.9rem;
       }
-      
+
       .product-price {
         color: #1976d2;
         font-weight: 600;
@@ -166,41 +274,41 @@
       }
     }
   }
-  
+
   .quantity-section {
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 0.5rem;
-    
+
     .quantity-label {
       font-size: 0.9rem;
       font-weight: 500;
       color: #6b7280;
     }
-    
+
     .quantity-controls {
       display: flex;
       align-items: center;
       gap: 0.5rem;
-      
+
       .quantity-btn {
         width: 36px;
         height: 36px;
         min-width: 36px;
-        
+
         &:disabled {
           opacity: 0.5;
         }
-        
+
         mat-icon {
           font-size: 18px;
         }
       }
-      
+
       .quantity-input {
         width: 60px;
-        
+
         .quantity-field {
           text-align: center;
           font-weight: 500;
@@ -209,24 +317,24 @@
       }
     }
   }
-  
+
   .item-actions {
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 0.75rem;
-    
+
     .item-subtotal {
       font-weight: 700;
       color: #1f2937;
       font-size: 1.1rem;
       text-align: center;
     }
-    
+
     .remove-btn {
       width: 36px;
       height: 36px;
-      
+
       mat-icon {
         font-size: 18px;
       }
@@ -239,12 +347,12 @@
   height: fit-content;
   position: sticky;
   top: 2rem;
-  
+
   mat-card-title {
     font-size: 1.5rem;
     margin-bottom: 0;
   }
-  
+
   .summary-details {
     .summary-row {
       display: flex;
@@ -252,7 +360,33 @@
       align-items: center;
       padding: 0.75rem 0;
       color: #4b5563;
-      
+
+      &.discount-row {
+        background: #f0fdf4;
+        border: 1px solid #bbf7d0;
+        border-radius: 8px;
+        padding: 0.75rem 1rem;
+        margin: 0.5rem 0;
+
+        .discount-icon {
+          font-size: 18px;
+          margin-right: 0.5rem;
+          color: #059669;
+        }
+
+        .discount-amount {
+          color: #059669;
+          font-weight: 600;
+        }
+
+        span:first-child {
+          display: flex;
+          align-items: center;
+          color: #059669;
+          font-weight: 500;
+        }
+      }
+
       &.summary-total {
         font-size: 1.25rem;
         color: #1f2937;
@@ -261,12 +395,12 @@
         margin-top: 0.5rem;
       }
     }
-    
+
     .free-shipping {
       color: #059669;
       font-weight: 600;
     }
-    
+
     .shipping-info {
       display: flex;
       align-items: center;
@@ -278,31 +412,63 @@
       margin: 0.75rem 0;
       font-size: 0.9rem;
       color: #0369a1;
-      
+
       .info-icon {
         font-size: 18px;
         color: #0ea5e9;
       }
     }
   }
-  
+
   .summary-actions {
     display: flex;
     flex-direction: column;
     gap: 1rem;
     margin-top: 1.5rem;
-    
+
     .checkout-btn {
       font-size: 1.1rem;
       padding: 0.75rem 2rem;
       height: auto;
-      
+
       mat-icon {
         margin-right: 0.5rem;
       }
     }
-    
+
     .continue-shopping-btn {
+      mat-icon {
+        margin-right: 0.5rem;
+      }
+    }
+  }
+
+  .discount-section {
+    display: flex;
+    gap: 0.75rem;
+    align-items: stretch;
+
+    input {
+      flex: 1;
+      padding: 0.75rem 1rem;
+      border: 2px solid #e5e7eb;
+      border-radius: 8px;
+      font-size: 1rem;
+      transition: border-color 0.2s ease;
+
+      &:focus {
+        outline: none;
+        border-color: #1976d2;
+      }
+
+      &::placeholder {
+        color: #9ca3af;
+      }
+    }
+
+    .apply-discount-btn {
+      white-space: nowrap;
+
       mat-icon {
         margin-right: 0.5rem;
       }
@@ -325,7 +491,7 @@
   justify-content: center;
   z-index: 1000;
   gap: 1rem;
-  
+
   .loading-text {
     color: #6b7280;
     font-weight: 500;
@@ -338,7 +504,7 @@
   .cart-content {
     grid-template-columns: 1fr;
   }
-  
+
   .order-summary {
     position: static;
     margin-top: 2rem;
@@ -349,73 +515,73 @@
   .cart-container {
     padding: 1rem 0.5rem;
   }
-  
+
   .cart-header {
     margin-bottom: 1.5rem;
-    
+
     .cart-title {
       font-size: 1.75rem;
-      
+
       .cart-title-icon {
         font-size: 2rem;
       }
     }
   }
-  
+
   .empty-cart {
     padding: 3rem 1rem;
-    
+
     .empty-cart-icon {
       font-size: 4rem;
     }
-    
+
     .empty-cart-title {
       font-size: 1.5rem;
     }
-    
+
     .empty-cart-text {
       font-size: 1rem;
     }
   }
-  
+
   .cart-items-section {
     mat-card-header {
       flex-direction: column;
       align-items: stretch;
       gap: 1rem;
-      
+
       mat-card-title {
         justify-content: center;
       }
-      
+
       .header-actions {
         text-align: center;
       }
     }
   }
-  
+
   .cart-item {
     grid-template-columns: 1fr;
     gap: 1rem;
     padding: 1rem;
-    
+
     .item-image {
       justify-self: center;
-      
+
       .product-image {
         width: 100px;
         height: 100px;
       }
     }
-    
+
     .item-details {
       text-align: center;
-      
+
       .product-name {
         font-size: 1rem;
       }
     }
-    
+
     .quantity-section {
       .quantity-controls {
         .quantity-input {
@@ -423,11 +589,11 @@
         }
       }
     }
-    
+
     .item-actions {
       flex-direction: row;
       justify-content: space-between;
-      
+
       .item-subtotal {
         font-size: 1.2rem;
       }
@@ -439,29 +605,29 @@
   .cart-container {
     padding: 0.5rem;
   }
-  
+
   .cart-header {
     .cart-title {
       font-size: 1.5rem;
-      
+
       .cart-title-icon {
         font-size: 1.75rem;
       }
     }
   }
-  
+
   .empty-cart {
     padding: 2rem 0.5rem;
-    
+
     .empty-cart-icon {
       font-size: 3rem;
     }
-    
+
     .empty-cart-title {
       font-size: 1.25rem;
     }
   }
-  
+
   .cart-item {
     .item-image {
       .product-image {
@@ -469,30 +635,30 @@
         height: 80px;
       }
     }
-    
+
     .quantity-section {
       .quantity-label {
         font-size: 0.8rem;
       }
-      
+
       .quantity-controls {
         .quantity-btn {
           width: 32px;
           height: 32px;
           min-width: 32px;
-          
+
           mat-icon {
             font-size: 16px;
           }
         }
-        
+
         .quantity-input {
           width: 50px;
         }
       }
     }
   }
-  
+
   .order-summary {
     .summary-actions {
       .checkout-btn,

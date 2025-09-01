@@ -9,11 +9,11 @@ import { MatCardModule } from '@angular/material/card';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatBadgeModule } from '@angular/material/badge';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { CartService } from '../../core/services/cart.service';
+import { BusyService } from '../../core/services/busy.service';
 import { Cart, CartItem, CartTotals } from '../../shared/models/cart';
 
 @Component({
@@ -28,7 +28,6 @@ import { Cart, CartItem, CartTotals } from '../../shared/models/cart';
     MatDividerModule,
     MatInputModule,
     MatFormFieldModule,
-    MatProgressSpinnerModule,
     MatSnackBarModule,
     MatBadgeModule,
     MatTooltipModule
@@ -40,9 +39,8 @@ export class CartComponent implements OnInit, OnDestroy {
   cart: Cart | null = null;
   cartTotals: CartTotals | null = null;
   private destroy$ = new Subject<void>();
-  isLoading = false;
 
-  constructor(private cartService: CartService) {}
+  constructor(private cartService: CartService, public busyService: BusyService) {}
 
   ngOnInit(): void {
     this.cartService.cart$
@@ -69,33 +67,33 @@ export class CartComponent implements OnInit, OnDestroy {
       return;
     }
 
-    this.isLoading = true;
+    this.busyService.setBusy();
     this.cartService.updateCartItemQuantity(productId, quantity)
       .pipe(takeUntil(this.destroy$))
       .subscribe({
-        next: () => this.isLoading = false,
-        error: () => this.isLoading = false
+        next: () => this.busyService.setIdle(),
+        error: () => this.busyService.setIdle()
       });
   }
 
   removeItem(productId: number): void {
-    this.isLoading = true;
+    this.busyService.setBusy();
     this.cartService.removeCartItem(productId)
       .pipe(takeUntil(this.destroy$))
       .subscribe({
-        next: () => this.isLoading = false,
-        error: () => this.isLoading = false
+        next: () => this.busyService.setIdle(),
+        error: () => this.busyService.setIdle()
       });
   }
 
   clearCart(): void {
     if (confirm('Sei sicuro di voler svuotare il carrello?')) {
-      this.isLoading = true;
+      this.busyService.setBusy();
       this.cartService.clearCart()
         .pipe(takeUntil(this.destroy$))
         .subscribe({
-          next: () => this.isLoading = false,
-          error: () => this.isLoading = false
+          next: () => this.busyService.setIdle(),
+          error: () => this.busyService.setIdle()
         });
     }
   }
@@ -103,4 +101,26 @@ export class CartComponent implements OnInit, OnDestroy {
   getItemSubtotal(item: CartItem): number {
     return item.price * item.quantity;
   }
+
+  applyDiscount(discountCode: string): void {
+    if (!discountCode?.trim()) {
+      return;
+    }
+
+    this.busyService.setBusy();
+    this.cartService.applyDiscount(discountCode.trim())
+      .pipe(takeUntil(this.destroy$))
+      .subscribe({
+        next: () => {
+          this.busyService.setIdle();
+          // Mostra messaggio di successo
+        },
+        error: (error) => {
+          this.busyService.setIdle();
+          console.error('Error applying discount:', error);
+          // Mostra messaggio di errore
+        }
+      });
+  }
+  
 }

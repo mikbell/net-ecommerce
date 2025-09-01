@@ -1,0 +1,129 @@
+// Modern Footer with Glassmorphism
+.app-footer {
+  background: linear-gradient(135deg, rgba(248, 250, 252, 0.95), rgba(241, 245, 249, 0.98));
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border-top: 1px solid rgba(226, 232, 240, 0.8);
+  margin-top: auto;
+  position: relative;
+  
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(99, 102, 241, 0.2), transparent);
+  }
+  
+  .max-w-7xl {
+    position: relative;
+    
+    &::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 100px;
+      height: 100px;
+      background: radial-gradient(circle, rgba(99, 102, 241, 0.05), transparent);
+      transform: translate(-50%, -50%);
+      pointer-events: none;
+      z-index: -1;
+    }
+  }
+  
+  p {
+    color: var(--text-secondary);
+    font-weight: 500;
+    letter-spacing: 0.025em;
+    transition: all 0.3s ease;
+    
+    &:hover {
+      color: var(--text-primary);
+    }
+  }
+  
+  a {
+    position: relative;
+    color: var(--text-tertiary);
+    font-weight: 500;
+    text-decoration: none;
+    padding: 0.5rem 1rem;
+    border-radius: 0.75rem;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    
+    &::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(99, 102, 241, 0.1), rgba(236, 72, 153, 0.1));
+      border-radius: 0.75rem;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      z-index: -1;
+    }
+    
+    &:hover {
+      color: var(--color-primary-600);
+      transform: translateY(-2px);
+      
+      &::before {
+        opacity: 1;
+      }
+    }
+    
+    &:active {
+      transform: translateY(0);
+    }
+  }
+  
+  .flex {
+    gap: 0;
+    
+    a:not(:last-child) {
+      margin-right: 0.25rem;
+    }
+  }
+}
+
+// Dark theme support
+[data-theme="dark"] .app-footer {
+  background: linear-gradient(135deg, rgba(15, 23, 42, 0.95), rgba(30, 41, 59, 0.98));
+  border-top-color: rgba(51, 65, 85, 0.8);
+  
+  &::before {
+    background: linear-gradient(90deg, transparent, rgba(148, 163, 184, 0.3), transparent);
+  }
+}
+
+// Responsive adjustments
+@media (max-width: 640px) {
+  .app-footer {
+    .flex {
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+      
+      a {
+        margin: 0;
+      }
+    }
+  }
+}
+
+// Animation for footer links
+@keyframes footerLinkPulse {
+  0%, 100% {
+    box-shadow: 0 0 0 0 rgba(99, 102, 241, 0);
+  }
+  50% {
+    box-shadow: 0 0 0 8px rgba(99, 102, 241, 0.1);
+  }
+}
+
+.app-footer a:focus-visible {
+  animation: footerLinkPulse 1.5s infinite;
+  outline: none;
+}

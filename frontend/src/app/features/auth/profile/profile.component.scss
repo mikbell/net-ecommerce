@@ -1,0 +1,496 @@
+// Modern Profile Component with Glassmorphism
+.profile-container {
+  @apply min-h-screen py-8;
+  background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 50%, #cbd5e1 100%);
+  
+  @media (max-width: 768px) {
+    @apply py-4;
+  }
+}
+
+.container {
+  @apply max-w-4xl mx-auto px-4 sm:px-6 lg:px-8;
+}
+
+// Page Header
+.page-header {
+  @apply text-center mb-12;
+  
+  .header-content {
+    @apply animate-fade-in-up;
+  }
+  
+  .page-title {
+    @apply text-4xl md:text-5xl font-bold mb-4;
+    background: linear-gradient(135deg, var(--color-primary), var(--color-accent));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    
+    @media (max-width: 768px) {
+      @apply text-3xl;
+    }
+  }
+  
+  .page-subtitle {
+    @apply text-lg text-gray-600 max-w-2xl mx-auto;
+    
+    @media (max-width: 768px) {
+      @apply text-base;
+    }
+  }
+}
+
+// Main Grid Layout
+.profile-grid {
+  @apply grid gap-8 lg:grid-cols-3;
+  
+  .sidebar {
+    @apply lg:col-span-1;
+  }
+  
+  .main-content {
+    @apply lg:col-span-2;
+  }
+}
+
+// Profile Card
+.profile-card {
+  @apply bg-white rounded-3xl shadow-lg border border-gray-100 p-8 h-fit;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15);
+  }
+  
+  @media (max-width: 768px) {
+    @apply p-6 rounded-2xl;
+  }
+  
+  .profile-avatar {
+    @apply w-24 h-24 mx-auto mb-6 relative;
+    
+    .avatar-container {
+      @apply w-full h-full rounded-full bg-gradient-to-br from-primary-400 to-accent-500 flex items-center justify-center text-white text-3xl font-bold shadow-lg;
+      transition: all 0.3s ease;
+      
+      &:hover {
+        transform: scale(1.05) rotate(5deg);
+        box-shadow: 0 12px 32px rgba(99, 102, 241, 0.3);
+      }
+    }
+    
+    .edit-avatar-btn {
+      @apply absolute -bottom-2 -right-2 w-8 h-8 bg-white rounded-full shadow-lg border-2 border-gray-100 flex items-center justify-center text-gray-600 hover:text-primary-500 hover:bg-primary-50 transition-all duration-200;
+      
+      mat-icon {
+        font-size: 16px;
+        width: 16px;
+        height: 16px;
+      }
+    }
+  }
+  
+  .profile-info {
+    @apply text-center mb-6;
+    
+    .user-name {
+      @apply text-2xl font-bold text-gray-900 mb-2;
+    }
+    
+    .user-email {
+      @apply text-gray-600 mb-1;
+    }
+    
+    .user-role {
+      @apply inline-block px-3 py-1 bg-primary-100 text-primary-700 rounded-full text-sm font-medium;
+    }
+  }
+  
+  .profile-stats {
+    @apply border-t border-gray-100 pt-6;
+    
+    .stats-grid {
+      @apply grid grid-cols-2 gap-4;
+      
+      .stat-item {
+        @apply text-center p-3 bg-gray-50 rounded-xl transition-all duration-200 hover:bg-gray-100;
+        
+        .stat-value {
+          @apply text-2xl font-bold text-gray-900;
+        }
+        
+        .stat-label {
+          @apply text-sm text-gray-600 mt-1;
+        }
+      }
+    }
+  }
+}
+
+// Main Content Cards
+.content-card {
+  @apply bg-white rounded-3xl shadow-lg border border-gray-100 p-8 mb-8;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.12);
+  }
+  
+  @media (max-width: 768px) {
+    @apply p-6 rounded-2xl;
+  }
+  
+  .card-header {
+    @apply flex items-center justify-between mb-6 pb-4 border-b border-gray-100;
+    
+    .card-title {
+      @apply flex items-center gap-3;
+      
+      .title-icon {
+        @apply w-8 h-8 bg-primary-100 text-primary-600 rounded-xl flex items-center justify-center;
+        
+        mat-icon {
+          font-size: 20px;
+          width: 20px;
+          height: 20px;
+        }
+      }
+      
+      h2 {
+        @apply text-2xl font-bold text-gray-900 m-0;
+        
+        @media (max-width: 768px) {
+          @apply text-xl;
+        }
+      }
+    }
+    
+    .card-actions {
+      @apply flex gap-2;
+    }
+  }
+}
+
+// Personal Information Form
+.personal-info-form {
+  .form-grid {
+    @apply grid gap-6 md:grid-cols-2;
+    
+    @media (max-width: 768px) {
+      @apply grid-cols-1 gap-4;
+    }
+  }
+  
+  .form-actions {
+    @apply flex flex-col sm:flex-row gap-4 mt-8 pt-6 border-t border-gray-100;
+    
+    @media (max-width: 640px) {
+      @apply flex-col;
+    }
+  }
+}
+
+// Security Section
+.security-section {
+  .security-items {
+    @apply space-y-6;
+    
+    .security-item {
+      @apply flex items-start justify-between p-6 bg-gray-50 rounded-2xl transition-all duration-200 hover:bg-gray-100;
+      
+      .security-info {
+        @apply flex items-start gap-4;
+        
+        .security-icon {
+          @apply w-12 h-12 rounded-xl flex items-center justify-center;
+          
+          &.password {
+            @apply bg-blue-100 text-blue-600;
+          }
+          
+          &.two-factor {
+            @apply bg-green-100 text-green-600;
+          }
+          
+          &.sessions {
+            @apply bg-purple-100 text-purple-600;
+          }
+          
+          mat-icon {
+            font-size: 24px;
+            width: 24px;
+            height: 24px;
+          }
+        }
+        
+        .security-details {
+          h3 {
+            @apply text-lg font-semibold text-gray-900 mb-1;
+          }
+          
+          p {
+            @apply text-gray-600 text-sm mb-2;
+          }
+          
+          .security-status {
+            @apply inline-flex items-center gap-1 text-xs font-medium px-2 py-1 rounded-full;
+            
+            &.enabled {
+              @apply bg-green-100 text-green-700;
+            }
+            
+            &.disabled {
+              @apply bg-red-100 text-red-700;
+            }
+          }
+        }
+      }
+      
+      .security-action {
+        @apply flex-shrink-0;
+      }
+    }
+  }
+}
+
+// Preferences Section
+.preferences-section {
+  .preferences-grid {
+    @apply grid gap-6 md:grid-cols-2;
+    
+    @media (max-width: 768px) {
+      @apply grid-cols-1;
+    }
+  }
+  
+  .preference-item {
+    @apply p-6 bg-gray-50 rounded-2xl;
+    
+    .preference-header {
+      @apply flex items-center justify-between mb-4;
+      
+      .preference-info {
+        h3 {
+          @apply text-lg font-semibold text-gray-900 mb-1;
+        }
+        
+        p {
+          @apply text-gray-600 text-sm;
+        }
+      }
+    }
+    
+    .preference-controls {
+      @apply space-y-3;
+    }
+  }
+}
+
+// Button Styles
+.btn-primary {
+  @apply px-6 py-3 bg-primary-500 hover:bg-primary-600 text-white font-semibold rounded-xl transition-all duration-200 flex items-center gap-2 shadow-soft hover:shadow-medium;
+  
+  &:hover {
+    transform: translateY(-1px);
+  }
+  
+  &:active {
+    transform: translateY(0);
+  }
+}
+
+.btn-outline {
+  @apply px-6 py-3 border-2 border-gray-300 text-gray-700 hover:border-primary-500 hover:text-primary-500 hover:bg-primary-50 font-semibold rounded-xl transition-all duration-200 flex items-center gap-2;
+  
+  &:hover {
+    transform: translateY(-1px);
+  }
+}
+
+.btn-danger {
+  @apply px-6 py-3 bg-red-500 hover:bg-red-600 text-white font-semibold rounded-xl transition-all duration-200 flex items-center gap-2 shadow-soft hover:shadow-medium;
+  
+  &:hover {
+    transform: translateY(-1px);
+  }
+}
+
+.btn-ghost {
+  @apply px-4 py-2 text-gray-600 hover:text-primary-600 hover:bg-primary-50 rounded-lg transition-all duration-200 flex items-center gap-2;
+}
+
+// Form Field Styling
+::ng-deep {
+  .profile-container .mat-mdc-form-field {
+    .mat-mdc-text-field-wrapper {
+      border-radius: 12px !important;
+      background-color: #f9fafb;
+      border: 1px solid #e5e7eb;
+      transition: all 0.2s ease;
+      
+      &:hover {
+        border-color: #d1d5db;
+      }
+    }
+    
+    &.mat-focused .mat-mdc-text-field-wrapper {
+      border-color: var(--color-primary) !important;
+      background-color: white;
+      box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+    }
+    
+    .mat-mdc-form-field-prefix .mat-icon {
+      color: var(--color-primary);
+      margin-right: 12px;
+    }
+  }
+  
+  .profile-container .mat-mdc-select {
+    .mat-mdc-select-trigger {
+      border-radius: 12px !important;
+      background-color: #f9fafb;
+      border: 1px solid #e5e7eb;
+    }
+    
+    &.mat-focused .mat-mdc-select-trigger {
+      border-color: var(--color-primary) !important;
+      background-color: white;
+    }
+  }
+  
+  .profile-container .mat-mdc-slide-toggle {
+    .mdc-switch__track {
+      border-radius: 16px;
+    }
+    
+    &.mat-checked .mdc-switch__track {
+      background-color: var(--color-primary) !important;
+    }
+  }
+}
+
+// Animations
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in-up {
+  animation: fadeInUp 0.6s ease-out;
+}
+
+.profile-card {
+  animation: fadeInUp 0.8s ease-out;
+}
+
+.content-card {
+  animation: fadeInUp 0.8s ease-out;
+  
+  &:nth-child(1) {
+    animation-delay: 0.1s;
+  }
+  
+  &:nth-child(2) {
+    animation-delay: 0.2s;
+  }
+  
+  &:nth-child(3) {
+    animation-delay: 0.3s;
+  }
+}
+
+// Loading States
+.loading-skeleton {
+  @apply bg-gray-200 animate-pulse rounded;
+  
+  &.h-4 {
+    height: 1rem;
+  }
+  
+  &.h-6 {
+    height: 1.5rem;
+  }
+  
+  &.h-8 {
+    height: 2rem;
+  }
+  
+  &.w-full {
+    width: 100%;
+  }
+  
+  &.w-3\/4 {
+    width: 75%;
+  }
+  
+  &.w-1\/2 {
+    width: 50%;
+  }
+}
+
+// Responsive Design
+@media (max-width: 1024px) {
+  .profile-grid {
+    @apply grid-cols-1 gap-6;
+  }
+}
+
+@media (max-width: 640px) {
+  .container {
+    @apply px-4;
+  }
+  
+  .page-header {
+    @apply mb-8;
+  }
+  
+  .profile-card,
+  .content-card {
+    @apply mx-0;
+  }
+  
+  .card-header {
+    @apply flex-col items-start gap-3;
+    
+    .card-actions {
+      @apply w-full justify-start;
+    }
+  }
+  
+  .form-actions {
+    @apply flex-col;
+    
+    .btn-primary,
+    .btn-outline {
+      @apply w-full justify-center;
+    }
+  }
+}
+
+// Dark theme support (if needed)
+[data-theme="dark"] {
+  .profile-container {
+    background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #334155 100%);
+  }
+  
+  .profile-card,
+  .content-card {
+    background: rgba(30, 41, 59, 0.95);
+    border-color: rgba(51, 65, 85, 0.8);
+  }
+}

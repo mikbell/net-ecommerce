@@ -1,0 +1,86 @@
+<div class="register-container">
+  <mat-card class="register-card">
+    <mat-card-header class="register-header">
+      <mat-card-title>
+        <mat-icon class="register-icon">person_add</mat-icon>
+        Crea il tuo Account
+      </mat-card-title>
+      <mat-card-subtitle>Unisciti a noi! Inserisci i tuoi dati per registrarti</mat-card-subtitle>
+    </mat-card-header>
+
+    <mat-card-content>
+      <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="register-form">
+        <!-- Nome e Cognome -->
+        <div class="name-row">
+          <mat-form-field appearance="outline" class="half-width">
+            <mat-label>Nome</mat-label>
+            <input matInput formControlName="firstName" placeholder="Mario">
+            <mat-icon matPrefix>person</mat-icon>
+            <mat-error *ngIf="firstName?.hasError('required')">Nome obbligatorio</mat-error>
+            <mat-error *ngIf="firstName?.hasError('minlength')">Almeno 2 caratteri</mat-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="half-width">
+            <mat-label>Cognome</mat-label>
+            <input matInput formControlName="lastName" placeholder="Rossi">
+            <mat-error *ngIf="lastName?.hasError('required')">Cognome obbligatorio</mat-error>
+            <mat-error *ngIf="lastName?.hasError('minlength')">Almeno 2 caratteri</mat-error>
+          </mat-form-field>
+        </div>
+
+        <!-- Email -->
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Email</mat-label>
+          <input matInput type="email" formControlName="email" placeholder="esempio@email.com">
+          <mat-icon matPrefix>email</mat-icon>
+          <mat-error *ngIf="email?.hasError('required')">L'email è obbligatoria</mat-error>
+          <mat-error *ngIf="email?.hasError('email')">Inserisci un'email valida</mat-error>
+        </mat-form-field>
+
+        <!-- Password -->
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Password</mat-label>
+          <input matInput [type]="hidePassword ? 'password' : 'text'" formControlName="password">
+          <mat-icon matPrefix>lock</mat-icon>
+          <button mat-icon-button matSuffix (click)="togglePasswordVisibility()" type="button">
+            <mat-icon>{{hidePassword ? 'visibility' : 'visibility_off'}}</mat-icon>
+          </button>
+          <mat-error *ngIf="password?.hasError('required')">La password è obbligatoria</mat-error>
+          <mat-error *ngIf="password?.hasError('minlength')">Almeno 6 caratteri</mat-error>
+        </mat-form-field>
+
+        <!-- Conferma Password -->
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Conferma Password</mat-label>
+          <input matInput [type]="hideConfirmPassword ? 'password' : 'text'" formControlName="confirmPassword">
+          <mat-icon matPrefix>lock_outline</mat-icon>
+          <button mat-icon-button matSuffix (click)="toggleConfirmPasswordVisibility()" type="button">
+            <mat-icon>{{hideConfirmPassword ? 'visibility' : 'visibility_off'}}</mat-icon>
+          </button>
+          <mat-error *ngIf="confirmPassword?.hasError('required')">Conferma la password</mat-error>
+          <mat-error *ngIf="registerForm.hasError('passwordMismatch') && confirmPassword?.touched">
+            Le password non coincidono
+          </mat-error>
+        </mat-form-field>
+
+        <!-- Submit Button -->
+        <button 
+          mat-raised-button 
+          color="primary" 
+          type="submit"
+          class="register-button full-width"
+          [disabled]="registerForm.invalid || (busyService.isBusy$ | async)"
+        >
+          <mat-icon *ngIf="!(busyService.isBusy$ | async)">person_add</mat-icon>
+          Registrati
+        </button>
+
+        <!-- Login Link -->
+        <div class="login-link">
+          <span>Hai già un account? </span>
+          <a routerLink="/login" class="link">Accedi qui</a>
+        </div>
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div>

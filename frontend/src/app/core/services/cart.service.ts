@@ -7,6 +7,7 @@ import {
   AddCartItem,
   UpdateCartItem,
   CartTotals,
+  ApplyDiscountRequest,
 } from '../../shared/models/cart';
 import { environment } from '../../../environments/environment';
 
@@ -30,6 +31,8 @@ export class CartService {
     const cart: Cart = {
       id: this.createCartId(),
       items: [],
+      subtotal: 0,
+      discountAmount: 0,
       total: 0,
       totalItems: 0,
     };
@@ -133,9 +136,10 @@ export class CartService {
     if (!cart) return;
 
     const totals = new CartTotals();
-    totals.subtotal = cart.total;
-    totals.shipping = totals.subtotal > 100 ? 0 : 10; // Spedizione gratuita sopra €100
-    totals.total = totals.subtotal + totals.shipping;
+    totals.subtotal = cart.subtotal;
+    totals.discount = cart.discountAmount;
+    totals.shipping = cart.total > 100 ? 0 : 10; // Spedizione gratuita sopra €100 (dopo sconto)
+    totals.total = cart.total + totals.shipping;
 
     this.cartTotalSource.next(totals);
   }
@@ -189,6 +193,24 @@ export class CartService {
     if (!cart) return 0;
     const item = cart.items.find((item) => item.productId === productId);
     return item ? item.quantity : 0;
+  }
+
+  applyDiscount(discountCode: string): Observable<Cart> {
+    const cart = this.getCurrentCartValue();
+    if (!cart) throw new Error('No cart available');
+
+    const discountRequest: ApplyDiscountRequest = { code: discountCode };
+
+    return this.http
+      .post<Cart>(`${this.baseUrl}/cart/${cart.id}/discount`, discountRequest)
+      .pipe(
+        map((updatedCart: Cart) => {
+          this.cartSource.next(updatedCart);
+          this.calculateTotals();
+          this.saveCartToStorage(updatedCart);
+          return updatedCart;
+        })
+      );
   }
 
   // Metodo per sincronizzare il carrello locale con il server

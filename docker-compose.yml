@@ -8,4 +8,18 @@ services:
       - "1433:1433"
     volumes:
       - sql-data:/var/opt/mssql
-    platform: windows/x86_64
+    # Opzionale: restart policy
+    restart: unless-stopped
+
+  redis:
+    image: redis:latest
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis-data:/data
+    # Opzionale: restart policy
+    restart: unless-stopped
+
+volumes:
+  sql-data:
+  redis-data:

@@ -45,10 +45,66 @@
         <app-cart-summary></app-cart-summary>
 
         <!-- Auth Buttons -->
-        <div class="hidden sm:flex items-center space-x-3">
-          <button class="btn-ghost">Accedi</button>
-          <button class="btn-primary">Registrati</button>
-          <button class="btn-ghost" (click)="testProgressBar()" title="Test Progress Bar">🧪</button>
+        <div class="auth-section">
+          <!-- User logged in -->
+          @if (authService.authState$ | async; as authState) {
+            @if (authState.isAuthenticated && authState.user) {
+              <div class="user-menu">
+                <button 
+                  mat-button 
+                  [matMenuTriggerFor]="userMenu"
+                  class="user-button"
+                >
+                  <mat-icon>account_circle</mat-icon>
+                  <span class="user-name">{{ authState.user.firstName }}</span>
+                  <mat-icon class="dropdown-icon">arrow_drop_down</mat-icon>
+                </button>
+                
+                <mat-menu #userMenu="matMenu" class="user-dropdown">
+                  <div class="user-info">
+                    <div class="user-email">{{ authState.user.email }}</div>
+                    <div class="user-full-name">{{ authState.user.firstName }} {{ authState.user.lastName }}</div>
+                  </div>
+                  <mat-divider></mat-divider>
+                  <button mat-menu-item routerLink="/profile">
+                    <mat-icon>person</mat-icon>
+                    <span>Profilo</span>
+                  </button>
+                  <button mat-menu-item routerLink="/orders">
+                    <mat-icon>receipt</mat-icon>
+                    <span>I miei ordini</span>
+                  </button>
+                  <mat-divider></mat-divider>
+                  <button mat-menu-item (click)="logout()" class="logout-button">
+                    <mat-icon>logout</mat-icon>
+                    <span>Logout</span>
+                  </button>
+                </mat-menu>
+              </div>
+            } @else {
+              <!-- User not logged in -->
+              <div class="guest-buttons">
+                <button mat-button routerLink="/login" class="btn-ghost">
+                  <mat-icon>login</mat-icon>
+                  Accedi
+                </button>
+                <button mat-raised-button routerLink="/register" class="btn-primary">
+                  <mat-icon>person_add</mat-icon>
+                  Registrati
+                </button>
+              </div>
+            }
+          }
+          
+          <!-- Test button (development only) -->
+          <button 
+            mat-icon-button 
+            (click)="testProgressBar()" 
+            title="Test Progress Bar"
+            class="test-button"
+          >
+            <mat-icon>science</mat-icon>
+          </button>
         </div>
 
         <!-- Mobile Menu -->

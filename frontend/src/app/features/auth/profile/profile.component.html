@@ -1,0 +1,43 @@
+<div class="profile-container">
+  <mat-card class="profile-card">
+    <mat-card-header>
+      <mat-card-title>
+        <mat-icon class="profile-icon">person</mat-icon>
+        Il Mio Profilo
+      </mat-card-title>
+    </mat-card-header>
+
+    <mat-card-content>
+      @if (userProfile) {
+        <div class="profile-info">
+          <div class="info-row">
+            <strong>Nome:</strong> {{ userProfile.firstName || 'Non specificato' }}
+          </div>
+          <div class="info-row">
+            <strong>Cognome:</strong> {{ userProfile.lastName || 'Non specificato' }}
+          </div>
+          <div class="info-row">
+            <strong>Email:</strong> {{ userProfile.email }}
+          </div>
+          <div class="info-row">
+            <strong>Registrato il:</strong> {{ userProfile.createdAt | date:'medium' }}
+          </div>
+          @if (userProfile.lastLoginAt) {
+            <div class="info-row">
+              <strong>Ultimo accesso:</strong> {{ userProfile.lastLoginAt | date:'medium' }}
+            </div>
+          }
+        </div>
+      } @else {
+        <p>Caricamento profilo...</p>
+      }
+    </mat-card-content>
+
+    <mat-card-actions>
+      <button mat-raised-button color="primary">
+        <mat-icon>edit</mat-icon>
+        Modifica Profilo
+      </button>
+    </mat-card-actions>
+  </mat-card>
+</div>

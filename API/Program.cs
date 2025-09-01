@@ -1,8 +1,10 @@
 using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.SwaggerGen;
 using Core.Interfaces;
+using Core.Entities;
 using Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
 using AutoMapper;
 using API;
 using API.Extensions;
@@ -10,6 +12,8 @@ using API.Middleware;
 using API.Services;
 using Serilog;
 using Serilog.Events;
+using StackExchange.Redis;
+using Infrastructure.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -43,7 +47,35 @@ try
 
     // Swagger/OpenAPI
     builder.Services.AddEndpointsApiExplorer();
-    builder.Services.AddSwaggerGen();
+    builder.Services.AddSwaggerGen(c =>
+    {
+        c.SwaggerDoc("v1", new OpenApiInfo { Title = "Ecommerce API", Version = "v1" });
+        
+        // JWT Authentication support in Swagger
+        c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+        {
+            Description = "JWT Authorization header using the Bearer scheme. Example: \"Authorization: Bearer {token}\"",
+            Name = "Authorization",
+            In = ParameterLocation.Header,
+            Type = SecuritySchemeType.ApiKey,
+            Scheme = "Bearer"
+        });
+        
+        c.AddSecurityRequirement(new OpenApiSecurityRequirement
+        {
+            {
+                new OpenApiSecurityScheme
+                {
+                    Reference = new OpenApiReference
+                    {
+                        Type = ReferenceType.SecurityScheme,
+                        Id = "Bearer"
+                    }
+                },
+                Array.Empty<string>()
+            }
+        });
+    });
 
     // DbContext
     builder.Services.AddDbContext<StoreContext>(options =>
@@ -59,6 +91,9 @@ try
     // Error Handling
     builder.Services.AddErrorHandling();
 
+    // Identity Services
+    builder.Services.AddIdentityServices(builder.Configuration);
+
     // Search Services
     builder.Services.AddScoped<ISearchService, SearchService>();
 
@@ -72,6 +107,16 @@ try
               .WithOrigins("http://localhost:4200", "https://localhost:4200"); // Cambia con il tuo frontend
         });
     });
+
+    builder.Services.AddSingleton<IConnectionMultiplexer>(config =>
+    {
+        var connString = builder.Configuration.GetConnectionString("Redis") ?? throw new Exception("Redis connection string not found");
+        var configuration = ConfigurationOptions.Parse(connString, true);
+        return ConnectionMultiplexer.Connect(configuration);
+    });
+
+    builder.Services.AddScoped<ICartService, CartService>();
+    builder.Services.AddScoped<IDiscountService, DiscountService>();
 
     var app = builder.Build();
 
@@ -94,6 +139,10 @@ try
     // CORS
     app.UseCors("CorsPolicy");
 
+    // Authentication & Authorization
+    app.UseAuthentication();
+    app.UseAuthorization();
+
     // Swagger
     if (app.Environment.IsDevelopment())
     {
@@ -111,12 +160,17 @@ try
         using var scope = app.Services.CreateScope();
         var services = scope.ServiceProvider;
         var context = services.GetRequiredService<StoreContext>();
+        var userManager = services.GetRequiredService<UserManager<AppUser>>();
+        var logger = services.GetRequiredService<ILogger<Program>>();
 
         Log.Information("Applying migrations...");
         await context.Database.MigrateAsync();
 
         Log.Information("Seeding database...");
         await StoreContextSeed.SeedAsync(context);
+        
+        Log.Information("Seeding identity users...");
+        await IdentitySeed.SeedUsersAsync(userManager, logger);
 
         Log.Information("Database ready.");
     }
