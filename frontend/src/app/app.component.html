@@ -1,7 +1,7 @@
 <div class="app-container">
-  <app-header></app-header>
-  <main class="main-content">
+  <app-header *ngIf="!isErrorPage"></app-header>
+  <main class="main-content" [class.error-page-content]="isErrorPage">
     <router-outlet></router-outlet>
   </main>
-  <app-footer></app-footer>
+  <app-footer *ngIf="!isErrorPage"></app-footer>
 </div>

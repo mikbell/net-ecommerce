@@ -145,10 +145,26 @@
           mat-raised-button
           color="primary"
           (click)="addToCart()"
+          [class.in-cart]="isInCart()"
+          [disabled]="isAddingToCart"
           class="add-to-cart-btn"
         >
-          <mat-icon>shopping_cart</mat-icon>
-          Aggiungi al carrello
+          @if (isAddingToCart) {
+            <ng-container>
+              <mat-icon class="mr-2 spinning">refresh</mat-icon>
+              <span>Aggiungendo...</span>
+            </ng-container>
+          } @else if (isInCart()) {
+            <ng-container>
+              <mat-icon class="mr-2">check_circle</mat-icon>
+              <span>Nel carrello ({{ getQuantityInCart() }})</span>
+            </ng-container>
+          } @else {
+            <ng-container>
+              <mat-icon class="mr-2">add_shopping_cart</mat-icon>
+              <span>Aggiungi al carrello</span>
+            </ng-container>
+          }
         </button>
       </div>
 

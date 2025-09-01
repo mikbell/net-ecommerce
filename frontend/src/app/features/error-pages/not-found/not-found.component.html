@@ -1,0 +1,80 @@
+<div class="error-container">
+  <div class="container-fluid py-5">
+    <div class="row justify-content-center">
+      <div class="col-lg-8 col-xl-6">
+        <div class="error-content text-center">
+          <!-- Error Icon -->
+          <div class="error-icon mb-4">
+            <div class="icon-wrapper">
+              <i class="fas fa-search error-symbol"></i>
+              <div class="number-404">404</div>
+            </div>
+          </div>
+
+          <!-- Error Message -->
+          <div class="error-message mb-5">
+            <h1 class="error-title mb-3">Pagina Non Trovata</h1>
+            <p class="error-description mb-4">
+              Oops! La pagina che stai cercando non esiste o potrebbe essere stata spostata.
+              Controlla l'URL o torna alla homepage per continuare la navigazione.
+            </p>
+            <div class="error-details">
+              <small class="text-muted">
+                <i class="fas fa-info-circle me-1"></i>
+                Codice errore: 404 - Risorsa non trovata
+              </small>
+            </div>
+          </div>
+
+          <!-- Action Buttons -->
+          <div class="error-actions">
+            <div class="d-flex flex-column flex-sm-row gap-3 justify-content-center">
+              <button 
+                type="button" 
+                class="btn btn-primary btn-lg"
+                (click)="goBack()"
+                *ngIf="canGoBack">
+                <i class="fas fa-arrow-left me-2"></i>
+                Torna Indietro
+              </button>
+              
+              <button 
+                type="button" 
+                class="btn btn-outline-primary btn-lg"
+                (click)="goHome()">
+                <i class="fas fa-home me-2"></i>
+                Homepage
+              </button>
+            </div>
+            
+            <div class="mt-4">
+              <a 
+                routerLink="/shop" 
+                class="btn btn-link">
+                <i class="fas fa-store me-2"></i>
+                Esplora i Prodotti
+              </a>
+              <span class="mx-2 text-muted">•</span>
+              <a 
+                routerLink="/about" 
+                class="btn btn-link">
+                <i class="fas fa-info-circle me-2"></i>
+                Chi Siamo
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Background Animation -->
+  <div class="error-background">
+    <div class="floating-elements">
+      <div class="element element-1">404</div>
+      <div class="element element-2">?</div>
+      <div class="element element-3">!</div>
+      <div class="element element-4">404</div>
+    </div>
+  </div>
+</div>

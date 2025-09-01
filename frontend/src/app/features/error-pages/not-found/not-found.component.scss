@@ -1,0 +1,229 @@
+:host {
+  display: block !important;
+  width: 100% !important;
+  height: 100vh !important;
+}
+
+.error-container {
+  min-height: 100vh !important;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+  position: relative !important;
+  overflow: hidden !important;
+  display: flex !important;
+  align-items: center !important;
+  width: 100% !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+.error-content {
+  position: relative;
+  z-index: 2;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  border-radius: 1.5rem;
+  padding: 3rem 2rem;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  animation: slideUp 0.8s ease-out;
+}
+
+.error-icon {
+  .icon-wrapper {
+    position: relative;
+    display: inline-block;
+    
+    .error-symbol {
+      font-size: 4rem;
+      color: #6366f1;
+      animation: bounce 2s ease-in-out infinite;
+    }
+    
+    .number-404 {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: #4f46e5;
+      opacity: 0.8;
+    }
+  }
+}
+
+.error-message {
+  .error-title {
+    color: #1f2937;
+    font-weight: 700;
+    font-size: 2.5rem;
+    margin-bottom: 1.5rem;
+    
+    @media (max-width: 768px) {
+      font-size: 2rem;
+    }
+  }
+  
+  .error-description {
+    color: #6b7280;
+    font-size: 1.125rem;
+    line-height: 1.7;
+    max-width: 28rem;
+    margin: 0 auto 2rem;
+    
+    @media (max-width: 768px) {
+      font-size: 1rem;
+    }
+  }
+  
+  .error-details {
+    padding: 1rem;
+    background: rgba(99, 102, 241, 0.1);
+    border-radius: 0.75rem;
+    border: 1px solid rgba(99, 102, 241, 0.2);
+    display: inline-block;
+  }
+}
+
+.error-actions {
+  .btn {
+    border-radius: 0.75rem;
+    padding: 0.875rem 2rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    
+    &:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(99, 102, 241, 0.3);
+    }
+    
+    &.btn-link {
+      color: #6366f1;
+      text-decoration: none;
+      padding: 0.5rem 1rem;
+      
+      &:hover {
+        color: #4f46e5;
+        transform: none;
+        box-shadow: none;
+        background-color: rgba(99, 102, 241, 0.1);
+        border-radius: 0.5rem;
+      }
+    }
+  }
+}
+
+// Background Animation
+.error-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.floating-elements {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  
+  .element {
+    position: absolute;
+    font-weight: 900;
+    color: rgba(255, 255, 255, 0.1);
+    user-select: none;
+    pointer-events: none;
+    
+    &.element-1 {
+      top: 10%;
+      left: 10%;
+      font-size: 8rem;
+      animation: float 6s ease-in-out infinite;
+    }
+    
+    &.element-2 {
+      top: 20%;
+      right: 15%;
+      font-size: 4rem;
+      animation: float 4s ease-in-out infinite reverse;
+    }
+    
+    &.element-3 {
+      bottom: 30%;
+      left: 20%;
+      font-size: 3rem;
+      animation: float 5s ease-in-out infinite;
+    }
+    
+    &.element-4 {
+      bottom: 10%;
+      right: 10%;
+      font-size: 6rem;
+      animation: float 7s ease-in-out infinite reverse;
+    }
+  }
+}
+
+// Animations
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes bounce {
+  0%, 20%, 60%, 100% {
+    transform: translateY(0);
+  }
+  40% {
+    transform: translateY(-10px);
+  }
+  80% {
+    transform: translateY(-5px);
+  }
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-20px) rotate(5deg);
+  }
+}
+
+// Responsive Design
+@media (max-width: 768px) {
+  .error-content {
+    padding: 2rem 1.5rem;
+    margin: 1rem;
+  }
+  
+  .error-icon .icon-wrapper {
+    .error-symbol {
+      font-size: 3rem;
+    }
+    
+    .number-404 {
+      font-size: 1rem;
+    }
+  }
+  
+  .floating-elements .element {
+    &.element-1 {
+      font-size: 4rem;
+    }
+    
+    &.element-4 {
+      font-size: 3rem;
+    }
+  }
+}

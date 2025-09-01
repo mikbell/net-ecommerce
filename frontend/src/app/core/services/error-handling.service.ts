@@ -212,24 +212,46 @@ export class ErrorHandlingService {
     });
   }
 
-  handleNotFound(resource: string = 'risorsa'): void {
-    this.showError({
-      type: ErrorType.NOT_FOUND,
-      severity: ErrorSeverity.ERROR,
-      title: 'Non trovato',
-      message: `La ${resource} richiesta non è stata trovata.`,
-      action: 'Torna indietro'
-    });
+  handleNotFound(resource: string = 'risorsa', navigateToErrorPage: boolean = true): void {
+    if (navigateToErrorPage) {
+      this.router.navigate(['/error/not-found']);
+    } else {
+      this.showError({
+        type: ErrorType.NOT_FOUND,
+        severity: ErrorSeverity.ERROR,
+        title: 'Non trovato',
+        message: `La ${resource} richiesta non è stata trovata.`,
+        action: 'Torna indietro'
+      });
+    }
   }
 
-  handleServerError(): void {
-    this.showError({
-      type: ErrorType.SERVER,
-      severity: ErrorSeverity.CRITICAL,
-      title: 'Errore del server',
-      message: 'Si è verificato un problema tecnico. Il nostro team è stato notificato.',
-      action: 'Riprova più tardi'
-    });
+  handleServerError(navigateToErrorPage: boolean = true): void {
+    if (navigateToErrorPage) {
+      this.router.navigate(['/error/server-error']);
+    } else {
+      this.showError({
+        type: ErrorType.SERVER,
+        severity: ErrorSeverity.CRITICAL,
+        title: 'Errore del server',
+        message: 'Si è verificato un problema tecnico. Il nostro team è stato notificato.',
+        action: 'Riprova più tardi'
+      });
+    }
+  }
+
+  handleForbidden(navigateToErrorPage: boolean = true): void {
+    if (navigateToErrorPage) {
+      this.router.navigate(['/error/forbidden']);
+    } else {
+      this.showError({
+        type: ErrorType.FORBIDDEN,
+        severity: ErrorSeverity.ERROR,
+        title: 'Accesso negato',
+        message: 'Non hai i permessi necessari per accedere a questa risorsa.',
+        action: 'Torna alla home'
+      });
+    }
   }
 
   handleNetworkError(): void {

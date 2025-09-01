@@ -12,8 +12,10 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { Product } from '../../../shared/models/product';
 import { ShopService } from '../../../core/services/shop.service';
+import { CartService } from '../../../core/services/cart.service';
 import { ErrorHandlingService } from '../../../core/services/error-handling.service';
 import { UserError, ErrorType, ErrorSeverity } from '../../../shared/models/error';
+import { AddCartItem } from '../../../shared/models/cart';
 import { ErrorDisplayComponent } from '../../../shared/components/error-display/error-display.component';
 
 @Component({
@@ -40,6 +42,7 @@ export class ProductDetailsComponent implements OnInit {
   private route = inject(ActivatedRoute);
   private router = inject(Router);
   private shopService = inject(ShopService);
+  private cartService = inject(CartService);
   private snackBar = inject(MatSnackBar);
   private errorHandlingService = inject(ErrorHandlingService);
 
@@ -50,6 +53,7 @@ export class ProductDetailsComponent implements OnInit {
   maxQuantity = 10; // Default max quantity
   retryCount = 0;
   maxRetries = 3;
+  isAddingToCart = false;
 
   ngOnInit(): void {
     this.loadProduct();
@@ -157,15 +161,42 @@ export class ProductDetailsComponent implements OnInit {
   }
 
   addToCart(): void {
-    if (!this.product) return;
+    if (!this.product || this.isAddingToCart) {
+      return;
+    }
 
-    // TODO: Implement cart service when available
-    // For now, just show a success message
-    this.snackBar.open(
-      `${this.product.name} (${this.quantity}) aggiunto al carrello!`,
-      'Chiudi',
-      { duration: 3000 }
-    );
+    const cartItem: AddCartItem = {
+      productId: this.product.id,
+      productName: this.product.name,
+      price: this.product.price,
+      quantity: this.quantity,
+      pictureUrl: this.product.pictureUrl,
+      brand: this.product.brand || '',
+      type: this.product.type || ''
+    };
+
+    this.isAddingToCart = true;
+    this.cartService.addItemToCart(cartItem).subscribe({
+      next: () => {
+        this.isAddingToCart = false;
+        this.snackBar.open(
+          `${this.product!.name} (${this.quantity}) aggiunto al carrello!`,
+          'Chiudi',
+          { duration: 3000 }
+        );
+        // Reset quantity to 1 after successful add
+        this.quantity = 1;
+      },
+      error: (error) => {
+        this.isAddingToCart = false;
+        console.error('Error adding item to cart:', error);
+        this.snackBar.open(
+          'Errore durante l\'aggiunta al carrello. Riprova.',
+          'Chiudi',
+          { duration: 3000 }
+        );
+      }
+    });
   }
 
   onBackClick(): void {
@@ -238,5 +269,14 @@ export class ProductDetailsComponent implements OnInit {
       default:
         this.onErrorDismiss();
     }
+  }
+
+  // Cart helper methods
+  isInCart(): boolean {
+    return this.product ? this.cartService.isProductInCart(this.product.id) : false;
+  }
+
+  getQuantityInCart(): number {
+    return this.product ? this.cartService.getProductQuantityInCart(this.product.id) : 0;
   }
 }

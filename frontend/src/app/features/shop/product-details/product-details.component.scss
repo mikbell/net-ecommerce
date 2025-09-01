@@ -312,9 +312,43 @@
     font-size: 1.1rem;
     font-weight: 600;
     height: auto;
+    transition: all 0.2s ease;
+    
+    &:hover {
+      transform: translateY(-1px);
+    }
+    
+    &:active {
+      transform: translateY(0) scale(0.98);
+    }
+    
+    &:disabled {
+      opacity: 0.75;
+      cursor: not-allowed;
+      transform: none !important;
+    }
+    
+    &.in-cart {
+      background-color: #4caf50 !important;
+      
+      &:hover {
+        background-color: #388e3c !important;
+      }
+      
+      mat-icon {
+        color: white;
+      }
+    }
     
     mat-icon {
       margin-right: 0.5rem;
+      font-size: 20px;
+      width: 20px;
+      height: 20px;
+      
+      &.spinning {
+        animation: spin 1s linear infinite;
+      }
     }
   }
 }
@@ -376,6 +410,16 @@
         text-align: right;
       }
     }
+  }
+}
+
+// Animations
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
   }
 }
 

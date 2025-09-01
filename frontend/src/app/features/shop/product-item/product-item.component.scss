@@ -155,10 +155,27 @@
     transform: translateY(0) scale(0.98);
   }
   
+  &:disabled {
+    @apply opacity-75 cursor-not-allowed;
+    transform: none !important;
+  }
+  
+  &.in-cart {
+    @apply bg-success-500 hover:bg-success-600;
+    
+    mat-icon {
+      @apply text-white;
+    }
+  }
+  
   mat-icon {
     font-size: 20px;
     width: 20px;
     height: 20px;
+    
+    &.spinning {
+      animation: spin 1s linear infinite;
+    }
   }
 }
 
@@ -209,6 +226,16 @@
   }
   50% {
     opacity: 0.8;
+  }
+}
+
+// Spin animation for loading
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
   }
 }
 

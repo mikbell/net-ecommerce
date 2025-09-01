@@ -1,0 +1,113 @@
+<div class="error-container server-error">
+  <div class="container-fluid py-5">
+    <div class="row justify-content-center">
+      <div class="col-lg-8 col-xl-6">
+        <div class="error-content text-center">
+          <!-- Error Icon -->
+          <div class="error-icon mb-4">
+            <div class="icon-wrapper">
+              <i class="fas fa-exclamation-triangle error-symbol"></i>
+              <div class="number-500">{{ error?.status || 500 }}</div>
+            </div>
+          </div>
+
+          <!-- Error Message -->
+          <div class="error-message mb-5">
+            <h1 class="error-title mb-3">
+              {{ error?.message || 'Errore del Server' }}
+            </h1>
+            <p class="error-description mb-4">
+              {{ error?.details || 'Si è verificato un errore interno del server. Il nostro team tecnico è stato notificato e sta lavorando per risolvere il problema.' }}
+            </p>
+            
+            <!-- Error Details (if available) -->
+            <div *ngIf="error?.error" class="error-details-expanded mb-4">
+              <div class="error-details-toggle">
+                <button 
+                  class="btn btn-link btn-sm p-0" 
+                  type="button" 
+                  data-bs-toggle="collapse" 
+                  data-bs-target="#errorDetails">
+                  <i class="fas fa-chevron-down me-1"></i>
+                  Dettagli Tecnici
+                </button>
+              </div>
+              
+              <div class="collapse mt-3" id="errorDetails">
+                <div class="error-technical-details">
+                  <small class="text-muted d-block mb-2">
+                    <strong>Messaggio di errore:</strong>
+                  </small>
+                  <code class="d-block p-3 bg-light text-dark rounded">
+                    {{ error.error }}
+                  </code>
+                  
+                  <small class="text-muted mt-2 d-block">
+                    <i class="fas fa-info-circle me-1"></i>
+                    Questi dettagli possono essere utili al nostro supporto tecnico
+                  </small>
+                </div>
+              </div>
+            </div>
+            
+            <div class="error-details">
+              <small class="text-muted">
+                <i class="fas fa-clock me-1"></i>
+                Errore rilevato: {{ getCurrentDateTime() }}
+              </small>
+            </div>
+          </div>
+
+          <!-- Action Buttons -->
+          <div class="error-actions">
+            <div class="d-flex flex-column flex-sm-row gap-3 justify-content-center mb-4">
+              <button 
+                type="button" 
+                class="btn btn-primary btn-lg"
+                (click)="reload()">
+                <i class="fas fa-redo me-2"></i>
+                Riprova
+              </button>
+              
+              <button 
+                type="button" 
+                class="btn btn-outline-primary btn-lg"
+                (click)="goBack()"
+                *ngIf="canGoBack">
+                <i class="fas fa-arrow-left me-2"></i>
+                Torna Indietro
+              </button>
+            </div>
+            
+            <div class="secondary-actions">
+              <button 
+                type="button" 
+                class="btn btn-link"
+                (click)="goHome()">
+                <i class="fas fa-home me-2"></i>
+                Homepage
+              </button>
+              <span class="mx-2 text-muted">•</span>
+              <a 
+                href="mailto:support@netshop.com" 
+                class="btn btn-link">
+                <i class="fas fa-envelope me-2"></i>
+                Contatta il Supporto
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Background Animation -->
+  <div class="error-background">
+    <div class="floating-elements">
+      <div class="element element-1">⚠</div>
+      <div class="element element-2">500</div>
+      <div class="element element-3">⚠</div>
+      <div class="element element-4">ERR</div>
+    </div>
+  </div>
+</div>

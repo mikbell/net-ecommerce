@@ -1,0 +1,215 @@
+<div class="cart-container">
+  <!-- Header -->
+  <div class="cart-header">
+    <h1 class="cart-title">
+      <mat-icon class="cart-title-icon">shopping_cart</mat-icon>
+      Il Tuo Carrello
+    </h1>
+  </div>
+
+  <!-- Carrello vuoto -->
+  @if(!cart || cart.items.length === 0) {
+  <div class="empty-cart">
+    <mat-icon class="empty-cart-icon">shopping_cart</mat-icon>
+    <h2 class="empty-cart-title">Il tuo carrello è vuoto</h2>
+    <p class="empty-cart-text">
+      Sembra che non ci siano ancora prodotti nel tuo carrello. Inizia a fare
+      shopping per riempirlo!
+    </p>
+    <button
+      mat-raised-button
+      color="primary"
+      routerLink="/shop"
+      class="continue-shopping-btn"
+    >
+      <mat-icon>store</mat-icon>
+      Continua lo Shopping
+    </button>
+  </div>
+  }
+
+  <!-- Carrello con prodotti -->
+  @if(cart && cart.items.length > 0) {
+  <div class="cart-content">
+    <!-- Lista prodotti -->
+    <mat-card class="cart-items-section">
+      <mat-card-header>
+        <mat-card-title>
+          <span>Prodotti</span>
+          <span
+            class="item-count"
+            [matBadge]="cart.items.length"
+            matBadgeColor="primary"
+          >
+          </span>
+        </mat-card-title>
+        <div class="header-actions">
+          <button
+            mat-stroked-button
+            color="warn"
+            (click)="clearCart()"
+            [disabled]="isLoading"
+            class="clear-cart-btn"
+          >
+            <mat-icon>delete</mat-icon>
+            Svuota Carrello
+          </button>
+        </div>
+      </mat-card-header>
+
+      <mat-card-content>
+        <div class="cart-items">
+          @for(item of cart.items; track item.productId) {
+          <div class="cart-item">
+            <!-- Immagine prodotto -->
+            <div class="item-image">
+              <img
+                [src]="item.pictureUrl"
+                [alt]="item.productName"
+                class="product-image"
+              />
+            </div>
+
+            <!-- Dettagli prodotto -->
+            <div class="item-details">
+              <h3 class="product-name">{{ item.productName }}</h3>
+              <div class="product-meta">
+                <span class="brand-type"
+                  >{{ item.brand }} - {{ item.type }}</span
+                >
+                <span class="product-price">{{
+                  item.price | currency : "EUR"
+                }}</span>
+              </div>
+            </div>
+
+            <!-- Controlli quantità -->
+            <div class="quantity-section">
+              <label class="quantity-label">Quantità:</label>
+              <div class="quantity-controls">
+                <button
+                  mat-icon-button
+                  (click)="updateQuantity(item.productId, item.quantity - 1)"
+                  [disabled]="isLoading || item.quantity <= 1"
+                  class="quantity-btn"
+                >
+                  <mat-icon>remove</mat-icon>
+                </button>
+
+                <mat-form-field appearance="outline" class="quantity-input">
+                  <input
+                    matInput
+                    type="number"
+                    [value]="item.quantity"
+                    (change)="
+                      updateQuantity(item.productId, $any($event.target).value)
+                    "
+                    min="1"
+                    [disabled]="isLoading"
+                    class="quantity-field"
+                  />
+                </mat-form-field>
+
+                <button
+                  mat-icon-button
+                  (click)="updateQuantity(item.productId, item.quantity + 1)"
+                  [disabled]="isLoading"
+                  class="quantity-btn"
+                >
+                  <mat-icon>add</mat-icon>
+                </button>
+              </div>
+            </div>
+
+            <!-- Subtotale e azioni -->
+            <div class="item-actions">
+              <div class="item-subtotal">
+                {{ getItemSubtotal(item) | currency : "EUR" }}
+              </div>
+              <button
+                mat-icon-button
+                color="warn"
+                (click)="removeItem(item.productId)"
+                [disabled]="isLoading"
+                class="remove-btn"
+                matTooltip="Rimuovi prodotto"
+              >
+                <mat-icon>close</mat-icon>
+              </button>
+            </div>
+          </div>
+          }
+        </div>
+      </mat-card-content>
+    </mat-card>
+
+    <!-- Riepilogo ordine -->
+    <mat-card class="order-summary">
+      <mat-card-header>
+        <mat-card-title>Riepilogo Ordine</mat-card-title>
+      </mat-card-header>
+
+      <mat-card-content>
+        <div class="summary-details">
+          <div class="summary-row">
+            <span>Subtotale ({{ cart.totalItems }} articoli)</span>
+            <span>{{ cartTotals?.subtotal | currency : "EUR" }}</span>
+          </div>
+
+          <div class="summary-row">
+            <span>Spedizione</span>
+            @if(cartTotals?.shipping === 0) {
+            <span class="free-shipping">Gratuita</span>
+            } @if(cartTotals?.shipping! > 0) {
+            <span>{{ cartTotals?.shipping | currency : "EUR" }}</span>
+            }
+          </div>
+
+          @if(cartTotals?.shipping === 0 && (cartTotals?.subtotal || 0) < 100) {
+          <div class="shipping-info">
+            <mat-icon class="info-icon">info</mat-icon>
+            <span>Spedizione gratuita per ordini superiori a €100</span>
+          </div>
+          }
+
+          <mat-divider class="summary-divider"></mat-divider>
+
+          <div class="summary-row summary-total">
+            <strong>Totale</strong>
+            <strong>{{ cartTotals?.total | currency : "EUR" }}</strong>
+          </div>
+        </div>
+      </mat-card-content>
+
+      <mat-card-actions class="summary-actions">
+        <button
+          mat-raised-button
+          color="primary"
+          [disabled]="isLoading"
+          class="checkout-btn"
+        >
+          <mat-icon>payment</mat-icon>
+          Procedi al Checkout
+        </button>
+
+        <button
+          mat-stroked-button
+          routerLink="/shop"
+          class="continue-shopping-btn"
+        >
+          <mat-icon>store</mat-icon>
+          Continua lo Shopping
+        </button>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+  }
+
+  <!-- Loading overlay -->
+  @if(isLoading) {
+  <div class="loading-overlay">
+    <mat-spinner diameter="50"></mat-spinner>
+    <p class="loading-text">Aggiornamento carrello...</p>
+  </div>
+  }
+</div>

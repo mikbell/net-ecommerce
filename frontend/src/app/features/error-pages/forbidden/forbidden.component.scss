@@ -1,0 +1,249 @@
+:host {
+  display: block !important;
+  width: 100% !important;
+  height: 100vh !important;
+}
+
+.error-container.forbidden {
+  min-height: 100vh !important;
+  background: linear-gradient(135deg, #ff9a56 0%, #ff6b6b 100%) !important;
+  position: relative !important;
+  overflow: hidden !important;
+  display: flex !important;
+  align-items: center !important;
+  width: 100% !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+.error-content {
+  position: relative;
+  z-index: 2;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  border-radius: 1.5rem;
+  padding: 3rem 2rem;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  animation: slideUp 0.8s ease-out;
+}
+
+.error-icon {
+  .icon-wrapper {
+    position: relative;
+    display: inline-block;
+    
+    .error-symbol {
+      font-size: 4rem;
+      color: #f97316;
+      animation: pulse 2s ease-in-out infinite;
+    }
+    
+    .number-403 {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: #ea580c;
+      opacity: 0.8;
+    }
+  }
+}
+
+.error-message {
+  .error-title {
+    color: #1f2937;
+    font-weight: 700;
+    font-size: 2.5rem;
+    margin-bottom: 1.5rem;
+    
+    @media (max-width: 768px) {
+      font-size: 2rem;
+    }
+  }
+  
+  .error-description {
+    color: #6b7280;
+    font-size: 1.125rem;
+    line-height: 1.7;
+    max-width: 30rem;
+    margin: 0 auto 2rem;
+    
+    @media (max-width: 768px) {
+      font-size: 1rem;
+    }
+  }
+  
+  .error-details {
+    padding: 1rem;
+    background: rgba(249, 115, 22, 0.1);
+    border-radius: 0.75rem;
+    border: 1px solid rgba(249, 115, 22, 0.2);
+    display: inline-block;
+  }
+}
+
+.error-actions {
+  .btn {
+    border-radius: 0.75rem;
+    padding: 0.875rem 2rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    
+    &:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(249, 115, 22, 0.3);
+    }
+    
+    &.btn-primary {
+      background-color: #f97316;
+      border-color: #f97316;
+      
+      &:hover {
+        background-color: #ea580c;
+        border-color: #ea580c;
+      }
+    }
+    
+    &.btn-outline-primary {
+      color: #f97316;
+      border-color: #f97316;
+      
+      &:hover {
+        background-color: #f97316;
+        border-color: #f97316;
+        color: white;
+      }
+    }
+    
+    &.btn-link {
+      color: #f97316;
+      text-decoration: none;
+      padding: 0.5rem 1rem;
+      
+      &:hover {
+        color: #ea580c;
+        transform: none;
+        box-shadow: none;
+        background-color: rgba(249, 115, 22, 0.1);
+        border-radius: 0.5rem;
+      }
+    }
+  }
+}
+
+// Background Animation
+.error-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.floating-elements {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  
+  .element {
+    position: absolute;
+    font-weight: 900;
+    color: rgba(255, 255, 255, 0.1);
+    user-select: none;
+    pointer-events: none;
+    
+    &.element-1 {
+      top: 12%;
+      left: 8%;
+      font-size: 5rem;
+      animation: float 7s ease-in-out infinite;
+    }
+    
+    &.element-2 {
+      top: 20%;
+      right: 12%;
+      font-size: 4rem;
+      animation: float 5s ease-in-out infinite reverse;
+    }
+    
+    &.element-3 {
+      bottom: 30%;
+      left: 18%;
+      font-size: 3.5rem;
+      animation: float 6s ease-in-out infinite;
+    }
+    
+    &.element-4 {
+      bottom: 12%;
+      right: 8%;
+      font-size: 4.5rem;
+      animation: float 8s ease-in-out infinite reverse;
+    }
+  }
+}
+
+// Animations
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.1);
+    opacity: 0.8;
+  }
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-18px) rotate(4deg);
+  }
+}
+
+// Responsive Design
+@media (max-width: 768px) {
+  .error-content {
+    padding: 2rem 1.5rem;
+    margin: 1rem;
+  }
+  
+  .error-icon .icon-wrapper {
+    .error-symbol {
+      font-size: 3rem;
+    }
+    
+    .number-403 {
+      font-size: 1rem;
+    }
+  }
+  
+  .floating-elements .element {
+    &.element-1 {
+      font-size: 2.5rem;
+    }
+    
+    &.element-4 {
+      font-size: 2rem;
+    }
+  }
+}

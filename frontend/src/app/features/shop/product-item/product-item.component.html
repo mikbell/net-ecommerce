@@ -61,9 +61,22 @@
 
   <!-- Actions -->
   <div class="card-actions">
-    <button class="add-to-cart-btn">
-      <mat-icon class="mr-2">add_shopping_cart</mat-icon>
-      <span>Aggiungi al carrello</span>
+    <button 
+      class="add-to-cart-btn"
+      [class.in-cart]="isInCart()"
+      [disabled]="isAddingToCart"
+      (click)="addToCart($event)">
+      
+      @if (isAddingToCart) {
+        <mat-icon class="mr-2 spinning">refresh</mat-icon>
+        <span>Aggiungendo...</span>
+      } @else if (isInCart()) {
+        <mat-icon class="mr-2">check_circle</mat-icon>
+        <span>Nel carrello ({{ getQuantityInCart() }})</span>
+      } @else {
+        <mat-icon class="mr-2">add_shopping_cart</mat-icon>
+        <span>Aggiungi al carrello</span>
+      }
     </button>
   </div>
 </a>

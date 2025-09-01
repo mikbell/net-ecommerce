@@ -55,12 +55,25 @@ export class ErrorInterceptor implements HttpInterceptor {
               this.errorHandlingService.handleUnauthorized();
               break;
               
+            case ErrorType.FORBIDDEN:
+              // Navigate to forbidden page for 403 errors
+              this.errorHandlingService.handleForbidden(true);
+              break;
+              
             case ErrorType.NOT_FOUND:
-              // Don't show global notification for 404s, let components handle them
+              // For API calls that result in 404, we might want to show a notification
+              // but not navigate to error page (components can handle this locally)
+              // Only navigate to error page if it's a critical resource
+              if (this.isCriticalResource(request.url)) {
+                this.errorHandlingService.handleNotFound('risorsa', true);
+              } else {
+                this.errorHandlingService.handleNotFound('risorsa', false);
+              }
               break;
               
             case ErrorType.SERVER:
-              this.errorHandlingService.handleServerError();
+              // Navigate to server error page for 5xx errors
+              this.errorHandlingService.handleServerError(true);
               break;
               
             case ErrorType.NETWORK:
@@ -81,5 +94,41 @@ export class ErrorInterceptor implements HttpInterceptor {
 
   private shouldRetry(request: HttpRequest<any>): boolean {
     return this.retryableMethods.includes(request.method.toUpperCase());
+  }
+
+  /**
+   * Determine if a resource is critical enough to warrant navigating to an error page
+   * vs just showing a notification. Critical resources are typically:
+   * - Main page/navigation requests
+   * - Authentication requests
+   * - Core app functionality
+   */
+  private isCriticalResource(url: string): boolean {
+    // Examples of critical resources:
+    const criticalPatterns = [
+      '/api/auth/',      // Authentication endpoints
+      '/api/user/',      // User profile endpoints
+      '/api/config/',    // App configuration
+    ];
+    
+    // Non-critical resources that should show notifications only:
+    const nonCriticalPatterns = [
+      '/api/products/',  // Product listings - show notification
+      '/api/cart/',      // Cart operations - show notification
+      '/api/search/',    // Search results - show notification
+    ];
+    
+    // Check if it's explicitly non-critical first
+    if (nonCriticalPatterns.some(pattern => url.includes(pattern))) {
+      return false;
+    }
+    
+    // Check if it's explicitly critical
+    if (criticalPatterns.some(pattern => url.includes(pattern))) {
+      return true;
+    }
+    
+    // Default: consider it critical to be safe
+    return true;
   }
 }
